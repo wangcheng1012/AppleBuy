@@ -1,0 +1,111 @@
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--tools:context="com.dw.applebuy.ui.home.HomeFragment">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_24B9EB"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/title_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/title_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="尊敬的商户，你好！"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- banner-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:background="@color/black4_cccccc">
+
+        <FrameLayout
+            android:id="@+id/home_yirenzheng_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/home_yirenzheng_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+
+            <TextView
+                android:id="@+id/home_yirenzheng_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="20dp"
+                android:text="0/0"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/home_lijirenzheng_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99ffffff">
+
+            <ImageView
+                android:id="@+id/home_lijirenzheng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_lijirenzheng" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <GridView
+        android:id="@+id/home_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black4_cccccc"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:horizontalSpacing="1px"
+        android:numColumns="3"
+        android:paddingBottom="1px"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="1px">
+
+    </GridView>
+
+</LinearLayout>
+
+    <!--</ScrollView>-->

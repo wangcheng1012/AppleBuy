@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/showing_image"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/black4_cccccc" />
+
+        <TextView
+            android:id="@+id/showing_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/showing_image"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/showing_image"
+            android:layout_toRightOf="@+id/showing_image"
+            android:maxLines="1"
+            android:text="全场满200减50优惠券"
+            android:textColor="@color/black1_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/showing_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/showing_name"
+            android:layout_alignStart="@+id/showing_name"
+            android:layout_below="@+id/showing_name"
+            android:layout_marginTop="5dp"
+            android:text="销量 232    收藏 234   库存 232"
+            android:textColor="@color/black3_999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/showing_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/showing_number"
+            android:layout_alignStart="@+id/showing_number"
+            android:layout_below="@+id/showing_number"
+            android:layout_marginTop="4dp"
+            android:text="时间 2016/12/01-2016/12/01"
+            android:textColor="@color/black3_999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/showing_scors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="108积分"
+            android:textColor="@color/yellow_FF552E"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/black4_cccccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/icon_19_yulan"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="预览"
+            android:textColor="@color/black2_666666" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_20_share"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="@color/black2_666666" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<resources>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- 使用 API Level icon_22_shangjia 編譯的話，要拿掉前綴字 -->
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="textbase">
+        <item name="android:textColor">@color/black1_333333</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="inputtext" parent="textbase">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColorHint">@color/black3_999999</item>
+
+    </style>
+
+</resources>
