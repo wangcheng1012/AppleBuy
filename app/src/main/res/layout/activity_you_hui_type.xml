@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.dw.applebuy.ui.home.shoppingmanage.youhui.YouHuiTypeActivity">
+    tools:context="com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity">
 
     <fragment
         android:name="com.dw.applebuy.ui.Title2Fragment"

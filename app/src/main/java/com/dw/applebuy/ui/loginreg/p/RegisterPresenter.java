@@ -3,8 +3,10 @@ package com.dw.applebuy.ui.loginreg.p;
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
+import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.loginreg.v.Views;
+import com.rxmvp.api.ApiException;
 import com.rxmvp.basemvp.BasePresenter;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.util.UIHelper;
@@ -27,6 +29,19 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
         this.mContext = mContext;
     }
 
+    private void onErrorShow(Throwable e,String defMessage) {
+        if(mView != null) {
+            mView.hideLoading();
+            if(e instanceof ApiException){
+                mView.showMessage(e.getMessage());
+            }else {
+                mView.showMessage(defMessage);
+            }
+        }
+        if(BuildConfig.DEBUG){
+            e.printStackTrace();
+        }
+    }
     /**
      * 获取验证码
      * @param phone
@@ -87,10 +102,7 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
             @Override
             public void onError(Throwable e) {
-                if(mView != null) {
-                    mView.hideLoading();
-                }
-                UIHelper.toastMessage(mContext,"异常");
+                onErrorShow(e,"验证码获取失败");
             }
 
             @Override
@@ -124,10 +136,7 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
             @Override
             public void onError(Throwable e) {
-                if(mView != null) {
-                    mView.hideLoading();
-                }
-                UIHelper.toastMessage(mContext,"异常");
+                onErrorShow(e,"注册失败");
             }
 
             @Override

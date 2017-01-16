@@ -1,11 +1,9 @@
 package com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m;
 
 /**
- * Created by Administrator on 2017/1/13.
+ *
  */
-
 public class Coupon {
-
 
     /**
      * id : 4

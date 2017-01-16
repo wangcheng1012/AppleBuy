@@ -1,6 +1,8 @@
 package com.rxmvp.basemvp;
 
 
+import com.rxmvp.api.ApiException;
+
 public abstract class BasePresenter<T> {
     public T mView;
 
@@ -11,4 +13,5 @@ public abstract class BasePresenter<T> {
     public void dettach(){
         mView = null;
     }
+
 }

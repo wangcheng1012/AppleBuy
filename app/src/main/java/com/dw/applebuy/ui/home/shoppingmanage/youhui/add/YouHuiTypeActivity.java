@@ -1,5 +1,6 @@
-package com.dw.applebuy.ui.home.shoppingmanage.youhui;
+package com.dw.applebuy.ui.home.shoppingmanage.youhui.add;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,16 +15,12 @@ import com.dw.applebuy.R;
 import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
-import com.dw.applebuy.been.ResultData;
 import com.dw.applebuy.ui.Title1Fragment;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m.YouhuiQuanType;
 import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.bean.Base;
 import com.wlj.base.util.AppConfig;
-import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +33,7 @@ import rx.functions.Func1;
  */
 public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragment.TitleInterface {
 
+    public static final String RESULT_YouhuiQuanType = "YouhuiQuanType";
     @BindView(R.id.youhui_content)
     FrameLayout youhuiContent;
 
@@ -50,14 +48,14 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
     }
 
     private void initView() {
-        SWRVFragment<YouhuiQuan> swrvFragment = new SWRVFragment<>();
-        swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface<YouhuiQuan>() {
+        SWRVFragment<YouhuiQuanType> swrvFragment = new SWRVFragment<>();
+        swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface<YouhuiQuanType>() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
 
             }
             @Override
-            public SWRVContract.SWRVPresenterAdapter<YouhuiQuan> getPresenterAdapter() {
+            public SWRVContract.SWRVPresenterAdapter<YouhuiQuanType> getPresenterAdapter() {
                 return getMyPresenterAdapter();
             }
         });
@@ -68,8 +66,8 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
 
     }
 
-    private SWRVContract.SWRVPresenterAdapter<YouhuiQuan> getMyPresenterAdapter() {
-        return new SWRVContract.SWRVPresenterAdapter<YouhuiQuan>() {
+    private SWRVContract.SWRVPresenterAdapter<YouhuiQuanType> getMyPresenterAdapter() {
+        return new SWRVContract.SWRVPresenterAdapter<YouhuiQuanType>() {
             @Override
             public int getRecycerviewItemlayoutRes() {
                 return R.layout.item_youhuiquan;
@@ -81,18 +79,21 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
             }
 
             @Override
-            public void convert(ViewHolder viewHolder, YouhuiQuan item, int position) {
+            public void convert(ViewHolder viewHolder, YouhuiQuanType item, int position) {
                 viewHolder.setText(R.id.item_youhuiquan,item.getName());
             }
 
             @Override
-            public void onItemLongClick(View view, RecyclerView.ViewHolder holder, int position, Object item) {
+            public void onItemLongClick(View view, RecyclerView.ViewHolder holder, int position, YouhuiQuanType item) {
 
             }
 
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, Object item) {
-
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, YouhuiQuanType item) {
+                Intent intent = new Intent();
+                intent.putExtra(RESULT_YouhuiQuanType,  item);
+                setResult(RESULT_OK,intent);
+                finish();
             }
 
             @Override
@@ -101,12 +102,12 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
             }
 
             @Override
-            public Observable<List<YouhuiQuan>> call(FactoryInters apiService) {
-                Observable<HttpStateResult<List<YouhuiQuan>>> couponCategory = apiService.getCouponCategory(AppConfig.getAppConfig().get(AppConfig.CONF_KEY));
-                Observable<List<YouhuiQuan>> observable = couponCategory.map(new Func1<HttpStateResult<List<YouhuiQuan>>, List<YouhuiQuan>>() {
+            public Observable<List<YouhuiQuanType>> call(FactoryInters apiService) {
+                Observable<HttpStateResult<List<YouhuiQuanType>>> couponCategory = apiService.getCouponCategory(AppConfig.getAppConfig().get(AppConfig.CONF_KEY));
+                Observable<List<YouhuiQuanType>> observable = couponCategory.map(new Func1<HttpStateResult<List<YouhuiQuanType>>, List<YouhuiQuanType>>() {
                     @Override
-                    public List<YouhuiQuan> call(HttpStateResult<List<YouhuiQuan>> listHttpStateResult) {
-                        List<YouhuiQuan> data = listHttpStateResult.getData();
+                    public List<YouhuiQuanType> call(HttpStateResult<List<YouhuiQuanType>> listHttpStateResult) {
+                        List<YouhuiQuanType> data = listHttpStateResult.getData();
                         return data;
                     }
                 });
@@ -125,28 +126,4 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
         title.setText("优惠类型");
     }
 
-    /**
-     * 优惠券item
-     */
-    public class YouhuiQuan{
-
-        private String id;
-        private String name;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 }

@@ -3,8 +3,10 @@ package com.dw.applebuy.ui.loginreg.p;
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
+import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.loginreg.v.Views;
+import com.rxmvp.api.ApiException;
 import com.rxmvp.basemvp.BasePresenter;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.util.UIHelper;
@@ -88,10 +90,7 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
 
             @Override
             public void onError(Throwable e) {
-                if(mView != null) {
-                    mView.hideLoading();
-                }
-                UIHelper.toastMessage(mContext,"异常");
+                onErrorShow(e,"验证码发送失败");
             }
 
             @Override
@@ -111,6 +110,20 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
         AppHttpMethods.getInstance().getForgetPasswordVerifyCode(subscriber ,content);
     }
 
+    private void onErrorShow(Throwable e,String defMessage) {
+        if(mView != null) {
+            mView.hideLoading();
+            if(e instanceof ApiException){
+                mView.showMessage(e.getMessage());
+            }else {
+                mView.showMessage(defMessage);
+            }
+        }
+        if(BuildConfig.DEBUG){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 注册call
      * @param arrayMap
@@ -127,10 +140,7 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
 
             @Override
             public void onError(Throwable e) {
-                if(mView != null) {
-                    mView.hideLoading();
-                }
-                UIHelper.toastMessage(mContext,"异常");
+                onErrorShow(e,"注册失败");
             }
 
             @Override

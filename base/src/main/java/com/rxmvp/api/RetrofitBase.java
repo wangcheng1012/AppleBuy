@@ -1,35 +1,26 @@
 package com.rxmvp.api;
 
-import com.rxmvp.api.interceptor.BasicParamsInterceptor;
-import com.rxmvp.api.interceptor.CommonInterceptor;
+import com.rxmvp.api.GsonConverter.GsonConverterFactory_My;
+import com.rxmvp.api.interceptor.ParamsInterceptor;
+import com.rxmvp.api.interceptor.ResponseInterceptor;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.util.AppConfig;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.FormBody;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.cache.CacheInterceptor;
+import okhttp3.internal.cache.CacheRequest;
+import okhttp3.internal.cache.CacheStrategy;
+import okhttp3.internal.cache.InternalCache;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -49,22 +40,29 @@ public class RetrofitBase {
 
     //构造方法私有
     public RetrofitBase() {
+
+        String cachePath = AppConfig.getAppConfig().getImagePath() + AppConfig.CONF_COOKIE + File.separator;
+        Cache cache = new Cache(new File(cachePath), 1024 * 1024);
+
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+        httpClientBuilder.cache(cache);//cache
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build();
         //添加请求的公共参数
         String sessionId = AppConfig.getAppConfig().get(AppConfig.CONF_KEY);
-        if(!sessionId.isEmpty()) {
-            BasicParamsInterceptor.Builder builder =  new BasicParamsInterceptor.Builder();
+        if (!sessionId.isEmpty()) {
+            ParamsInterceptor.Builder builder = new ParamsInterceptor.Builder();
             builder.addParam("sessionId", sessionId);
-//            CommonInterceptor commonInterceptor = new CommonInterceptor();
             httpClientBuilder.addInterceptor(builder.build());
         }
+        //返回参数[]-> null ,{} -> null
+        httpClientBuilder.addInterceptor(new ResponseInterceptor());
 
+        //GsonConverterFactory_My 适配一个字段在状态码不同时返回数据类型不同的处理.eg;"成功返回时是消息数据列表，失败时是异常消息文本
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory_My.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
@@ -93,7 +91,6 @@ public class RetrofitBase {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-
 
 
 //

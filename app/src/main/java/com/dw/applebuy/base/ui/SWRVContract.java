@@ -33,9 +33,9 @@ public class SWRVContract {
 
         void convert(ViewHolder viewHolder, T item, int position);
 
-        void onItemLongClick(android.view.View view, RecyclerView.ViewHolder holder, int position, Object item);
+        void onItemLongClick(android.view.View view, RecyclerView.ViewHolder holder, int position, T item);
 
-        void onItemClick(android.view.View view, RecyclerView.ViewHolder holder, int position, Object item);
+        void onItemClick(android.view.View view, RecyclerView.ViewHolder holder, int position, T item);
 
         /**
          * 当数据为空时显示的view

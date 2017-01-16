@@ -8,6 +8,7 @@ import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.google.gson.internal.LinkedTreeMap;
+import com.rxmvp.api.ApiException;
 import com.rxmvp.basemvp.BasePresenter;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.util.AppConfig;
@@ -62,10 +63,7 @@ public class LoginPresenter extends BasePresenter<Views.LoginView> {
 
             @Override
             public void onError(Throwable e) {
-                if(mView != null) {
-                    mView.hideLoading();
-                }
-                UIHelper.toastMessage(mContext,"异常");
+                onErrorShow(e);
             }
 
             @Override
@@ -86,5 +84,19 @@ public class LoginPresenter extends BasePresenter<Views.LoginView> {
 
         };//end
         AppHttpMethods.getInstance().Login(subscriber,phone,psw);
+    }
+
+    private void onErrorShow(Throwable e) {
+        if(mView != null) {
+            mView.hideLoading();
+            if(e instanceof ApiException){
+                mView.showMessage(e.getMessage());
+            }else {
+                mView.showMessage("登录失败");
+            }
+        }
+        if(BuildConfig.DEBUG){
+            e.printStackTrace();
+        }
     }
 }

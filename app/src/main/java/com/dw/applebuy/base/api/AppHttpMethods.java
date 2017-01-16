@@ -2,6 +2,7 @@ package com.dw.applebuy.base.api;
 
 import android.support.v4.util.ArrayMap;
 
+import com.rxmvp.api.GsonConverter.ResultResponse;
 import com.rxmvp.api.RetrofitBase;
 import com.rxmvp.bean.HttpStateResult;
 
@@ -94,4 +95,14 @@ public class AppHttpMethods {
         retrofitBase.toSubscribe(observable, subscriber);
     }
 
+    /**
+     * 添加编辑优惠券
+     * @param subscriber
+     * @param arrayMap
+     */
+    public void addYouHui(Subscriber<ResultResponse> subscriber, ArrayMap<String, Object> arrayMap) {
+        Observable<ResultResponse> observable =  apiService.addYouHui(arrayMap);
+
+        retrofitBase.toSubscribe(observable, subscriber);
+    }
 }

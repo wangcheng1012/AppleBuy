@@ -43,4 +43,5 @@ dependencies {
 //    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:+'// 大神写的这个库可以支持到rxjava2.X
 //    compile 'com.squareup.retrofit2:adapter-rxjava:+'//retrofit现在只支持到rxjava1.XX 会报错：DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties
 
+    compile project(path: ':photopicker')
 }

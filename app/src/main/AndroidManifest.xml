@@ -40,8 +40,9 @@
                 android:value=".ui.home.ordermanage.ItemListActivity" />
         </activity>
         <activity android:name=".ui.home.shoppingmanage.youhui.YouHuiManagerActivity" />
-        <activity android:name=".ui.home.shoppingmanage.youhui.YouHuiAddActivity" />
-        <activity android:name=".ui.home.shoppingmanage.youhui.YouHuiTypeActivity"></activity>
+        <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiAddActivity" />
+        <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity" />
+        <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTimeActivity"></activity>
     </application>
 
 </manifest>

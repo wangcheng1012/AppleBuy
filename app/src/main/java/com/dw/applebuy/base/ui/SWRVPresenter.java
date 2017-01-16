@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.been.ResultData;
+import com.rxmvp.api.ApiException;
 import com.rxmvp.api.RetrofitBase;
 import com.rxmvp.basemvp.BasePresenter;
 import com.wlj.base.R;
@@ -118,7 +119,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-                Object tag = view.getTag(R.id.tag_first);
+                T tag = (T) view.getTag(R.id.tag_first);
 
                 if (tag != null) {
 
@@ -129,7 +130,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
             @Override
             public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                Object tag = view.getTag(R.id.tag_first);
+                T tag = (T) view.getTag(R.id.tag_first);
 
                 if (tag != null) {
                     presenterAdapter.onItemLongClick(view, holder, position, tag);
@@ -225,13 +226,9 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
             @Override
             public void onError(Throwable e) {
                 RefreshingClose();
-                if (mView != null) {
-                    mView.hideLoading();
-                }
-                UIHelper.toastMessage(mActivity, "异常");
-                if(BuildConfig.DEBUG){
-                    e.printStackTrace();
-                }
+
+                onErrorShow(e);
+
             }
 
             @Override
@@ -256,6 +253,21 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
         Observable<List<T>> observable = presenterAdapter.call(appHttpMethods.getApiService());
         retrofitBase.toSubscribe(observable, subscriber);
     }
+
+    private void onErrorShow(Throwable e) {
+        if(mView != null) {
+            mView.hideLoading();
+            if(e instanceof ApiException){
+                mView.showMessage(e.getMessage());
+            }else {
+                mView.showMessage("登录失败");
+            }
+        }
+        if(BuildConfig.DEBUG){
+            e.printStackTrace();
+        }
+    }
+
 //
 //
 //    private void loadData(int page) {

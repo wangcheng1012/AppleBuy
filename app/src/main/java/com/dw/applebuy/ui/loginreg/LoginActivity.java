@@ -83,5 +83,10 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
         finish();
     }
 
+    @Override
+    public void showMessage(String message) {
+        UIHelper.toastMessage(getApplication(),message);
+    }
+
 }
 

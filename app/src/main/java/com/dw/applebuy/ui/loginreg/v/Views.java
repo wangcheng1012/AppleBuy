@@ -13,8 +13,6 @@ public interface Views {
      */
     interface RegisterView extends BaseView {
 
-        void showMessage(String message);
-
         void registeerBack(HttpStateResult<List> httpStateResult);
 
         void verifyCodeBack();

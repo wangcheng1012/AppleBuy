@@ -158,12 +158,12 @@ public class TabLayoutFragment extends Fragment {
             }
 
             @Override
-            public void onItemLongClick(View view, RecyclerView.ViewHolder holder, int position, Object item) {
+            public void onItemLongClick(View view, RecyclerView.ViewHolder holder, int position, Coupon item) {
 
             }
 
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, Object item) {
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, Coupon item) {
 
             }
 

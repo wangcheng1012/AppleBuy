@@ -13,6 +13,7 @@ import com.dw.applebuy.R;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BaseMvpFragment;
 import com.wlj.base.ui.BaseFragment;
+import com.wlj.base.util.UIHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +77,11 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         presenter.setAdapter(adapter);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        UIHelper.toastMessage(getContext(),message);
     }
 
     public interface SWRVInterface<T> {

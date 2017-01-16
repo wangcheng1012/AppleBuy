@@ -15,6 +15,7 @@ import com.dw.applebuy.ui.loginreg.p.ForgetPresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.rxmvp.bean.HttpStateResult;
+import com.wlj.base.util.UIHelper;
 
 import java.util.List;
 
@@ -83,5 +84,10 @@ public class ForgetPswActivity extends BaseMvpActivity<Views.ForgetView, ForgetP
                 presenter.submit(arrayMap);
                 break;
         }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        UIHelper.toastMessage(getApplication(),message);
     }
 }

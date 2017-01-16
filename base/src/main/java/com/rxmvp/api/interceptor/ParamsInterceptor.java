@@ -15,17 +15,19 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okio.Buffer;
 
-public class BasicParamsInterceptor implements Interceptor {
+/**
+ * 添加统一 请求参数
+ */
+public class ParamsInterceptor implements Interceptor {
 
     Map<String, String> queryParamsMap = new HashMap<>();
     Map<String, String> paramsMap = new HashMap<>();
     Map<String, String> headerParamsMap = new HashMap<>();
     List<String> headerLinesList = new ArrayList<>();
 
-    private BasicParamsInterceptor() {
+    private ParamsInterceptor() {
 
     }
 
@@ -52,18 +54,18 @@ public class BasicParamsInterceptor implements Interceptor {
         }
 
         requestBuilder.headers(headerBuilder.build());
-        // process header params end
+        //end
 
 
         // process queryParams inject whatever it's GET or POST
         if (queryParamsMap.size() > 0) {
             injectParamsIntoUrl(request, requestBuilder, queryParamsMap);
         }
-        // process header params end
+        //end
 
 
         // process post body inject
-        if (request.method().equals("POST") && request.body().contentType().subtype().equals("x-www-form-urlencoded")) {
+        if (request.method().equals("POST") && request.body().contentType().subtype().equals("x-ResponseInterceptor-form-urlencoded")) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
             if (paramsMap.size() > 0) {
                 Iterator iterator = paramsMap.entrySet().iterator();
@@ -75,26 +77,13 @@ public class BasicParamsInterceptor implements Interceptor {
             RequestBody formBody = formBodyBuilder.build();
             String postBodyString = bodyToString(request.body());
             postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
-            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
+            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-ResponseInterceptor-form-urlencoded;charset=UTF-8"), postBodyString));
         } else {    // can't inject into body, then inject into url
             injectParamsIntoUrl(request, requestBuilder, paramsMap);
         }
         request = requestBuilder.build();
-
-        Response response = chain.proceed(request);
-        //返回参数 []-> null ,{} -> null
-        ResponseBody body = response.body();
-        String bodystring = body.string();
-        if (bodystring.contains("[]")) {
-            bodystring = bodystring.replace("[]","null");
-        }
-        if (bodystring.contains("{}")) {
-            bodystring = bodystring.replace("{}","null");
-        }
-        Response newResponse = response.newBuilder().body(ResponseBody.create(MediaType.parse(body.contentType().toString()), bodystring)).build(); //重组
         //end
-
-        return newResponse;
+        return chain.proceed(request);
     }
 
     // func to inject params into url
@@ -127,10 +116,10 @@ public class BasicParamsInterceptor implements Interceptor {
 
     public static class Builder {
 
-        BasicParamsInterceptor interceptor;
+        ParamsInterceptor interceptor;
 
         public Builder() {
-            interceptor = new BasicParamsInterceptor();
+            interceptor = new ParamsInterceptor();
         }
 
         public Builder addParam(String key, String value) {
@@ -183,7 +172,7 @@ public class BasicParamsInterceptor implements Interceptor {
             return this;
         }
 
-        public BasicParamsInterceptor build() {
+        public ParamsInterceptor build() {
             return interceptor;
         }
 

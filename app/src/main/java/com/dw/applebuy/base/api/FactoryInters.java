@@ -1,11 +1,11 @@
 package com.dw.applebuy.base.api;
 
-import android.support.annotation.ArrayRes;
 import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.been.ResultData;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.YouHuiTypeActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.rxmvp.api.GsonConverter.ResultResponse;
 import com.rxmvp.bean.HttpStateResult;
 
 import java.util.List;
@@ -52,7 +52,16 @@ public interface FactoryInters  {
      */
     @FormUrlEncoded
     @POST("app/coupon/getCouponCategory")
-    Observable<HttpStateResult<List<YouHuiTypeActivity.YouhuiQuan>>> getCouponCategory(@Field("sessionid")String sessionid);
+    Observable<HttpStateResult<List<YouhuiQuanType>>> getCouponCategory(@Field("sessionid")String sessionid);
+
+    /**
+     * 添加和编辑优惠券
+     * @param arrayMap
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/coupon/save")
+    Observable<ResultResponse> addYouHui(@FieldMap ArrayMap<String, Object> arrayMap);
 
 
 
