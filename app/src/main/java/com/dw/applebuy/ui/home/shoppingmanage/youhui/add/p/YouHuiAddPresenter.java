@@ -2,6 +2,7 @@ package com.dw.applebuy.ui.home.shoppingmanage.youhui.add.p;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.ArrayMap;
+import android.util.Base64;
 
 import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
@@ -12,7 +13,12 @@ import com.rxmvp.basemvp.BasePresenter;
 import com.wlj.base.util.StringUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.Set;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 
 /**
@@ -20,7 +26,7 @@ import rx.Subscriber;
  */
 public class YouHuiAddPresenter extends BasePresenter<Views.YouHuiAddView> {
 
-    public void addYouHui(ArrayMap<String, Object> arrayMap) {
+    public void addYouHui(ArrayMap<String, String> arrayMap,String imagePath) {
 //        ArrayMap<String, Object> arrayMap = new ArrayMap<>();
 //        arrayMap.put("sessionid", AppConfig.getAppConfig().get(AppConfig.CONF_KEY));
 //        arrayMap.put("title", title.getText() + "");
@@ -29,25 +35,20 @@ public class YouHuiAddPresenter extends BasePresenter<Views.YouHuiAddView> {
 //        arrayMap.put("stock", number.getText());//库存
 //        arrayMap.put("integral", number.getText());//积分
 //        arrayMap.put("end_time", number.getText());//优惠时间
-//        arrayMap.put("file", number.getText());//优惠卷图片
+//        //arrayMap.put("file", number.getText());//优惠卷图片
 //
 //        arrayMap.put("id", number.getText());// 	优惠卷ID(传递则为编辑)
 //        arrayMap.put("img_path", number.getText());//回传路径(传递则为编辑)
-
+        ArrayMap<String, RequestBody> bodyArrayMap = new ArrayMap<>();
         //验证
-        Object file = arrayMap.get("file");
-        if(StringUtils.isEmpty(file +"")){
+        MultipartBody.Part photo;
+        if(StringUtils.isEmpty(imagePath)){
             mView.showMessage("请选择优惠券图片");
             return;
         }else{
-            Bitmap   bitmap = (Bitmap)file;
+            RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/png"), new File(imagePath));
+            photo = MultipartBody.Part.createFormData("file", "icon.png", photoRequestBody);
 
-            ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 80, bStream);
-
-            byte[] bytes = bStream.toByteArray();
-            arrayMap.put("file",bytes);
         }
         if(StringUtils.isEmpty(arrayMap.get("category_id")+"")){
             mView.showMessage("请选择优惠类型");
@@ -70,16 +71,21 @@ public class YouHuiAddPresenter extends BasePresenter<Views.YouHuiAddView> {
             return;
         }
         if(StringUtils.isEmpty(arrayMap.get("stock")+"")){
-            mView.showMessage("库存不能为空");
+            toastMessage("库存不能为空");
             return;
         }//end
 
         mView.showLoading();
-        addYouHuiCall(arrayMap);
 
+        Set<String> set = arrayMap.keySet();
+        for (String s : set) {
+            bodyArrayMap.put(s,RequestBody.create(null,arrayMap.get(s)));
+        }
+
+        addYouHuiCall(bodyArrayMap,photo);
     }
 
-    private void addYouHuiCall(ArrayMap<String, Object> arrayMap) {
+    private void addYouHuiCall(ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo) {
         //观察者
         Subscriber<ResultResponse> subscriber = new Subscriber<ResultResponse>() {
             @Override
@@ -97,27 +103,14 @@ public class YouHuiAddPresenter extends BasePresenter<Views.YouHuiAddView> {
             @Override
             public void onNext(ResultResponse stringHttpStateResult) {
                 if(mView != null) {
-                    mView.showMessage(stringHttpStateResult.getMessage());
+                    toastMessage(stringHttpStateResult.getMessage());
                 }
 
             }
 
         };//end
-        AppHttpMethods.getInstance().addYouHui(subscriber,arrayMap);
+        AppHttpMethods.getInstance().addYouHui(subscriber,arrayMap,photo);
 
     }
 
-    private void onErrorShow(Throwable e,String defMessage) {
-        if(mView != null) {
-            mView.hideLoading();
-            if(e instanceof ApiException){
-                mView.showMessage(e.getMessage());
-            }else {
-                mView.showMessage(defMessage);
-            }
-        }
-        if(BuildConfig.DEBUG){
-            e.printStackTrace();
-        }
-    }
 }

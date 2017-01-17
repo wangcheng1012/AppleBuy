@@ -2,6 +2,7 @@ package com.dw.applebuy.base.api;
 
 import android.support.v4.util.ArrayMap;
 
+import com.dw.applebuy.been.LoginBack;
 import com.rxmvp.api.GsonConverter.ResultResponse;
 import com.rxmvp.api.RetrofitBase;
 import com.rxmvp.bean.HttpStateResult;
@@ -9,6 +10,8 @@ import com.rxmvp.bean.HttpStateResult;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -23,13 +26,16 @@ public class AppHttpMethods {
 
     private static AppHttpMethods INSTANCE;
 
+    public AppHttpMethods(){
+        retrofitBase = new RetrofitBase();
+        apiService = retrofitBase.retrofit.create(FactoryInters.class);
+    }
     //获取单例
     public static AppHttpMethods getInstance() {
-        retrofitBase = new RetrofitBase();
 
         if (INSTANCE == null) {
             INSTANCE = new AppHttpMethods();
-            apiService = retrofitBase.retrofit.create(FactoryInters.class);
+
         }
         return INSTANCE;
     }
@@ -89,8 +95,8 @@ public class AppHttpMethods {
      * @param phone
      * @param psw
      */
-    public void Login(Subscriber<HttpStateResult<Object>> subscriber, String phone, String psw) {
-        Observable<HttpStateResult<Object>> observable =  apiService.login(phone,psw);
+    public void Login(Subscriber<HttpStateResult<LoginBack>> subscriber, String phone, String psw) {
+        Observable<HttpStateResult<LoginBack>> observable =  apiService.login(phone,psw);
 
         retrofitBase.toSubscribe(observable, subscriber);
     }
@@ -100,8 +106,8 @@ public class AppHttpMethods {
      * @param subscriber
      * @param arrayMap
      */
-    public void addYouHui(Subscriber<ResultResponse> subscriber, ArrayMap<String, Object> arrayMap) {
-        Observable<ResultResponse> observable =  apiService.addYouHui(arrayMap);
+    public void addYouHui(Subscriber<ResultResponse> subscriber, ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo) {
+        Observable<ResultResponse> observable =  apiService.addYouHui(arrayMap,photo);
 
         retrofitBase.toSubscribe(observable, subscriber);
     }

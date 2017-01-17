@@ -1,5 +1,8 @@
 package com.rxmvp.api.interceptor;
 
+import com.orhanobut.logger.Logger;
+import com.wlj.base.util.AppConfig;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +22,7 @@ import okio.Buffer;
 
 /**
  * 添加统一 请求参数
+ *
  */
 public class ParamsInterceptor implements Interceptor {
 
@@ -46,6 +50,7 @@ public class ParamsInterceptor implements Interceptor {
                 headerBuilder.add((String) entry.getKey(), (String) entry.getValue());
             }
         }
+//        headerBuilder.add("Accept","application/json");
 
         if (headerLinesList.size() > 0) {
             for (String line : headerLinesList) {
@@ -63,10 +68,16 @@ public class ParamsInterceptor implements Interceptor {
         }
         //end
 
-
         // process post body inject
-        if (request.method().equals("POST") && request.body().contentType().subtype().equals("x-ResponseInterceptor-form-urlencoded")) {
+//        String subtype = request.body().contentType().subtype();
+        if (request.method().equals("POST") /**&& subtype.equals("x-www-form-urlencoded")*/) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
+            //动态参数 强加
+            String sessionId = AppConfig.getAppConfig().get(AppConfig.CONF_KEY);
+            if(!sessionId.isEmpty()){
+                formBodyBuilder.add("sessionid",sessionId);
+            }
+
             if (paramsMap.size() > 0) {
                 Iterator iterator = paramsMap.entrySet().iterator();
                 while (iterator.hasNext()) {
@@ -77,13 +88,13 @@ public class ParamsInterceptor implements Interceptor {
             RequestBody formBody = formBodyBuilder.build();
             String postBodyString = bodyToString(request.body());
             postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
-            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-ResponseInterceptor-form-urlencoded;charset=UTF-8"), postBodyString));
+//            Logger.d(postBodyString);
+            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
         } else {    // can't inject into body, then inject into url
             injectParamsIntoUrl(request, requestBuilder, paramsMap);
         }
-        request = requestBuilder.build();
         //end
-        return chain.proceed(request);
+        return chain.proceed(requestBuilder.build());
     }
 
     // func to inject params into url

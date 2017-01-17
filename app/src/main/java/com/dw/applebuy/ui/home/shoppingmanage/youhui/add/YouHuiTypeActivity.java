@@ -18,7 +18,6 @@ import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m.YouhuiQuanType;
 import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.util.AppConfig;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
@@ -103,7 +102,7 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
 
             @Override
             public Observable<List<YouhuiQuanType>> call(FactoryInters apiService) {
-                Observable<HttpStateResult<List<YouhuiQuanType>>> couponCategory = apiService.getCouponCategory(AppConfig.getAppConfig().get(AppConfig.CONF_KEY));
+                Observable<HttpStateResult<List<YouhuiQuanType>>> couponCategory = apiService.getCouponCategory(/*AppConfig.getAppConfig().get(AppConfig.CONF_KEY)*/);
                 Observable<List<YouhuiQuanType>> observable = couponCategory.map(new Func1<HttpStateResult<List<YouhuiQuanType>>, List<YouhuiQuanType>>() {
                     @Override
                     public List<YouhuiQuanType> call(HttpStateResult<List<YouhuiQuanType>> listHttpStateResult) {
@@ -122,7 +121,7 @@ public class YouHuiTypeActivity extends AppCompatActivity implements Title1Fragm
     }
 
     @Override
-    public void setTitle(TextView title) {
+    public void setTitle(TextView title, TextView right) {
         title.setText("优惠类型");
     }
 

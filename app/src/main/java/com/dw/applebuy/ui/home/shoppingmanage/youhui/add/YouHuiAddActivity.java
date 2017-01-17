@@ -13,11 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.p.YouHuiAddPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.v.Views;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.dw.applebuy.util.DayDialogFragment;
 import com.jph.takephoto.model.TResult;
 import com.lling.photopicker.PhotoPickerActivity;
@@ -27,9 +29,7 @@ import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.StringUtils;
-import com.wlj.base.util.img.BitmapUtil;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -61,7 +61,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
     private final int RequestCode_type = 22;
 
     private TakePhotoCrop takePhotoCrop;
-    private Bitmap bitmap;
+    private String imagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,19 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
         setContentView(R.layout.activity_you_hui_add);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+        Coupon coupon = intent.getParcelableExtra("Coupon");
+        if(coupon != null){
+            initView(coupon);
+        }
+    }
+
+    private void initView(Coupon coupon) {
+        Glide.with(this).load(coupon.getIcon()).into(imageView);
+//        type.setText();
+
+
+
     }
 
     @Override
@@ -79,7 +92,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
     }
 
     @Override
-    public void setTitle(TextView title) {
+    public void setTitle(TextView title, TextView right) {
         title.setText("新增优惠");
     }
 
@@ -99,20 +112,20 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
                 break;
             case R.id.youhuiadd_complate:
 
-                ArrayMap<String, Object> arrayMap = new ArrayMap<>();
-                arrayMap.put("sessionid", AppConfig.getAppConfig().get(AppConfig.CONF_KEY));
+                ArrayMap<String, String> arrayMap = new ArrayMap<>();
+                arrayMap.put("sessionid",AppConfig.getAppConfig().get(AppConfig.CONF_KEY) );
                 arrayMap.put("title", title.getText() + "");
-                arrayMap.put("description", intro.getText() + "");
-                arrayMap.put("category_id", type.getTag());//分类ID
-                arrayMap.put("stock", number.getText());//库存
-                arrayMap.put("integral", youhuiaddPrice.getText());//积分
-                arrayMap.put("end_time", youhuiaddTime.getText());//优惠时间
-                arrayMap.put("file", bitmap);//优惠卷图片
+                arrayMap.put("description",intro.getText() + "");
+                arrayMap.put("category_id",type.getTag() +"");//分类ID
+                arrayMap.put("stock", number.getText()+"");//库存
+                arrayMap.put("integral",youhuiaddPrice.getText() +"");//积分
+                arrayMap.put("end_time",youhuiaddTime.getText()+"");//优惠时间
+//                arrayMap.put("file", bitmap);//优惠卷图片
 
-                arrayMap.put("id", number.getText());// 	优惠卷ID(传递则为编辑)
-                arrayMap.put("img_path", number.getText());//回传路径(传递则为编辑)
+//                arrayMap.put("id", number.getText());// 	优惠卷ID(传递则为编辑)
+//                arrayMap.put("img_path", number.getText());//回传路径(传递则为编辑)
 
-                presenter.addYouHui(arrayMap);
+                presenter.addYouHui(arrayMap,imagePath);
                 break;
         }
     }
@@ -165,8 +178,9 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
     @Override
     public void cropback(TResult result) {
 
-        Logger.i("takeSuccess：" + result.getImage().getPath());
-          bitmap = BitmapFactory.decodeFile(result.getImage().getPath());
+        imagePath = result.getImage().getPath();
+        Logger.i("takeSuccess：" + imagePath);
+        Bitmap  bitmap = BitmapFactory.decodeFile(imagePath);
         imageView.setImageBitmap(bitmap);
 
 //        Bundle bundle = new Bundle();

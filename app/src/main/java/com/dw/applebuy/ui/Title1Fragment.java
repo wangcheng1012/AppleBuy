@@ -1,6 +1,5 @@
 package com.dw.applebuy.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,7 +35,7 @@ public class Title1Fragment extends Fragment {
 
         if(ti != null){
             TextView title = (TextView) inflate.findViewById(R.id.title_);
-            ti.setTitle(title);
+            ti.setTitle(title, null);
         }
 
         return inflate;
@@ -56,6 +55,6 @@ public class Title1Fragment extends Fragment {
     }
 
     public interface TitleInterface {
-        void setTitle(TextView title);
+        void setTitle(TextView title, TextView right);
     }
 }

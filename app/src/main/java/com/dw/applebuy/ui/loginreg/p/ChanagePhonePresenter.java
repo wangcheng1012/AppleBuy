@@ -18,13 +18,12 @@ import java.util.List;
 import rx.Subscriber;
 
 /**
- *
+ * 更换手机号码
  */
-public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
+public class ChanagePhonePresenter extends BasePresenter<Views.ChanagePhoneView> {
 
 
-    public RegisterPresenter( ) {
-
+    public ChanagePhonePresenter( ) {
     }
 
     /**
@@ -33,18 +32,19 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
      */
     public void getVerifyCode(String phone) {
         if (phone.isEmpty()) {
-            mView.showMessage("请输入手机号码");
+           toastMessage( "请输入手机号码");
             return;
         }
         mView.showLoading();
+
         getCodeCall(phone);
     }
 
     /**
-     * 注册
+     * chanagephone
      * @param arrayMap
      */
-    public void register(ArrayMap<String, String> arrayMap) {
+    public void submit(ArrayMap<String, String> arrayMap) {
         //验证
         if(arrayMap.get("mobile").length() != 11){
            toastMessage("手机号错误");
@@ -63,7 +63,7 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
             return;
         }
         mView.showLoading();
-        registerCall(arrayMap);
+        submitCall(arrayMap);
     }
 
     /**
@@ -87,7 +87,7 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
             @Override
             public void onError(Throwable e) {
-                onErrorShow(e,"验证码获取失败");
+                onErrorShow(e,"验证码发送失败");
             }
 
             @Override
@@ -104,19 +104,21 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
         };//end
 
-        AppHttpMethods.getInstance().getCode(subscriber ,content);
+        AppHttpMethods.getInstance().getForgetPasswordVerifyCode(subscriber ,content);
     }
 
     /**
      * 注册call
      * @param arrayMap
      */
-    private void registerCall(ArrayMap<String, String> arrayMap) {
+    private void submitCall(ArrayMap<String, String> arrayMap) {
         //观察者
         Subscriber<HttpStateResult<List>> subscriber = new Subscriber<HttpStateResult<List>>() {
             @Override
             public void onCompleted() {
-                mView.hideLoading();
+                if(mView != null) {
+                    mView.hideLoading();
+                }
             }
 
             @Override
@@ -128,11 +130,11 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
             public void onNext(HttpStateResult<List> stringHttpStateResult) {
                toastMessage(stringHttpStateResult.getMessage());
                 if(mView != null) {
-                    mView.registeerBack(stringHttpStateResult);
+                    mView.submitBack(stringHttpStateResult);
                 }
             }
 
         };//end
-        AppHttpMethods.getInstance().register(subscriber,arrayMap);
+        AppHttpMethods.getInstance().forgetPassword(subscriber,arrayMap);
     }
 }

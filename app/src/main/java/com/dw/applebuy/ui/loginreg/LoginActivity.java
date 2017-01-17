@@ -1,11 +1,9 @@
 package com.dw.applebuy.ui.loginreg;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dw.applebuy.BuildConfig;
@@ -15,11 +13,9 @@ import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.loginreg.p.LoginPresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.basemvp.BaseMvpActivity;
-import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.AppManager;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.UIHelper;
-import com.wlj.base.util.statusbar.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,11 +44,11 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
 
     @Override
     public LoginPresenter initPresenter() {
-        return new LoginPresenter(this);
+        return new LoginPresenter( );
     }
 
     @Override
-    public void setTitle(TextView title) {
+    public void setTitle(TextView title, TextView right) {
         title.setText("登录");
     }
 
@@ -60,7 +56,9 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_forgetpsw:
-                GoToHelp.go(this, ForgetPswActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("title","找回密码");
+                GoToHelp.go(this , ForgetPswActivity.class,bundle);
                 break;
             case R.id.login_loginbt:
                 presenter.Login(loginPhone,loginPsw);

@@ -49,13 +49,12 @@ public class RetrofitBase {
         httpClientBuilder.cache(cache);//cache
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build();
-        //添加请求的公共参数
-        String sessionId = AppConfig.getAppConfig().get(AppConfig.CONF_KEY);
-        if (!sessionId.isEmpty()) {
-            ParamsInterceptor.Builder builder = new ParamsInterceptor.Builder();
-            builder.addParam("sessionId", sessionId);
-            httpClientBuilder.addInterceptor(builder.build());
-        }
+
+        //添加请求的公共参数 动态的参数不能在这里加 因为单例模式
+        ParamsInterceptor.Builder builder = new ParamsInterceptor.Builder();
+//            builder.addParam("sessionid", sessionId);
+        httpClientBuilder.addInterceptor(builder.build());
+
         //返回参数[]-> null ,{} -> null
         httpClientBuilder.addInterceptor(new ResponseInterceptor());
 

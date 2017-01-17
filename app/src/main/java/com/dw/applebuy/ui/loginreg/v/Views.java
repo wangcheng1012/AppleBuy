@@ -8,22 +8,31 @@ import java.util.List;
 
 public interface Views {
 
+
+    interface verifyCode extends BaseView {
+        void verifyCodeBack();
+    }
+
     /**
      * 注册
      */
-    interface RegisterView extends BaseView {
+    interface RegisterView extends verifyCode {
 
         void registeerBack(HttpStateResult<List> httpStateResult);
-
-        void verifyCodeBack();
     }
 
     interface LoginView extends BaseView {
+
         void LoginBack();
     }
 
-    interface ForgetView extends BaseView {
+    interface ForgetView extends verifyCode {
+
         void submitBack(HttpStateResult<List> stringHttpStateResult);
-        void verifyCodeBack();
+    }
+
+    interface ChanagePhoneView extends verifyCode {
+
+        void submitBack(HttpStateResult<List> stringHttpStateResult);
     }
 }

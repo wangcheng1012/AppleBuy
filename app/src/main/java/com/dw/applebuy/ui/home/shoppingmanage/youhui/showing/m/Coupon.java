@@ -1,9 +1,12 @@
 package com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  *
  */
-public class Coupon {
+public class Coupon implements Parcelable {
 
     /**
      * id : 4
@@ -24,6 +27,32 @@ public class Coupon {
     private String sales_volume;
     private String end_time;
     private String icon;
+
+    public Coupon( ) {
+    }
+
+    protected Coupon(Parcel in) {
+        id = in.readString();
+        category_id = in.readString();
+        stock = in.readString();
+        integral = in.readString();
+        title = in.readString();
+        sales_volume = in.readString();
+        end_time = in.readString();
+        icon = in.readString();
+    }
+
+    public static final Creator<Coupon> CREATOR = new Creator<Coupon>() {
+        @Override
+        public Coupon createFromParcel(Parcel in) {
+            return new Coupon(in);
+        }
+
+        @Override
+        public Coupon[] newArray(int size) {
+            return new Coupon[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -87,5 +116,22 @@ public class Coupon {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(category_id);
+        dest.writeString(stock);
+        dest.writeString(integral);
+        dest.writeString(title);
+        dest.writeString(sales_volume);
+        dest.writeString(end_time);
+        dest.writeString(icon);
     }
 }

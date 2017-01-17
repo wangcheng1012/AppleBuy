@@ -1,5 +1,6 @@
 package com.dw.applebuy.ui.loginreg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.dw.applebuy.ui.loginreg.p.ForgetPresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.rxmvp.bean.HttpStateResult;
+import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.UIHelper;
 
 import java.util.List;
@@ -46,12 +48,20 @@ public class ForgetPswActivity extends BaseMvpActivity<Views.ForgetView, ForgetP
 
     @Override
     public ForgetPresenter initPresenter() {
-        return new ForgetPresenter(this);
+        return new ForgetPresenter( );
     }
 
     @Override
-    public void setTitle(TextView title) {
-        title.setText("找回密码");
+    public void setTitle(TextView title, TextView right) {
+        Intent intent = getIntent();
+        String title1 = intent.getStringExtra("title");
+        if(!StringUtils.isEmpty(title1)){
+            //
+            title.setText(title1);
+        }else{
+            title.setText("找回密码");
+        }
+
     }
 
 

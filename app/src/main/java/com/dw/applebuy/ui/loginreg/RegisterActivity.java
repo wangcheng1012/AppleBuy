@@ -46,11 +46,11 @@ public class RegisterActivity extends BaseMvpActivity<Views.RegisterView,Registe
 
     @Override
     public RegisterPresenter initPresenter() {
-        return new RegisterPresenter(this);
+        return new RegisterPresenter( );
     }
 
     @Override
-    public void setTitle(TextView title) {
+    public void setTitle(TextView title, TextView right) {
         title.setText("快速注册");
     }
 

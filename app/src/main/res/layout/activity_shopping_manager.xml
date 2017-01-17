@@ -10,7 +10,8 @@
         android:id="@+id/shoppingmanager_title"
         android:name="com.dw.applebuy.ui.Title2Fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
 
     <TextView
         android:id="@+id/shoppingmanager_youhuimanager"

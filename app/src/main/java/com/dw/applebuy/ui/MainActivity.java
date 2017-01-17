@@ -16,6 +16,8 @@ import com.dw.applebuy.ui.home.HomeFragment;
 import com.dw.applebuy.ui.message.MessageFragment;
 import com.dw.applebuy.ui.set.SetFragment;
 import com.dw.applebuy.ui.songjifen.JiFenFragment;
+import com.wlj.base.util.AppContext;
+import com.wlj.base.util.AppManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,5 +68,10 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        AppManager.getAppManager().AppExit(getApplicationContext());
+        AppContext.getAppContext().loginOut();
+    }
 }

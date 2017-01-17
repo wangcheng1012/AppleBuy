@@ -13,24 +13,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.R;
 import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
-import com.dw.applebuy.been.ResultData;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiAddActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.bean.Base;
-import com.wlj.base.util.AppConfig;
+import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.DpAndPx;
-import com.wlj.base.web.asyn.BaseAsyncModle;
+import com.wlj.base.util.GoToHelp;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +53,8 @@ public class TabLayoutFragment extends Fragment {
     private String[] tabtitles = {"添加时间", "销量", "库存"};
 
     private int mTab;
+    private int sort_type;
+    private int requestcode_itemClick = 2;
 
     public TabLayoutFragment() {
         // Required empty public constructor
@@ -74,7 +77,7 @@ public class TabLayoutFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tablayout, container, false);
         ButterKnife.bind(this, view);
         initView();
@@ -87,7 +90,7 @@ public class TabLayoutFragment extends Fragment {
         LinearLayout child = (LinearLayout) tablayout.getChildAt(0);
         child.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         child.setDividerDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
-        child.setDividerPadding(DpAndPx.dpToPx(getContext(),15));
+        child.setDividerPadding(DpAndPx.dpToPx(getContext(), 15));
         //Adapter
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
@@ -98,7 +101,7 @@ public class TabLayoutFragment extends Fragment {
             @Override
             public Fragment getItem(int position) {
                 SWRVFragment<Coupon> swrvFragment = getItemFragment(position);
-                return  swrvFragment;
+                return swrvFragment;
             }
 
             @Override
@@ -110,14 +113,23 @@ public class TabLayoutFragment extends Fragment {
         tablayout.setupWithViewPager(viewpage);
     }
 
+    /**
+     * viewpage的itemFragment
+     * @param position
+     * @return
+     */
     @NonNull
     private SWRVFragment<Coupon> getItemFragment(int position) {
+        //1-添加时间 2-销量 3-销量
         switch (position) {
             case 0://添加时间
+                sort_type = 1;
                 break;
             case 1://销量
+                sort_type = 2;
                 break;
             case 2://库存
+                sort_type = 3;
                 break;
         }
 
@@ -125,7 +137,10 @@ public class TabLayoutFragment extends Fragment {
         swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface<Coupon>() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
+
+                recyclerview.addItemDecoration( new DividerDecoration(getResources().getDrawable(R.drawable.divider_white_f1f1f1_10),DividerDecoration.HORIZONTAL_LIST)) ;
             }
+
             @Override
             public SWRVContract.SWRVPresenterAdapter<Coupon> getPresenterAdapter() {
                 return getSwrvPresenterAdapter();
@@ -135,7 +150,8 @@ public class TabLayoutFragment extends Fragment {
     }
 
     /**
-     *  SwrvPresenterAdapter
+     * SwrvPresenterAdapter
+     *
      * @return
      */
     @NonNull
@@ -155,6 +171,24 @@ public class TabLayoutFragment extends Fragment {
             @Override
             public void convert(ViewHolder viewHolder, Coupon item, int position) {
 
+                if(item == null ) return;
+//                {
+//                    id: "5",
+//                        category_id: "1", /*分类*/
+//                        stock: "200",/*库存*/
+//                        integral: "60",/*积分*/
+//                        title: "全场6折",/*优惠卷名称*/
+//                        sales_volume: "3",/*销量*/
+//                        end_time: "有效期截止：2017/01/09",/*有效期*/
+//                        icon: "http://supplier.pingguo24.com/static/img/coupon/zhekouquan@2x.png" /*图标*/
+//                }
+                ImageView view = viewHolder.getView(R.id.showing_image);
+                Glide.with(TabLayoutFragment.this).load(item.getIcon()).into(view);
+
+                viewHolder.setText(R.id.showing_name,item.getTitle());
+                viewHolder.setText(R.id.showing_number,"销量 "+item.getSales_volume() + "    收藏 0 " + "    库存 " + item.getStock());//销量
+                viewHolder.setText(R.id.showing_time,"时间 "+ item.getEnd_time());
+                viewHolder.setText(R.id.showing_scors,item.getIntegral() +"积分");//积分
             }
 
             @Override
@@ -164,7 +198,10 @@ public class TabLayoutFragment extends Fragment {
 
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, Coupon item) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("Coupon",item);
 
+                GoToHelp.goResult(getActivity(), YouHuiAddActivity.class, requestcode_itemClick,bundle);
             }
 
             @Override
@@ -173,27 +210,33 @@ public class TabLayoutFragment extends Fragment {
             }
 
             @Override
-            public Observable< List<Coupon>> call(FactoryInters apiService) {
+            public Observable<List<Coupon>> call(FactoryInters apiService) {
 
-                Observable<HttpStateResult<ResultData<Coupon>>> coupon = apiService.getCoupon(AppConfig.getAppConfig().get(AppConfig.CONF_KEY),1, 1,mTab);
+                Observable<HttpStateResult<Coupon[]>> coupon = apiService.getCoupon( 1, sort_type, mTab);
                 //变换
-                Observable< List<Coupon>> observable = coupon.map(new Func1<HttpStateResult<ResultData<Coupon>>, List<Coupon>>() {
+                Observable<List<Coupon>> observable = coupon.map(new Func1<HttpStateResult<Coupon[]>, List<Coupon>>() {
+
                     @Override
-                    public List<Coupon> call(HttpStateResult<ResultData<Coupon>> resultDataHttpStateResult) {
-                        ResultData<Coupon> data = resultDataHttpStateResult.getData();
+                    public List<Coupon> call(HttpStateResult<Coupon[]> httpStateResult) {
 
-                        if(data == null )return  null;
+                        Coupon[] data = httpStateResult.getData();
 
-                        List<Coupon> list = data.getList();
+                        if (BuildConfig.DEBUG) {
+                            if (data == null) {
+                                data = new Coupon[12];
+                            }
+                            if (data.length <= 0){
 
-                        if(BuildConfig.DEBUG && list.isEmpty()){
-                            list.add(new Coupon());
-                            list.add(new Coupon());
-                            list.add(new Coupon());
-                            list.add(new Coupon());
-                            list.add(new Coupon());
+                                for (int length = 12; length > 0; length--) {
+                                    data[length-1] = (new Coupon());
+                                }
+
+                            }
+                        } else {
+                            //正常
+                            if (data == null) return null;
                         }
-                        return list;
+                        return Arrays.asList(data);
                     }
                 });
                 return observable;

@@ -24,7 +24,7 @@ public class ShoppingManagerActivity extends BaseFragmentActivity implements Tit
     }
 
     @Override
-    public void setTitle(TextView title) {
+    public void setTitle(TextView title, TextView right) {
         title.setText("门店管理");
     }
 

@@ -33,12 +33,12 @@ public class Title2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View inflate = inflater.inflate(R.layout.fragment_title2, container, false);
 
         if (mListener != null) {
             TextView title = (TextView) inflate.findViewById(R.id.title2_title);
-            mListener.setTitle(title);
+            TextView right = (TextView) inflate.findViewById(R.id.title2_right);
+            mListener.setTitle(title,right);
         }
         ButterKnife.bind(this, inflate);
         return inflate;
@@ -48,7 +48,6 @@ public class Title2Fragment extends Fragment {
     public void onClick() {
         getActivity().finish();
     }
-
 
     @Override
     public void onAttach(Context context) {

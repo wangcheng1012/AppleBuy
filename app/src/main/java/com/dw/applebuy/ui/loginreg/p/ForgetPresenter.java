@@ -22,12 +22,6 @@ import rx.Subscriber;
  */
 public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
 
-    private Context mContext;
-
-    public ForgetPresenter(Context mContext) {
-
-        this.mContext = mContext;
-    }
 
     /**
      * 获取验证码
@@ -35,7 +29,7 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
      */
     public void getVerifyCode(String phone) {
         if (phone.isEmpty()) {
-           UIHelper.toastMessage(mContext,"请输入手机号码");
+           toastMessage("请输入手机号码");
             return;
         }
         mView.showLoading();
@@ -50,19 +44,19 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
     public void submit(ArrayMap<String, String> arrayMap) {
         //验证
         if(arrayMap.get("mobile").length() != 11){
-            UIHelper.toastMessage(mContext,"手机号错误");
+            toastMessage("手机号错误");
             return;
         }
         if(arrayMap.get("code").isEmpty()){
-            UIHelper.toastMessage(mContext,"验证码为空");
+            toastMessage("验证码为空");
             return;
         }
         if(arrayMap.get("password").length() < 6 || arrayMap.get("password").length() > 15){
-            UIHelper.toastMessage(mContext,"密码必须为6-15位");
+            toastMessage("密码必须为6-15位");
             return;
         }
         if(!arrayMap.get("password") .equals(arrayMap.get("re_password"))){
-            UIHelper.toastMessage(mContext,"密码与确认密码不相同");
+            toastMessage("密码与确认密码不相同");
             return;
         }
         mView.showLoading();
@@ -102,26 +96,12 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
                         mView.verifyCodeBack();
                     }
                 }
-                UIHelper.toastMessage(mContext,stringHttpStateResult.getMessage());
+                toastMessage(stringHttpStateResult.getMessage());
             }
 
         };//end
 
         AppHttpMethods.getInstance().getForgetPasswordVerifyCode(subscriber ,content);
-    }
-
-    private void onErrorShow(Throwable e,String defMessage) {
-        if(mView != null) {
-            mView.hideLoading();
-            if(e instanceof ApiException){
-                mView.showMessage(e.getMessage());
-            }else {
-                mView.showMessage(defMessage);
-            }
-        }
-        if(BuildConfig.DEBUG){
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -145,7 +125,7 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
 
             @Override
             public void onNext(HttpStateResult<List> stringHttpStateResult) {
-                UIHelper.toastMessage(mContext,stringHttpStateResult.getMessage());
+                toastMessage(stringHttpStateResult.getMessage());
                 if(mView != null) {
                     mView.submitBack(stringHttpStateResult);
                 }

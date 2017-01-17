@@ -42,7 +42,8 @@
         <activity android:name=".ui.home.shoppingmanage.youhui.YouHuiManagerActivity" />
         <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiAddActivity" />
         <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity" />
-        <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTimeActivity"></activity>
+        <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTimeActivity" />
+        <activity android:name=".ui.loginreg.ChanagePhoneActivity"></activity>
     </application>
 
 </manifest>

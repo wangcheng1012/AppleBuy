@@ -11,7 +11,7 @@ public class ResultData<T> {
      * list : []
      */
     private int total;
-    private List<T> list;
+    private T[] list;
 
     public int getTotal() {
         return total;
@@ -21,11 +21,11 @@ public class ResultData<T> {
         this.total = total;
     }
 
-    public List<T> getList() {
+    public T[] getList() {
         return list;
     }
 
-    public void setList(List<T> list) {
+    public void setList(T[] list) {
         this.list = list;
     }
 }

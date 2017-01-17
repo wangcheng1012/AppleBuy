@@ -1,6 +1,6 @@
 package com.dw.applebuy.base.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -8,14 +8,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.been.ResultData;
-import com.rxmvp.api.ApiException;
 import com.rxmvp.api.RetrofitBase;
 import com.rxmvp.basemvp.BasePresenter;
 import com.wlj.base.R;
-import com.wlj.base.util.UIHelper;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -33,7 +29,7 @@ import rx.Subscriber;
  */
 public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
-    private Activity mActivity;
+    private Context mContext;
     private RecyclerView recycerview;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<T> datas;
@@ -58,8 +54,8 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
     private int curPageEnd = -1;
     //curPageStart != curPageEnd 相当于加载中
 
-    public SWRVPresenter(Activity mActivity) {
-        this.mActivity = mActivity;
+    public SWRVPresenter(Context mContext) {
+        this.mContext = mContext;
     }
 
     public void initRecycerview(RecyclerView recycerview, SwipeRefreshLayout swipeRefreshLayout) {
@@ -104,7 +100,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
     private void recycerview(int layout) {
 
         datas = new ArrayList<>();
-        CommonAdapter<T> commonAdapter = new CommonAdapter<T>(mActivity, layout, datas) {
+        CommonAdapter<T> commonAdapter = new CommonAdapter<T>(mContext, layout, datas) {
 
             @Override
             protected void convert(ViewHolder viewHolder, T item, int position) {
@@ -142,7 +138,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
         //空 EmptyWrapper
         View emptyView = presenterAdapter.getEmptyView();
         if (emptyView == null) {
-            TextView empty = new TextView(mActivity);
+            TextView empty = new TextView(mContext);
             empty.setText("点击刷新");
             empty.setTextColor(Color.BLACK);
             empty.setGravity(Gravity.CENTER);
@@ -161,7 +157,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
         if (presenterAdapter.needLoadMore()) {
             //loadMoreWrapper
-            loadmoretext = new TextView(mActivity);
+            loadmoretext = new TextView(mContext);
             // loadmoretext.setText(" ");
             loadmoretext.setTextColor(Color.BLACK);
             loadmoretext.setGravity(Gravity.CENTER);
@@ -227,8 +223,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
             public void onError(Throwable e) {
                 RefreshingClose();
 
-                onErrorShow(e);
-
+                onErrorShow(e,"获取数据失败");
             }
 
             @Override
@@ -254,19 +249,6 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
         retrofitBase.toSubscribe(observable, subscriber);
     }
 
-    private void onErrorShow(Throwable e) {
-        if(mView != null) {
-            mView.hideLoading();
-            if(e instanceof ApiException){
-                mView.showMessage(e.getMessage());
-            }else {
-                mView.showMessage("登录失败");
-            }
-        }
-        if(BuildConfig.DEBUG){
-            e.printStackTrace();
-        }
-    }
 
 //
 //
