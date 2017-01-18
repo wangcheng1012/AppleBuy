@@ -48,6 +48,7 @@
         <activity android:name=".ui.home.shoppingmanage.album.AlbumActivity" />
         <activity android:name=".ui.home.shoppingmanage.album.UpLoadImageActivity" />
         <activity android:name=".ui.home.shoppingmanage.data.DataActivity"></activity>
+        <activity android:name=".ui.home.shoppingmanage.data.RegionActivity"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@
     tools:context="com.dw.applebuy.ui.home.shoppingmanage.data.DataActivity">
 
     <fragment
+        android:id="@+id/data_titlefragment"
         android:name="com.dw.applebuy.ui.Title2Fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

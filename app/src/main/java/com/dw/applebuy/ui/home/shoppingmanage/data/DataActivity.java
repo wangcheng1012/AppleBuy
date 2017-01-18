@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.wlj.base.ui.BaseFragmentActivity;
+import com.wlj.base.util.GoToHelp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,7 +17,7 @@ import butterknife.OnClick;
 /**
  * 资料管理
  */
-public class DataActivity extends AppCompatActivity implements Title1Fragment.TitleInterface {
+public class DataActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
 
     @BindView(R.id.data_shopping)
     TextView dataShopping;
@@ -46,7 +48,7 @@ public class DataActivity extends AppCompatActivity implements Title1Fragment.Ti
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.data_region:
-
+                GoToHelp.go(this,RegionActivity.class);
                 break;
             case R.id.data_address:
                 break;
