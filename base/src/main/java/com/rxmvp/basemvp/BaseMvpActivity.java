@@ -42,4 +42,5 @@ public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends Base
     public void showMessage(String message) {
         UIHelper.toastMessage(getApplication(),message);
     }
+
 }

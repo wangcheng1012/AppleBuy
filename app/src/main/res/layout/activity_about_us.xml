@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.dw.applebuy.ui.set.AboutUsActivity">
+
+    <fragment
+        android:id="@+id/aboutus_titlefragment"
+        android:name="com.dw.applebuy.ui.Title2Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        tools:layout="@layout/fragment_title2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/icon_58_log" />
+
+    <TextView
+        android:id="@+id/aboutus_version"
+        style="@style/textbase"
+        android:textColor="@color/black2_666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/about_version" />
+
+    <include layout="@layout/line" />
+
+    <TextView
+        android:textColor="@color/black2_666666"
+        android:lineSpacingMultiplier="1.3"
+        android:id="@+id/aboutus_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/aboutus_phone"
+        style="@style/textbase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/about_phone"
+        android:textColor="@color/yellow_FF552E" />
+
+    <TextView
+        style="@style/textbase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:lineSpacingMultiplier="1.2"
+        android:text="Copyright © 2016~2017 \n 上海壹诺科技有限公司"
+        android:textColor="@color/black2_666666" />
+
+</LinearLayout>

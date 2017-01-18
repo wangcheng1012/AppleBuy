@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_upload_image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dw.applebuy.ui.home.shoppingmanage.album.UpLoadImageActivity">
+
+    <fragment
+        android:name="com.dw.applebuy.ui.Title2Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="30dp"
+        android:src="@drawable/icon_33_image" />
+
+    <TextView
+        style="@style/textbase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/uploadimage_intro"
+        android:textColor="@color/black2_666666" />
+
+    <Button
+        android:id="@+id/login_loginbt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_corner"
+        android:text="上传照片"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

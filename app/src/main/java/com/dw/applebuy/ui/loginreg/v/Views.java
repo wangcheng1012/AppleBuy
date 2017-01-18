@@ -2,6 +2,7 @@ package com.dw.applebuy.ui.loginreg.v;
 
 import com.rxmvp.basemvp.BaseView;
 import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.ResultResponse;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ public interface Views {
         void submitBack(HttpStateResult<List> stringHttpStateResult);
     }
 
-    interface ChanagePhoneView extends verifyCode {
+    interface ChangePhoneView extends verifyCode {
 
-        void submitBack(HttpStateResult<List> stringHttpStateResult);
+        void changePhoneBack(ResultResponse stringHttpStateResult);
     }
 }

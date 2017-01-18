@@ -43,7 +43,7 @@ public class BaseFragmentActivity extends AppCompatActivity {
 	protected void setStatusBar() {
 
 //		StatusBarUtil.setTranslucent(this, 255);//黑
-		StatusBarUtil.setColor(this,getColor(R.color.colorPrimary),10);
+		StatusBarUtil.setColor(this,getResources().getColor(R.color.colorPrimary),10);
 	}
 
 	@Override

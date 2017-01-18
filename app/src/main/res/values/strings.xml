@@ -19,4 +19,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="about_phone">拨打苹果购客服电话：%s</string>
+    <string name="about_version">当前版本：V %s</string>
+    <string name="uploadimage_intro">请上传清晰的门店招牌图片，招牌要与商家名字一致，不要上传效果图或者PS图等非真实图片</string>
 </resources>

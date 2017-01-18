@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.shoppingmanage.album.AlbumActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.data.DataActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.YouHuiManagerActivity;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.GoToHelp;
@@ -37,11 +39,11 @@ public class ShoppingManagerActivity extends BaseFragmentActivity implements Tit
                 break;
             case R.id.shoppingmanager_phontomanager:
 //                相册管理
-
+                GoToHelp.go(this,AlbumActivity.class);
                 break;
             case R.id.shoppingmanager_ziliaomanager:
 //                资料管理
-
+                GoToHelp.go(this,DataActivity.class);
                 break;
         }
     }

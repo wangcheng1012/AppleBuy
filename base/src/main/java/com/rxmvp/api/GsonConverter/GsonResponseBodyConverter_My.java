@@ -2,12 +2,10 @@ package com.rxmvp.api.GsonConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.orhanobut.logger.Logger;
 import com.rxmvp.api.ApiException;
+import com.rxmvp.bean.ResultResponse;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.lang.reflect.Type;
 
 import okhttp3.ResponseBody;

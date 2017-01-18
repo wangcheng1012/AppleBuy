@@ -1,4 +1,4 @@
-package com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m;
+package com.dw.applebuy.ui.home.shoppingmanage.m;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -38,4 +38,8 @@ public abstract class BaseMvpFragment<V,T extends BasePresenter<V>> extends Frag
     public void hideLoading() {
         UIHelper.closeProgressbar();
     }
+
+    public void showMessage(String message) {
+        UIHelper.toastMessage(getContext(),message);
+    }
 }

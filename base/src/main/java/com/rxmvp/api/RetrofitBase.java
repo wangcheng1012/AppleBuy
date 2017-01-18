@@ -68,22 +68,6 @@ public class RetrofitBase {
 //        apiService = retrofit.create(FactoryInters.class);
     }
 
-    /**
-     * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
-     *
-     * @param <T> Subscriber真正需要的数据类型，也就是Data部分的数据类型
-     */
-    public class HttpResultFunc<T> implements Func1<HttpStateResult<T>, T> {
-
-        @Override
-        public T call(HttpStateResult<T> httpResult) {
-            if (httpResult.getStatus() != 0) {
-                throw new ApiException(httpResult.getStatus());
-            }
-            return httpResult.getData();
-        }
-    }
-
     public <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber) {
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

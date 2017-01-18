@@ -35,7 +35,7 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     @Override
     public SWRVPresenter initPresenter() {
-        return new SWRVPresenter<T>(getActivity());
+        return new SWRVPresenter (getActivity());
     }
 
     @Nullable

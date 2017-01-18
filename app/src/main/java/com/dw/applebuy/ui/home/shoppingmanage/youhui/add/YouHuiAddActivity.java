@@ -16,9 +16,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m.YouhuiQuanType;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.p.YouHuiAddPresenter;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.v.Views;
+import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
+import com.dw.applebuy.ui.home.shoppingmanage.p.YouHuiAddPresenter;
+import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.dw.applebuy.util.DayDialogFragment;
 import com.jph.takephoto.model.TResult;
@@ -39,14 +39,14 @@ import butterknife.OnClick;
 /**
  * 添加优惠券
  */
-public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouHuiAddPresenter> implements Title1Fragment.TitleInterface, DayDialogFragment.TimeChoosed, Views.YouHuiAddView, TakePhotoCrop.CropBack {
+public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, YouHuiAddPresenter> implements Title1Fragment.TitleInterface, DayDialogFragment.TimeChoosed, Contract.YouHuiAddView, TakePhotoCrop.CropBack {
 
     @BindView(R.id.youhuiadd_image)
     ImageView imageView;
     @BindView(R.id.youhuiadd_type)
     TextView type;
     @BindView(R.id.youhuiadd_time)
-    TextView youhuiaddTime;
+    TextView time;
     @BindView(R.id.youhuiadd_title)
     EditText title;
     @BindView(R.id.youhuiadd_intro)
@@ -81,8 +81,8 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
     private void initView(Coupon coupon) {
         Glide.with(this).load(coupon.getIcon()).into(imageView);
 //        type.setText();
-
-
+        title.setText(coupon.getTitle());
+        time.setText(coupon.getEnd_time());
 
     }
 
@@ -119,7 +119,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
                 arrayMap.put("category_id",type.getTag() +"");//分类ID
                 arrayMap.put("stock", number.getText()+"");//库存
                 arrayMap.put("integral",youhuiaddPrice.getText() +"");//积分
-                arrayMap.put("end_time",youhuiaddTime.getText()+"");//优惠时间
+                arrayMap.put("end_time", time.getText()+"");//优惠时间
 //                arrayMap.put("file", bitmap);//优惠卷图片
 
 //                arrayMap.put("id", number.getText());// 	优惠卷ID(传递则为编辑)
@@ -157,7 +157,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Views.YouHuiAddView, YouH
     @Override
     public void choosedBack(long date) {
         String time = StringUtils.getTime(date, "yyyy-MM-dd");
-        youhuiaddTime.setText(time);
+        this.time.setText(time);
     }
 
 

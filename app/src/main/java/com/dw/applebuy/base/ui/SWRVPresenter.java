@@ -250,65 +250,6 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
     }
 
 
-//
-//
-//    private void loadData(int page) {
-//
-//        modle = presenterAdapter.getBaseAsyncModle();
-//
-//        if (modle == null) {
-//            throw new RuntimeException("网路请求modle 不能为空");
-//        }
-//
-//        modle.setPage(page);
-//        asyncCall = modle.Request(presenterAdapter.getRequestType());
-//        asyncCall.setShowToast(false);
-//
-//        loadBack();
-//    }
-//
-//    private void loadBack() {
-//        asyncCall.setOnAsyncBackListener(new AsyncCall.OnAsyncBackListener() {
-//            @Override
-//            public void OnAsyncBack(List<Base> paramList, Base paramBase, int requesttype) {
-//                //以此判定为刷新 就清除原油数据
-//                if (asyncCall.getPageIndex() <= 1) {
-//                    datas.clear();
-//                }
-//                List<Base> list = presenterAdapter.handleBackData(paramList, paramBase, requesttype);
-//
-//                if (list == null) {
-//                    throw new RuntimeException("list==null");
-//                }
-//                datas.addAll(list);
-//                adapter.notifyDataSetChanged();
-//                RefreshingClose();
-//
-////                if(asyncCall.getPageIndex() == 1 && paramList.size() == 0){
-////                    //数据为空
-////                    loadmoretext.setText("数据为空");
-////                }
-//
-//                if (asyncCall.isComplate() && datas.size() != 0) {
-//                    //加载完
-////                    loadmoretext.setText("已经到底了");
-//                }
-//            }
-//
-//            @Override
-//            public void fail(Exception paramException) {
-//
-//                if ((paramException instanceof SocketTimeoutException)) {
-//                    UIHelper.toastMessage(AppContext.getAppContext(), " 链接超时");
-//                } else {
-//                    UIHelper.toastMessage(AppContext.getAppContext(), paramException.getMessage());
-//                }
-//                RefreshingClose();
-////                loadmoretext.setText("异常");
-//            }
-//        });
-//    }
-
     public void RefreshingClose() {
 
         if (swipeRefreshLayout.isRefreshing()) {
@@ -316,16 +257,11 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
         }
     }
 
-//    public void onRefresh(BaseAsyncModle modle) {
-//        this.modle = modle;
-//        onRefresh();
-//    }
-
-    public SWRVContract.SWRVPresenterAdapter getPresenterAdapter() {
+    public SWRVContract.SWRVPresenterAdapter<T> getPresenterAdapter() {
         return presenterAdapter;
     }
 
-    public void setPresenterAdapter(SWRVContract.SWRVPresenterAdapter presenterAdapter) {
+    public void setPresenterAdapter(SWRVContract.SWRVPresenterAdapter<T> presenterAdapter) {
         this.presenterAdapter = presenterAdapter;
     }
 

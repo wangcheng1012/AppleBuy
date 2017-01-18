@@ -1,18 +1,13 @@
-package com.dw.applebuy.ui.home.shoppingmanage.youhui.add.p;
+package com.dw.applebuy.ui.home.shoppingmanage.p;
 
-import android.graphics.Bitmap;
 import android.support.v4.util.ArrayMap;
-import android.util.Base64;
 
-import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.v.Views;
-import com.rxmvp.api.ApiException;
-import com.rxmvp.api.GsonConverter.ResultResponse;
+import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
+import com.rxmvp.bean.ResultResponse;
 import com.rxmvp.basemvp.BasePresenter;
 import com.wlj.base.util.StringUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Set;
 
@@ -24,7 +19,7 @@ import rx.Subscriber;
 /**
  * 添加优惠
  */
-public class YouHuiAddPresenter extends BasePresenter<Views.YouHuiAddView> {
+public class YouHuiAddPresenter extends BasePresenter<Contract.YouHuiAddView> {
 
     public void addYouHui(ArrayMap<String, String> arrayMap,String imagePath) {
 //        ArrayMap<String, Object> arrayMap = new ArrayMap<>();

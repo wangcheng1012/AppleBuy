@@ -3,10 +3,10 @@ package com.dw.applebuy.base.api;
 import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.been.LoginBack;
-import com.dw.applebuy.been.ResultData;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.m.YouhuiQuanType;
+import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
-import com.rxmvp.api.GsonConverter.ResultResponse;
+import com.dw.applebuy.ui.set.m.AboutUsModel;
+import com.rxmvp.bean.ResultResponse;
 import com.rxmvp.bean.HttpStateResult;
 
 import java.util.List;
@@ -34,6 +34,10 @@ public interface FactoryInters  {
     @FormUrlEncoded
     @POST("app/common/getForgetPasswordVerifyCode")
     Observable<HttpStateResult<List>> getForgetPasswordVerifyCode(@Field("mobile") String phone);
+
+    @FormUrlEncoded
+    @POST("app/common/getChangeMobileVerifyCode")
+    Observable<HttpStateResult<List>> getChangeMobileVerifyCode(@Field("mobile") String phone);
 
     @FormUrlEncoded
     @POST("app/user/register")
@@ -75,4 +79,20 @@ public interface FactoryInters  {
     @POST("app/coupon/save")
     Observable<ResultResponse> addYouHui(@PartMap ArrayMap<String, RequestBody> arrayMap, @Part MultipartBody.Part photo);
 
+    /**
+     * 更换手机
+     * @param phone
+     * @param verifyCode
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/user/changeMobile")
+    Observable<ResultResponse> changePhone(@Field("mobile") String phone, @Field("code") String verifyCode);
+
+    /**
+     * 获取关于我们
+     * @return
+     */
+    @POST("app/Common/AboutUs")
+    Observable<HttpStateResult<AboutUsModel>>  getAboutUs( );
 }

@@ -43,7 +43,11 @@
         <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiAddActivity" />
         <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity" />
         <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiTimeActivity" />
-        <activity android:name=".ui.loginreg.ChanagePhoneActivity"></activity>
+        <activity android:name=".ui.loginreg.ChangePhoneActivity" />
+        <activity android:name=".ui.set.AboutUsActivity" />
+        <activity android:name=".ui.home.shoppingmanage.album.AlbumActivity" />
+        <activity android:name=".ui.home.shoppingmanage.album.UpLoadImageActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.DataActivity"></activity>
     </application>
 
 </manifest>

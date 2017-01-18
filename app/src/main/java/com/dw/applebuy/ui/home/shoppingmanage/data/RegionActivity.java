@@ -1,10 +1,9 @@
-package com.dw.applebuy.ui.home.shoppingmanage.youhui.add;
+package com.dw.applebuy.ui.home.shoppingmanage.data;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -29,42 +29,14 @@ import rx.Observable;
 import rx.functions.Func1;
 
 /**
- * 优惠添加-》选择优惠类型
+ * 店铺管理 -》资料管理 -》选择区域
  */
-public class YouHuiTypeActivity  extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
+public class RegionActivity extends YouHuiTypeActivity {
 
-    public static final String RESULT_YouhuiQuanType = "YouhuiQuanType";
-    @BindView(R.id.youhui_content)
-    FrameLayout youhuiContent;
+    public static final String RESULT_Region = "Region";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_you_hui_type);
-        ButterKnife.bind(this);
 
-        initView(   );
-    }
-
-    private void initView() {
-        SWRVFragment  swrvFragment = new SWRVFragment();
-        swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface () {
-            @Override
-            public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
-
-            }
-            @Override
-            public SWRVContract.SWRVPresenterAdapter  getPresenterAdapter() {
-                return  getMyPresenterAdapter();
-            }
-        });
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.youhui_content,swrvFragment);
-        transaction.commitAllowingStateLoss();
-    }
-
-    protected SWRVContract.SWRVPresenterAdapter  getMyPresenterAdapter() {
+    protected SWRVContract.SWRVPresenterAdapter<YouhuiQuanType> getMyPresenterAdapter() {
         return new SWRVContract.SWRVPresenterAdapter<YouhuiQuanType>() {
             @Override
             public int getRecycerviewItemlayoutRes() {
@@ -89,7 +61,7 @@ public class YouHuiTypeActivity  extends BaseFragmentActivity implements Title1F
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, YouhuiQuanType item) {
                 Intent intent = new Intent();
-                intent.putExtra(RESULT_YouhuiQuanType,  item);
+                intent.putExtra(RESULT_Region,  item);
                 setResult(RESULT_OK,intent);
                 finish();
             }

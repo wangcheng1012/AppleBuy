@@ -29,11 +29,11 @@
         android:src="@drawable/icon_57_phone" />
 
     <TextView
-        android:id="@+id/chanage_phone"
+        android:id="@+id/change_phone"
         style="@style/textbase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="您当前手机号为13856759648" />
+        android:text="您当前手机号为" />
 
     <TextView
         style="@style/textbase"
@@ -45,7 +45,6 @@
 
 
     <LinearLayout
-        android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
@@ -80,7 +79,7 @@
             <!--android:layout_height="wrap_content">-->
 
             <AutoCompleteTextView
-                android:id="@+id/chanage_newphone"
+                android:id="@+id/change_newphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -124,7 +123,7 @@
                 android:background="@color/black4_cccccc" />
 
             <EditText
-                android:id="@+id/changage_verify"
+                android:id="@+id/change_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -158,7 +157,7 @@
             android:background="@color/black4_cccccc" />
 
         <Button
-            android:id="@+id/chanage_submitbt"
+            android:id="@+id/change_submitbt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"

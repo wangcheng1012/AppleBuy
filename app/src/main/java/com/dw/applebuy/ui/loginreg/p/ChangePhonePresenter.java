@@ -1,15 +1,10 @@
 package com.dw.applebuy.ui.loginreg.p;
 
-import android.content.Context;
-import android.support.v4.util.ArrayMap;
-
-import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.loginreg.v.Views;
-import com.rxmvp.api.ApiException;
 import com.rxmvp.basemvp.BasePresenter;
 import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.util.UIHelper;
+import com.rxmvp.bean.ResultResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -20,10 +15,10 @@ import rx.Subscriber;
 /**
  * 更换手机号码
  */
-public class ChanagePhonePresenter extends BasePresenter<Views.ChanagePhoneView> {
+public class ChangePhonePresenter extends BasePresenter<Views.ChangePhoneView> {
 
 
-    public ChanagePhonePresenter( ) {
+    public ChangePhonePresenter( ) {
     }
 
     /**
@@ -41,29 +36,23 @@ public class ChanagePhonePresenter extends BasePresenter<Views.ChanagePhoneView>
     }
 
     /**
-     * chanagephone
-     * @param arrayMap
+     * 更换手机
+     * @param phone
+     * @param verifyCode
      */
-    public void submit(ArrayMap<String, String> arrayMap) {
+    public void changePhone(String phone, String verifyCode) {
         //验证
-        if(arrayMap.get("mobile").length() != 11){
+        if(phone.length() != 11){
            toastMessage("手机号错误");
             return;
         }
-        if(arrayMap.get("code").isEmpty()){
+        if(verifyCode.isEmpty()){
            toastMessage("验证码为空");
             return;
         }
-        if(arrayMap.get("password").length() < 6 || arrayMap.get("password").length() > 15){
-           toastMessage("密码必须为6-15位");
-            return;
-        }
-        if(!arrayMap.get("password") .equals(arrayMap.get("re_password"))){
-           toastMessage("密码与确认密码不相同");
-            return;
-        }
+
         mView.showLoading();
-        submitCall(arrayMap);
+        changePhoneCall(phone,verifyCode);
     }
 
     /**
@@ -104,16 +93,17 @@ public class ChanagePhonePresenter extends BasePresenter<Views.ChanagePhoneView>
 
         };//end
 
-        AppHttpMethods.getInstance().getForgetPasswordVerifyCode(subscriber ,content);
+        AppHttpMethods.getInstance().getChangeMobileVerifyCode(subscriber ,content);
     }
 
     /**
-     * 注册call
-     * @param arrayMap
+     *  call
+     * @param phone
+     * @param verifyCode
      */
-    private void submitCall(ArrayMap<String, String> arrayMap) {
+    private void changePhoneCall(String phone, String verifyCode) {
         //观察者
-        Subscriber<HttpStateResult<List>> subscriber = new Subscriber<HttpStateResult<List>>() {
+        Subscriber<ResultResponse> subscriber = new Subscriber<ResultResponse>() {
             @Override
             public void onCompleted() {
                 if(mView != null) {
@@ -123,18 +113,18 @@ public class ChanagePhonePresenter extends BasePresenter<Views.ChanagePhoneView>
 
             @Override
             public void onError(Throwable e) {
-                onErrorShow(e,"注册失败");
+                onErrorShow(e,"更换手机失败");
             }
 
             @Override
-            public void onNext(HttpStateResult<List> stringHttpStateResult) {
-               toastMessage(stringHttpStateResult.getMessage());
+            public void onNext(ResultResponse  resultResponse) {
+               toastMessage(resultResponse.getMessage());
                 if(mView != null) {
-                    mView.submitBack(stringHttpStateResult);
+                    mView.changePhoneBack(resultResponse);
                 }
             }
 
         };//end
-        AppHttpMethods.getInstance().forgetPassword(subscriber,arrayMap);
+        AppHttpMethods.getInstance().changePhone(subscriber,phone,verifyCode);
     }
 }

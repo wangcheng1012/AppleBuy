@@ -62,6 +62,7 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
                 break;
             case R.id.login_loginbt:
                 presenter.Login(loginPhone,loginPsw);
+//                LoginBack();
                 break;
             case R.id.login_reg:
                 GoToHelp.go(this, RegisterActivity.class);
