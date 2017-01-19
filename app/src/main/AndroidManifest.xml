@@ -7,6 +7,18 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- 地图 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name="com.wlj.base.util.AppContext"
         android:allowBackup="true"
@@ -14,6 +26,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="r5AATPw9f0soBFBFXUGp6ib5" />
+
         <activity android:name=".ui.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,8 +68,10 @@
         <activity android:name=".ui.set.AboutUsActivity" />
         <activity android:name=".ui.home.shoppingmanage.album.AlbumActivity" />
         <activity android:name=".ui.home.shoppingmanage.album.UpLoadImageActivity" />
-        <activity android:name=".ui.home.shoppingmanage.data.DataActivity"></activity>
-        <activity android:name=".ui.home.shoppingmanage.data.RegionActivity"></activity>
+        <activity android:name=".ui.home.shoppingmanage.data.DataActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.RegionActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.MapActivity"></activity>
+        <activity android:name=".ui.home.shoppingmanage.data.BusinessScopeActivity"></activity>
     </application>
 
 </manifest>

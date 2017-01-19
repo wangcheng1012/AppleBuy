@@ -69,7 +69,7 @@ public class ParamsInterceptor implements Interceptor {
         //end
 
         // process post body inject
-//        String subtype = request.body().contentType().subtype();
+        String subtype = request.body().contentType().subtype();
         if (request.method().equals("POST") /**&& subtype.equals("x-www-form-urlencoded")*/) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
             //动态参数 强加
@@ -88,7 +88,7 @@ public class ParamsInterceptor implements Interceptor {
             RequestBody formBody = formBodyBuilder.build();
             String postBodyString = bodyToString(request.body());
             postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
-//            Logger.d(postBodyString);
+            Logger.d(postBodyString);
             requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
         } else {    // can't inject into body, then inject into url
             injectParamsIntoUrl(request, requestBuilder, paramsMap);

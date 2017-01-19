@@ -31,11 +31,12 @@ import rx.functions.Func1;
 /**
  * 优惠添加-》选择优惠类型
  */
-public class YouHuiTypeActivity  extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
+public class YouHuiTypeActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
 
     public static final String RESULT_YouhuiQuanType = "YouhuiQuanType";
     @BindView(R.id.youhui_content)
     FrameLayout youhuiContent;
+    protected SWRVFragment swrvFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +44,29 @@ public class YouHuiTypeActivity  extends BaseFragmentActivity implements Title1F
         setContentView(R.layout.activity_you_hui_type);
         ButterKnife.bind(this);
 
-        initView(   );
+        initView();
     }
 
     private void initView() {
-        SWRVFragment  swrvFragment = new SWRVFragment();
-        swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface () {
+        swrvFragment = new SWRVFragment();
+        swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
 
             }
+
             @Override
-            public SWRVContract.SWRVPresenterAdapter  getPresenterAdapter() {
-                return  getMyPresenterAdapter();
+            public SWRVContract.SWRVPresenterAdapter getPresenterAdapter() {
+                return getMyPresenterAdapter();
             }
         });
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.youhui_content,swrvFragment);
+        transaction.replace(R.id.youhui_content, swrvFragment);
         transaction.commitAllowingStateLoss();
     }
 
-    protected SWRVContract.SWRVPresenterAdapter  getMyPresenterAdapter() {
+    protected SWRVContract.SWRVPresenterAdapter getMyPresenterAdapter() {
         return new SWRVContract.SWRVPresenterAdapter<YouhuiQuanType>() {
             @Override
             public int getRecycerviewItemlayoutRes() {
@@ -78,7 +80,7 @@ public class YouHuiTypeActivity  extends BaseFragmentActivity implements Title1F
 
             @Override
             public void convert(ViewHolder viewHolder, YouhuiQuanType item, int position) {
-                viewHolder.setText(R.id.item_youhuiquan,item.getName());
+                viewHolder.setText(R.id.item_youhuiquan, item.getName());
             }
 
             @Override
@@ -89,8 +91,8 @@ public class YouHuiTypeActivity  extends BaseFragmentActivity implements Title1F
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, YouhuiQuanType item) {
                 Intent intent = new Intent();
-                intent.putExtra(RESULT_YouhuiQuanType,  item);
-                setResult(RESULT_OK,intent);
+                intent.putExtra(RESULT_YouhuiQuanType, item);
+                setResult(RESULT_OK, intent);
                 finish();
             }
 

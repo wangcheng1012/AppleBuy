@@ -32,17 +32,17 @@ public abstract class BasePresenter<T> {
      */
     protected void onErrorShow(Throwable e,String defMessage) {
 
+        if(BuildConfig.DEBUG){
+            e.printStackTrace();
+        }
         if(mView != null && mView instanceof BaseView) {
             BaseView mView = (BaseView) this.mView;
-             mView.hideLoading();
+            mView.hideLoading();
             if(e instanceof ApiException){
                 mView.showMessage(e.getMessage());
             }else {
                 mView.showMessage(defMessage);
             }
-        }
-        if(BuildConfig.DEBUG){
-            e.printStackTrace();
         }
     }
 }

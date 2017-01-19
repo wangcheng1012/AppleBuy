@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dw.applebuy.ui.home.shoppingmanage.data.MapActivity">
+
+    <fragment
+        android:id="@+id/map_titlefragment"
+        class="com.dw.applebuy.ui.Title2Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
+
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/map_addresstext"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/map_addresstext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map_titlefragment"
+        android:background="@color/white"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:text="定位中……" />
+
+
+</RelativeLayout>

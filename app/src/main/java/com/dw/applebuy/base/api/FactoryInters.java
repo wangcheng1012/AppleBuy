@@ -3,6 +3,8 @@ package com.dw.applebuy.base.api;
 import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.been.LoginBack;
+import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
+import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityAreaRequest;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.dw.applebuy.ui.set.m.AboutUsModel;
@@ -13,6 +15,7 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -20,12 +23,13 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
  *
  */
-public interface FactoryInters  {
+public interface FactoryInters {
 
     @FormUrlEncoded
     @POST("app/common/getRegisterVerifyCode")
@@ -52,26 +56,27 @@ public interface FactoryInters  {
     Observable<HttpStateResult<LoginBack>> login(@Field("mobile") String phone, @Field("password") String psw);
 
     /**
-     *
-     * @param page  	分页
+     * @param page      分页
      * @param sort_type 1-添加时间 2-销量 3-销量
-     * @param status  2 -展示中 3-已下架
+     * @param status    2 -展示中 3-已下架
      * @return
      */
     @FormUrlEncoded
     @POST("app/coupon/getCoupon")
-    Observable<HttpStateResult<Coupon[]>> getCoupon(@Field("page") int page, @Field("sort_type")int sort_type,@Field("status")int status);
+    Observable<HttpStateResult<Coupon[]>> getCoupon(@Field("page") int page, @Field("sort_type") int sort_type, @Field("status") int status);
 
     /**
      * 获取优惠券类型
+     *
      * @return
      */
 //    @FormUrlEncoded
     @POST("app/coupon/getCouponCategory")
-    Observable<HttpStateResult<List<YouhuiQuanType>>> getCouponCategory(/*@Field("sessionid") String sessionid*/ );
+    Observable<HttpStateResult<List<YouhuiQuanType>>> getCouponCategory(/*@Field("sessionid") String sessionid*/);
 
     /**
      * 添加和编辑优惠券
+     *
      * @param arrayMap
      * @return
      */
@@ -81,6 +86,7 @@ public interface FactoryInters  {
 
     /**
      * 更换手机
+     *
      * @param phone
      * @param verifyCode
      * @return
@@ -91,8 +97,18 @@ public interface FactoryInters  {
 
     /**
      * 获取关于我们
+     *
      * @return
      */
     @POST("app/Common/AboutUs")
-    Observable<HttpStateResult<AboutUsModel>>  getAboutUs( );
+    Observable<HttpStateResult<AboutUsModel>> getAboutUs();
+
+    /**
+     * 获取关于我们
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST
+    Observable<HttpStateResult<List<ProvinceCityArea>>> getProvinceCityArea(@Url String url, @Field("province_id") int province_id, @Field("city_id") int city_id);
 }
