@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_F1F1F1"
+    tools:context="com.dw.applebuy.ui.home.shoppingmanage.data.child.ChooseWeekActivity">
+
+    <fragment
+        android:id="@+id/choose_week_titlefragment"
+        android:name="com.dw.applebuy.ui.Title2Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:id="@+id/choose_week_RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"  />
+
+
+</LinearLayout>

@@ -26,11 +26,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="r5AATPw9f0soBFBFXUGp6ib5" />
@@ -48,17 +48,17 @@
         <activity android:name=".ui.loginreg.ForgetPswActivity" />
         <activity android:name=".ui.home.shoppingmanage.ShoppingManagerActivity" />
         <activity
-            android:name=".ui.home.ordermanage.ItemListActivity"
-            android:label="@string/title_item_list"
+            android:name=".ui.home.ordermanage.OrderListActivity"
+            android:label="@string/title_order_list"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.home.ordermanage.ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ui.home.ordermanage.ItemListActivity"
+            android:label="@string/title_order_detail"
+            android:parentActivityName=".ui.home.ordermanage.OrderListActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.home.ordermanage.ItemListActivity" />
+                android:value=".ui.home.ordermanage.OrderListActivity" />
         </activity>
         <activity android:name=".ui.home.shoppingmanage.youhui.YouHuiManagerActivity" />
         <activity android:name=".ui.home.shoppingmanage.youhui.add.YouHuiAddActivity" />
@@ -69,9 +69,12 @@
         <activity android:name=".ui.home.shoppingmanage.album.AlbumActivity" />
         <activity android:name=".ui.home.shoppingmanage.album.UpLoadImageActivity" />
         <activity android:name=".ui.home.shoppingmanage.data.DataActivity" />
-        <activity android:name=".ui.home.shoppingmanage.data.RegionActivity" />
-        <activity android:name=".ui.home.shoppingmanage.data.MapActivity"></activity>
-        <activity android:name=".ui.home.shoppingmanage.data.BusinessScopeActivity"></activity>
+        <activity android:name=".ui.home.shoppingmanage.data.child.RegionActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.child.MapActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.child.BusinessScopeActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.child.BusinessTimeActivity" />
+        <activity android:name=".ui.home.shoppingmanage.data.child.ChooseWeekActivity" />
+        <activity android:name=".ui.home.commentmanage.CommentActivity"></activity>
     </application>
 
 </manifest>

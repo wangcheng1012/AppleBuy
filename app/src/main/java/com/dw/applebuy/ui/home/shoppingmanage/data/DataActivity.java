@@ -2,16 +2,21 @@ package com.dw.applebuy.ui.home.shoppingmanage.data;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.shoppingmanage.data.child.BusinessScopeActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.data.child.BusinessTimeActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.data.child.ChooseWeekActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.data.child.MapActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.data.child.RegionActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
-import com.orhanobut.logger.Logger;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.GoToHelp;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,9 +63,18 @@ public class DataActivity extends BaseFragmentActivity implements Title1Fragment
                 GoToHelp.goResult(this,MapActivity.class,addressrequiestcode);
                 break;
             case R.id.data_businessScope:
-                GoToHelp.goResult(this,BusinessScopeActivity.class,addressrequiestcode);
+
+                ArrayList<Integer> businessScopes = new ArrayList<>();
+                businessScopes.add(1);
+                businessScopes.add(2);
+                businessScopes.add(3);
+                Bundle bundle = new Bundle();
+                bundle.putIntegerArrayList("businessScopes",businessScopes);
+
+                GoToHelp.goResult(this,BusinessScopeActivity.class,addressrequiestcode,bundle);
                 break;
             case R.id.data_businessTime:
+                GoToHelp.goResult(this,BusinessTimeActivity.class,addressrequiestcode);
                 break;
             case R.id.data_save:
                 break;

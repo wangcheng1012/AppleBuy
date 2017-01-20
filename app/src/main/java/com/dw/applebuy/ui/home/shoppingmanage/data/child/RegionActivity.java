@@ -1,39 +1,28 @@
-package com.dw.applebuy.ui.home.shoppingmanage.data;
+package com.dw.applebuy.ui.home.shoppingmanage.data.child;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
-import com.dw.applebuy.base.ui.SWRVFragment;
-import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.shoppingmanage.data.DataActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
 import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityAreaRequest;
-import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity;
 import com.orhanobut.logger.Logger;
 import com.rxmvp.api.HttpResultFunc;
 import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.ui.BaseFragmentActivity;
-import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.MathUtil;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * 店铺管理 -》资料管理 -》选择区域
@@ -123,7 +112,7 @@ public class RegionActivity extends YouHuiTypeActivity {
             }
 
             @Override
-            public Observable<List<ProvinceCityArea>> call(FactoryInters apiService) {
+            public Observable<List<ProvinceCityArea>> call(FactoryInters apiService, int curPageStart) {
                 String url = "app/common/getProvinces";
                 ProvinceCityAreaRequest request = new ProvinceCityAreaRequest();
 //                Intent intent = getIntent();

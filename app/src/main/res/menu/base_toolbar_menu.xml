@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--扫描-->
+    <!--<item android:id="@+id/title_scan"　　　　//id-->
+    <!--android:title="@string/scan"　　　　　//title长按显示的文字-->
+    <!--android:visible="false"　　　　　　　　//默认全部不显示-->
+    <!--android:icon="@mipmap/ic_scan"　　　　//图标-->
+    <!--app:showAsAction="ifRoom"/>-->
+    <!--&lt;!&ndash;添加&ndash;&gt;-->
+    <!--<item android:id="@+id/title_add"-->
+        <!--android:title="@string/add"-->
+        <!--android:icon="@mipmap/ic_add"-->
+        <!--app:showAsAction="ifRoom"/>-->
+    <!--&lt;!&ndash;设置&ndash;&gt;-->
+    <!--<item android:id="@+id/title_setting"-->
+        <!--android:title="@string/setting"-->
+        <!--android:visible="false"-->
+        <!--android:icon="@mipmap/ic_setting"-->
+        <!--app:showAsAction="ifRoom"/>-->
+    <!--&lt;!&ndash;搜索&ndash;&gt;-->
+    <!--<item android:id="@+id/title_search"-->
+        <!--android:title="@string/search"-->
+        <!--android:visible="false"-->
+        <!--android:icon="@mipmap/ic_search"-->
+        <!--app:showAsAction="ifRoom"/>-->
+    <!--&lt;!&ndash;日期&ndash;&gt;-->
+    <!--<item android:id="@+id/title_date"-->
+        <!--android:title="@string/date"-->
+        <!--android:visible="false"-->
+        <!--android:icon="@mipmap/ic_calendar"-->
+        <!--app:showAsAction="ifRoom"/>-->
+    <!--&lt;!&ndash;刷新&ndash;&gt;-->
+    <!--<item android:id="@+id/title_refresh"-->
+        <!--android:title="@string/refresh"-->
+        <!--android:visible="false"-->
+        <!--android:icon="@mipmap/botton_refresh"-->
+        <!--app:showAsAction="ifRoom"/>-->
+    <!--<item android:id="@+id/title_more1"-->
+    <!--android:title="@string/right2"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/title_more2"-->
+    <!--android:title="@string/right2"-->
+    <!--app:showAsAction="never"/>-->
+</menu>

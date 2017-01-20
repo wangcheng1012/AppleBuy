@@ -69,7 +69,7 @@ public class ParamsInterceptor implements Interceptor {
         //end
 
         // process post body inject
-        String subtype = request.body().contentType().subtype();
+//        String subtype = request.body().contentType().subtype();
         if (request.method().equals("POST") /**&& subtype.equals("x-www-form-urlencoded")*/) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
             //动态参数 强加

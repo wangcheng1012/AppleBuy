@@ -1,4 +1,4 @@
-package com.dw.applebuy.ui.home.shoppingmanage.data;
+package com.dw.applebuy.ui.home.shoppingmanage.data.child;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

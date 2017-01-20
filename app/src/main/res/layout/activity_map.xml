@@ -4,7 +4,7 @@
     android:id="@+id/activity_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dw.applebuy.ui.home.shoppingmanage.data.MapActivity">
+    tools:context="com.dw.applebuy.ui.home.shoppingmanage.data.child.MapActivity">
 
     <fragment
         android:id="@+id/map_titlefragment"

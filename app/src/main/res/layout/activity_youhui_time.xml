@@ -37,6 +37,7 @@
         <TextView
             android:id="@+id/youhuitime_day"
             style="@style/inputtext"
+
             android:hint="请选择营业日" />
 
         <ImageView

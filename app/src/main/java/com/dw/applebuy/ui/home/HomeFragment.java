@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
-import com.dw.applebuy.ui.home.ordermanage.ItemListActivity;
+import com.dw.applebuy.ui.home.ordermanage.OrderListActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.ShoppingManagerActivity;
 import com.wlj.base.adapter.CommonAdapter;
 import com.wlj.base.adapter.ViewHolder;
@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
                     case 2://评论管理
                         break;
                     case 3://订单管理
-                        GoToHelp.go(getActivity(),ItemListActivity.class);
+                        GoToHelp.go(getActivity(),OrderListActivity.class);
                         break;
                     case 4://会员管理
                         break;

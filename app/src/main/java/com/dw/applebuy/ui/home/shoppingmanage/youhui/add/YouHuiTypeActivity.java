@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -102,7 +101,7 @@ public class YouHuiTypeActivity extends BaseFragmentActivity implements Title1Fr
             }
 
             @Override
-            public Observable<List<YouhuiQuanType>> call(FactoryInters apiService) {
+            public Observable<List<YouhuiQuanType>> call(FactoryInters apiService, int curPageStart) {
                 Observable<HttpStateResult<List<YouhuiQuanType>>> couponCategory = apiService.getCouponCategory(/*AppConfig.getAppConfig().get(AppConfig.CONF_KEY)*/);
                 Observable<List<YouhuiQuanType>> observable = couponCategory.map(new Func1<HttpStateResult<List<YouhuiQuanType>>, List<YouhuiQuanType>>() {
                     @Override

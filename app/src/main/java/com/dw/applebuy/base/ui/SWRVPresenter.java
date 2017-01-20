@@ -245,7 +245,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
         AppHttpMethods appHttpMethods = AppHttpMethods.getInstance();
         RetrofitBase retrofitBase = appHttpMethods.getRetrofitBase();
-        Observable<List<T>> observable = presenterAdapter.call(appHttpMethods.getApiService());
+        Observable<List<T>> observable = presenterAdapter.call(appHttpMethods.getApiService(),curPageStart);
         retrofitBase.toSubscribe(observable, subscriber);
     }
 

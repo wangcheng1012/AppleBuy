@@ -84,13 +84,21 @@ public class TabLayoutFragment extends Fragment {
         return view;
     }
 
-    private void initView() {
-
+    /**
+     * 分割线
+     * @param tablayout
+     */
+    private  void splitLine(TabLayout tablayout) {
         //分割线
         LinearLayout child = (LinearLayout) tablayout.getChildAt(0);
         child.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         child.setDividerDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
         child.setDividerPadding(DpAndPx.dpToPx(getContext(), 15));
+    }
+
+
+    private void initView() {
+        splitLine(tablayout);
         //Adapter
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
@@ -210,9 +218,9 @@ public class TabLayoutFragment extends Fragment {
             }
 
             @Override
-            public Observable<List<Coupon>> call(FactoryInters apiService) {
+            public Observable<List<Coupon>> call(FactoryInters apiService, int curPageStart) {
 
-                Observable<HttpStateResult<Coupon[]>> coupon = apiService.getCoupon( 1, sort_type, mTab);
+                Observable<HttpStateResult<Coupon[]>> coupon = apiService.getCoupon( curPageStart, sort_type, mTab);
                 //变换
                 Observable<List<Coupon>> observable = coupon.map(new Func1<HttpStateResult<Coupon[]>, List<Coupon>>() {
 

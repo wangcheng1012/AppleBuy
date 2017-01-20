@@ -44,7 +44,7 @@ public class SWRVContract {
          */
         android.view.View getEmptyView();
 
-        Observable< List<T>>  call(FactoryInters apiService);
+        Observable< List<T>>  call(FactoryInters apiService, int curPageStart);
 
         /**
          * 是否需要加载更多
