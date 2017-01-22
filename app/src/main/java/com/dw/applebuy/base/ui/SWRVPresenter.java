@@ -2,13 +2,17 @@ package com.dw.applebuy.base.ui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.api.RetrofitBase;
 import com.rxmvp.basemvp.BasePresenter;
 import com.wlj.base.R;
@@ -18,6 +22,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,16 +228,20 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
             public void onError(Throwable e) {
                 RefreshingClose();
 
-                onErrorShow(e,"获取数据失败");
+                onErrorShow(e, "获取数据失败");
             }
 
             @Override
             public void onNext(List<T> list) {
-                if (list == null)return;
+                //正常
+                if (list == null) return;
+
                 //以此判定为刷新 就清除原油数据
                 if (curPageEnd <= 1) {
                     datas.clear();
                 }
+
+
                 //是否加载完成
                 if (list.size() <= 0) {
                     isComplate = true;
@@ -245,7 +254,7 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
         AppHttpMethods appHttpMethods = AppHttpMethods.getInstance();
         RetrofitBase retrofitBase = appHttpMethods.getRetrofitBase();
-        Observable<List<T>> observable = presenterAdapter.call(appHttpMethods.getApiService(),curPageStart);
+        Observable<List<T>> observable = presenterAdapter.call(appHttpMethods.getApiService(), curPageStart);
         retrofitBase.toSubscribe(observable, subscriber);
     }
 

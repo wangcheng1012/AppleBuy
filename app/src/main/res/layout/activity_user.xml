@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.dw.applebuy.ui.home.usermanage.UserActivity">
+
+    <fragment
+        android:id="@+id/user_titlefragment"
+        class="com.dw.applebuy.ui.Title2Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/jianbaian_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/user_addnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+87"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <TextView
+            style="@style/textbase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="本月新增会员"
+            android:textColor="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/user_seachtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/shape_rectange_white"
+                android:gravity="center"
+                android:hint="输入会员名称/手机号"
+                android:padding="10dp"
+                android:textColorHint="@color/blue_24B9EB" />
+
+            <ImageView
+                android:id="@+id/user_seach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/user_seachtext"
+                android:layout_alignRight="@+id/user_seachtext"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                app:srcCompat="@drawable/icon_2_seach" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <include layout="@layout/line" />
+
+        <TextView
+            android:layout_margin="10dp"
+            style="@style/textbase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所有会员"  />
+
+        <TextView
+            android:textColor="@color/black2_666666"
+            android:textSize="10sp"
+            android:text="共有 23 个会员（数字黄色）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="109dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/user_usertoalnumber" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/line" />
+
+    <FrameLayout
+        android:id="@+id/user_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.R;
 import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
@@ -24,17 +25,23 @@ import com.dw.applebuy.ui.home.ordermanage.v.Contract;
 import com.rxmvp.api.HttpResultFunc;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.rxmvp.bean.HttpStateResult;
+import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.DpAndPx;
+import com.wlj.base.util.GoToHelp;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
+import rx.functions.Func1;
 
-
+/**
+ * 订单列表
+ */
 public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, OrderListPresenter> implements Contract.OrderListView {
 
     @BindView(R.id.title_back)
@@ -50,7 +57,7 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
     @BindView(R.id.order_viewpager)
     ViewPager viewpage;
 
-    String[] tabtitles = {"全部","未消费","已消费","已完成"};
+    String[] tabtitles = {"全部", "未消费", "已消费", "已完成"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +85,7 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
 
             @Override
             public Fragment getItem(int position) {
-                SWRVFragment  swrvFragment = getItemFragment(position);
+                SWRVFragment swrvFragment = getItemFragment(position);
                 return swrvFragment;
             }
 
@@ -96,7 +103,7 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
         mSWRVFragment.setMyInterface(new SWRVFragment.SWRVInterface() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
-
+                recyclerview.addItemDecoration(new DividerDecoration(getResources().getDrawable(R.drawable.divider_white_f1f1f1_1), DividerDecoration.HORIZONTAL_LIST));
             }
 
             @Override
@@ -108,7 +115,7 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
         return mSWRVFragment;
     }
 
-    private SWRVContract.SWRVPresenterAdapter getMyPresenterAdapter() {
+    private SWRVContract.SWRVPresenterAdapter<CouponOrder> getMyPresenterAdapter() {
         return new SWRVContract.SWRVPresenterAdapter<CouponOrder>() {
 
             @Override
@@ -133,7 +140,9 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
 
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, CouponOrder item) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString(OrderDetailFragment.ARG_ITEM_ID, item.getCode());
+                GoToHelp.go(OrderListActivity.this, OrderDetailActivity.class, bundle);
             }
 
             @Override
@@ -144,7 +153,31 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
             @Override
             public Observable<List<CouponOrder>> call(FactoryInters apiService, int curPageStart) {
                 Observable<HttpStateResult<List<CouponOrder>>> couponOrder = apiService.getCouponOrder(0, curPageStart, 0);
-                Observable<List<CouponOrder>> map = couponOrder.map(new HttpResultFunc<List<CouponOrder>>());
+                Observable<List<CouponOrder>> map;
+                if (BuildConfig.DEBUG) {
+                    map = couponOrder.map(new Func1<HttpStateResult<List<CouponOrder>>, List<CouponOrder>>() {
+                        @Override
+                        public List<CouponOrder> call(HttpStateResult<List<CouponOrder>> listHttpStateResult) {
+
+                            List<CouponOrder> data = listHttpStateResult.getData();
+
+                            if (data == null) {
+                                data = new ArrayList<CouponOrder>();
+                            }
+                            if (data.isEmpty()) {
+                                for (int i = 0; i < 12; i++) {
+                                    data.add(new CouponOrder());
+                                }
+                            }
+
+                            return data;
+                        }
+                    });
+
+                } else {
+                    map = couponOrder.map(new HttpResultFunc<List<CouponOrder>>());
+
+                }
                 return map;
             }
 
@@ -157,21 +190,22 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
 
     /**
      * 分割线
+     *
      * @param tablayout
      */
-    private  void splitLine(TabLayout tablayout) {
+    private void splitLine(TabLayout tablayout) {
         //分割线
         LinearLayout child = (LinearLayout) tablayout.getChildAt(0);
         child.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        child.setDividerDrawable( getResources().getDrawable(R.drawable.shape_divider));
+        child.setDividerDrawable(getResources().getDrawable(R.drawable.shape_divider));
         child.setDividerPadding(DpAndPx.dpToPx(getApplicationContext(), 15));
     }
 
     private void initTitle() {
-        //        setSupportActionBar(toolbar);
         toolbar.setTitle("");
         titleName.setText(getTitle());
         titleBack.setVisibility(View.VISIBLE);
+        setSupportActionBar(toolbar);
     }
 
     @Override

@@ -1,10 +1,13 @@
 package com.dw.applebuy.ui.home.ordermanage.m;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Administrator on 2017/1/20.
  */
 
-public class CouponOrder {
+public class CouponOrder implements Parcelable {
 
 
 //
@@ -38,6 +41,37 @@ public class CouponOrder {
     private String time;
     private String icon;
     private String status;
+
+    public CouponOrder() {
+    }
+
+    protected CouponOrder(Parcel in) {
+        title = in.readString();
+        mct_name = in.readString();
+        address = in.readString();
+        code = in.readString();
+        integral = in.readString();
+        number = in.readString();
+        name = in.readString();
+        head_portrait = in.readString();
+        addtime = in.readString();
+        usetime = in.readString();
+        time = in.readString();
+        icon = in.readString();
+        status = in.readString();
+    }
+
+    public static final Creator<CouponOrder> CREATOR = new Creator<CouponOrder>() {
+        @Override
+        public CouponOrder createFromParcel(Parcel in) {
+            return new CouponOrder(in);
+        }
+
+        @Override
+        public CouponOrder[] newArray(int size) {
+            return new CouponOrder[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -141,5 +175,27 @@ public class CouponOrder {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(mct_name);
+        dest.writeString(address);
+        dest.writeString(code);
+        dest.writeString(integral);
+        dest.writeString(number);
+        dest.writeString(name);
+        dest.writeString(head_portrait);
+        dest.writeString(addtime);
+        dest.writeString(usetime);
+        dest.writeString(time);
+        dest.writeString(icon);
+        dest.writeString(status);
     }
 }

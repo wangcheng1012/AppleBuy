@@ -1,6 +1,9 @@
 package com.rxmvp.api;
 
 import com.rxmvp.bean.HttpStateResult;
+import com.wlj.base.BuildConfig;
+
+import java.util.ArrayList;
 
 import rx.functions.Func1;
 
@@ -16,6 +19,7 @@ public class HttpResultFunc<T> implements Func1<HttpStateResult<T>, T> {
         if (httpResult.getStatus() != 1) {
             throw new ApiException(httpResult.getStatus());
         }
+
         return httpResult.getData();
     }
 }

@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.home.ordermanage.OrderListActivity;
+import com.dw.applebuy.ui.home.scoremanage.ScoreActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.ShoppingManagerActivity;
+import com.dw.applebuy.ui.home.usermanage.UserActivity;
 import com.wlj.base.adapter.CommonAdapter;
 import com.wlj.base.adapter.ViewHolder;
 import com.wlj.base.util.GoToHelp;
@@ -121,8 +123,10 @@ public class HomeFragment extends Fragment {
                         GoToHelp.go(getActivity(),OrderListActivity.class);
                         break;
                     case 4://会员管理
+                        GoToHelp.go(getActivity(),UserActivity.class);
                         break;
                     case 5://积分管理
+                        GoToHelp.go(getActivity(),ScoreActivity.class);
                         break;
 
                 }

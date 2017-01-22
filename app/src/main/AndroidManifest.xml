@@ -52,7 +52,7 @@
             android:label="@string/title_order_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.home.ordermanage.ItemDetailActivity"
+            android:name=".ui.home.ordermanage.OrderDetailActivity"
             android:label="@string/title_order_detail"
             android:parentActivityName=".ui.home.ordermanage.OrderListActivity"
             android:theme="@style/AppTheme">
@@ -74,7 +74,11 @@
         <activity android:name=".ui.home.shoppingmanage.data.child.BusinessScopeActivity" />
         <activity android:name=".ui.home.shoppingmanage.data.child.BusinessTimeActivity" />
         <activity android:name=".ui.home.shoppingmanage.data.child.ChooseWeekActivity" />
-        <activity android:name=".ui.home.commentmanage.CommentActivity"></activity>
+        <activity android:name=".ui.home.commentmanage.CommentActivity" />
+        <activity android:name=".ui.home.usermanage.UserActivity" />
+        <activity android:name=".ui.home.usermanage.AddUserActivity" />
+        <activity android:name=".ui.home.usermanage.ModifyUserActivity" />
+        <activity android:name=".ui.home.scoremanage.ScoreActivity"></activity>
     </application>
 
 </manifest>

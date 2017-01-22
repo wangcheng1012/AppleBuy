@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dw.applebuy.R;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BaseMvpFragment;
-import com.wlj.base.ui.BaseFragment;
 import com.wlj.base.util.UIHelper;
 
 import butterknife.BindView;
@@ -35,7 +33,7 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     @Override
     public SWRVPresenter initPresenter() {
-        return new SWRVPresenter (getActivity());
+        return new SWRVPresenter<T> (getActivity());
     }
 
     @Nullable
@@ -48,7 +46,7 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
         return  view;
     }
 
-    private void initView() {
+    protected void initView() {
 
         presenter.setPresenterAdapter(myInterface.getPresenterAdapter());
 
