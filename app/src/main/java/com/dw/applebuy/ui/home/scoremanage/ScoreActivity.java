@@ -1,9 +1,9 @@
 package com.dw.applebuy.ui.home.scoremanage;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +13,7 @@ import com.wlj.base.util.GoToHelp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 积分管理
@@ -30,16 +31,18 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
     ImageView scoreBarIn;
     @BindView(R.id.user_usertoalnumber)
     TextView userUsertoalnumber;
-    @BindView(R.id.score_container)
-    FrameLayout scoreContainer;
+    @BindView(R.id.score_viewpage)
+    ViewPager viewpage;
+
+    private  ImageView curSelectBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
         ButterKnife.bind(this);
-        scoreBarOut.setSelected(true);
 
+        toggleBarSelect();
     }
 
     @Override
@@ -55,4 +58,32 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
             }
         });
     }
+
+    @OnClick({R.id.score_bar_out, R.id.score_bar_in})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.score_bar_out:
+                toggleBarSelect();
+                break;
+            case R.id.score_bar_in:
+                toggleBarSelect();
+                break;
+        }
+    }
+
+    /**
+     * 切换bar
+     */
+   private void toggleBarSelect(){
+
+       if(curSelectBar == scoreBarOut){
+           curSelectBar = scoreBarIn;
+           scoreBarIn.setSelected(true);
+           scoreBarOut.setSelected(false);
+       }else{
+           curSelectBar = scoreBarOut;
+           scoreBarIn.setSelected(false);
+           scoreBarOut.setSelected(true);
+       }
+   }
 }
