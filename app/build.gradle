@@ -33,16 +33,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':base')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
     compile('com.android.support:support-v4:23.4.0') {
         force = true;
     }
     compile('com.android.support:recyclerview-v7:23.4.0') {
         exclude module: 'support-v4'
     }
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //    compile 'io.reactivex.rxjava2:rxjava:2.0.4'
     //    /*rotrofit*/
@@ -52,4 +48,9 @@ dependencies {
     //    compile 'com.squareup.retrofit2:adapter-rxjava:+'//retrofit现在只支持到rxjava1.XX 会报错：DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties
     compile project(path: ':photopicker')
     compile files('libs/BaiduLBS_Android.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

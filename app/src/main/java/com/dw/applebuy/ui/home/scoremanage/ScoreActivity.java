@@ -1,19 +1,42 @@
 package com.dw.applebuy.ui.home.scoremanage;
 
+import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
+import com.dw.applebuy.base.api.FactoryInters;
+import com.dw.applebuy.base.ui.SWRVContract;
+import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.scoremanage.m.ScoreListResult;
+import com.google.gson.JsonArray;
+import com.rxmvp.bean.HttpStateResult;
+import com.wlj.base.adapter.MyFragmentStatePagerAdapter;
 import com.wlj.base.util.GoToHelp;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * 积分管理
@@ -30,11 +53,11 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
     @BindView(R.id.score_bar_in)
     ImageView scoreBarIn;
     @BindView(R.id.user_usertoalnumber)
-    TextView userUsertoalnumber;
+    TextView usertoalnumber;
     @BindView(R.id.score_viewpage)
     ViewPager viewpage;
 
-    private  ImageView curSelectBar;
+    private View curSelectBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +65,51 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
         setContentView(R.layout.activity_score);
         ButterKnife.bind(this);
 
-        toggleBarSelect();
+        toggleBarSelect(scoreBarOut);
+
+        initViewPage();
+    }
+
+    private void initViewPage() {
+        final List<Fragment> list = new ArrayList<>();
+        list.add(ScoreFragment.newInstance(ScoreFragment.inOrOut_out));
+        list.add(ScoreFragment.newInstance(ScoreFragment.inOrOut_in));
+
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public int getCount() {
+                return list.size();
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                return list.get(position);
+            }
+        };
+
+        viewpage.setAdapter(pagerAdapter);
+
+        viewpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0){
+                    toggleBarSelect(scoreBarOut);
+                }else{
+                    toggleBarSelect(scoreBarIn);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
     @Override
@@ -54,7 +121,7 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
             @Override
             public void onClick(View v) {
 
-                GoToHelp.go(ScoreActivity.this, ScoreActivity.class);
+                GoToHelp.go(ScoreActivity.this, ReChangeScoreActivity.class);
             }
         });
     }
@@ -63,10 +130,12 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.score_bar_out:
-                toggleBarSelect();
+                //赠送
+                viewpage.setCurrentItem(0);
                 break;
             case R.id.score_bar_in:
-                toggleBarSelect();
+                //收入
+                viewpage.setCurrentItem(1);
                 break;
         }
     }
@@ -74,16 +143,23 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
     /**
      * 切换bar
      */
-   private void toggleBarSelect(){
+    private void toggleBarSelect(View iv) {
 
-       if(curSelectBar == scoreBarOut){
-           curSelectBar = scoreBarIn;
-           scoreBarIn.setSelected(true);
-           scoreBarOut.setSelected(false);
-       }else{
-           curSelectBar = scoreBarOut;
-           scoreBarIn.setSelected(false);
-           scoreBarOut.setSelected(true);
-       }
-   }
+        if (iv == scoreBarOut) {
+            //赠送
+            if (curSelectBar == scoreBarOut) return;
+            curSelectBar = scoreBarOut;
+            scoreBarIn.setImageResource(R.drawable.shape_huatiao_3);
+            scoreBarOut.setImageResource(R.drawable.shape_huatiao_6);
+
+        } else {
+            //收入
+            if (curSelectBar == scoreBarIn) return;
+            curSelectBar = scoreBarIn;
+            scoreBarIn.setImageResource(R.drawable.shape_huatiao_6);
+            scoreBarOut.setImageResource(R.drawable.shape_huatiao_3);
+        }
+
+    }
+
 }

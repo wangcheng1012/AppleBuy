@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * 订单详情
@@ -116,9 +117,15 @@ public class OrderDetailFragment extends SWRVFragment<Comment> {
             public Observable<List<Comment>> call(FactoryInters apiService, int curPageStart) {
                 Observable<HttpStateResult<List<CouponOrder>>> couponOrder = apiService.getCouponOrder(code, 0, status);
 
-                Observable<List<CouponOrder>> map = couponOrder.map(new HttpResultFunc<List<CouponOrder>>());
+                Observable<List<Comment>> map = couponOrder.map(new Func1<HttpStateResult<List<CouponOrder>>, List<Comment>>() {
+                    @Override
+                    public List<Comment> call(HttpStateResult<List<CouponOrder>> listHttpStateResult) {
 
-                return null;
+                        return null;
+                    }
+                } );
+
+                return map;
             }
 
             @Override

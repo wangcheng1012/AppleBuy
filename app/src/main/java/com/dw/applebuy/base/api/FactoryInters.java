@@ -4,20 +4,20 @@ import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.ui.home.ordermanage.m.CouponOrder;
+import com.dw.applebuy.ui.home.scoremanage.m.ScoreListResult;
 import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
 import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
-import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityAreaRequest;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.dw.applebuy.ui.set.m.AboutUsModel;
-import com.rxmvp.bean.ResultResponse;
+import com.google.gson.JsonArray;
 import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.ResultResponse;
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -135,4 +135,18 @@ public interface FactoryInters {
     @FormUrlEncoded
     @POST("app/coupon/getCouponOrder")
     Observable<HttpStateResult<List<CouponOrder>>> getCouponOrder(@Field("code")int code,@Field("page")int page,@Field("status") int status);
+
+    /**
+     *  商家积分管理列表[消费记录]
+      * @param page  分页
+     * @param json   	[1]--表示赠送会员积分 [2,3]--表示充值和兑换
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/integral/getIntegralDetails")
+    Observable<HttpStateResult<ScoreListResult>> getScoreList(@Field("page")int page, @Field("type") String json);
+
+
+
+
 }

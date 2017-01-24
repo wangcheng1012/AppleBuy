@@ -4,9 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Administrator on 2017/1/20.
+ *  评论 订单
  */
-
 public class CouponOrder implements Parcelable {
 
 

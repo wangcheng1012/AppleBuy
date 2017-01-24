@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.dw.applebuy.ui.songjifen.CreartUserActivity">
+
+    <fragment
+        android:id="@+id/CreartUser_titlefragment"
+        class="com.dw.applebuy.ui.Title2Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawableLeft="@drawable/icon_59"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="平台无此用户，创建会员信息"
+        android:textColor="@color/black2_666666"
+        android:textSize="18sp" />
+
+    <include layout="@layout/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            style="@style/textbase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="手机号    " />
+
+        <EditText
+            android:id="@+id/creart_user_phone"
+            style="@style/inputtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/line_matchleft10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            style="@style/textbase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="用户姓名" />
+
+        <EditText
+            android:id="@+id/creart_user_name"
+            style="@style/inputtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/line_matchleft10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/creart_user_verify"
+            style="@style/inputtext"
+            android:layout_weight="1"
+            android:hint="请输入验证码"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/pushverify"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_identify_code_selector"
+            android:text="发送验证码"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/line" />
+
+    <Button
+        android:id="@+id/creart_user_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_corner"
+        android:text="确认赠送"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

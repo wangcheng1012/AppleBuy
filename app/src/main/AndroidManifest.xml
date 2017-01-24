@@ -78,7 +78,14 @@
         <activity android:name=".ui.home.usermanage.UserActivity" />
         <activity android:name=".ui.home.usermanage.AddUserActivity" />
         <activity android:name=".ui.home.usermanage.ModifyUserActivity" />
-        <activity android:name=".ui.home.scoremanage.ScoreActivity"></activity>
+        <activity android:name=".ui.home.scoremanage.ScoreActivity" />
+        <activity android:name=".ui.home.scoremanage.ReChangeScoreActivity" />
+        <activity android:name=".ui.pay.PayActivity" />
+        <activity android:name=".ui.pay.RechangeBackActivity" />
+        <activity android:name=".ui.songjifen.CreartUserActivity" />
+        <activity android:name=".ui.songjifen.PhoneVerifySuccessActivity" />
+        <activity android:name=".ui.songjifen.InputPhoneActivity" />
+        <activity android:name=".ui.songjifen.GiveSuccessActivity"></activity>
     </application>
 
 </manifest>

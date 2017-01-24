@@ -1,20 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.songjifen.JiFenFragment">
+    tools:context="com.dw.applebuy.ui.songjifen.InputPhoneActivity">
 
-    <TextView
-        android:id="@+id/title2_title"
+    <fragment
+        android:id="@+id/inputphone_titlefragment"
+        class="com.dw.applebuy.ui.Title2Fragment"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_centerInParent="true"
-        android:background="@color/blue_24B9EB"
-        android:gravity="center"
-        android:text="送积分"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title2" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,40 +20,39 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="35dp"
-        android:text="赠送积分"
+        android:text="输入手机号码"
         android:textColor="@color/black2_666666"
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/jifen_jifen"
+        android:id="@+id/inputphone_phone"
         style="@style/textbase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:digits="0123456789"
         android:gravity="center"
-        android:hint="请输入要赠送的积分"
+        android:textColorHint="@color/black4_cccccc"
+        android:hint="请输入手机号"
         android:inputType="number"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/jifen_saosao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+    <View
+        android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/shape_corner_blue"
-        android:text="扫一扫"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/black4_cccccc"  />
 
 
     <Button
-        android:id="@+id/jifen_phone"
+        android:id="@+id/inputphone_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -64,8 +61,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_corner"
-        android:text="输入手机号"
+        android:text="验证"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
+
+
+
 
 </LinearLayout>

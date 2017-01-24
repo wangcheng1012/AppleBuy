@@ -48,24 +48,27 @@
 
             <ImageView
                 android:id="@+id/score_bar_out"
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:src="@drawable/score_bar" />
+                android:adjustViewBounds="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/score_bar_in"
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/user_seachtext"
                 android:layout_alignRight="@+id/user_seachtext"
-                android:layout_centerVertical="true"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
-                android:background="@null"
-                android:src="@drawable/score_bar" />
-
+                android:adjustViewBounds="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:scaleType="fitXY" />
 
         </LinearLayout>
 
