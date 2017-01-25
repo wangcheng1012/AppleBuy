@@ -3,6 +3,8 @@ package com.dw.applebuy.base.api;
 import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.been.LoginBack;
+import com.dw.applebuy.been.RechageScoreOrder;
+import com.dw.applebuy.been.ScorePackage;
 import com.dw.applebuy.ui.set.m.AboutUsModel;
 import com.rxmvp.api.ApiException;
 import com.rxmvp.api.HttpResultFunc;
@@ -157,4 +159,31 @@ public class AppHttpMethods {
                 .map(new HttpResultFunc<AboutUsModel>() );
         subscribe(aboutUs,subscriber);
     }
+
+    /**
+     * 商家-充值时积分套餐
+     * @param subscriber
+     */
+    public void getMctIntegralPackage(Subscriber< ScorePackage> subscriber) {
+        Observable <ScorePackage> aboutUs = apiService.getMctIntegralPackage()
+                .map(new HttpResultFunc<ScorePackage>());
+        subscribe(aboutUs,subscriber);
+    }
+
+
+    /**
+     *  商家-微信/支付宝 支付接kou
+     * @param subscriber
+     * @param id         套餐ID (传ID 可以不传积分)
+     * @param integral   积分 (散积分 可以不传ID)
+     */
+    public void rechargeIntegral(Subscriber< RechageScoreOrder> subscriber,Integer id,Integer integral) {
+        Observable <RechageScoreOrder> aboutUs = apiService.rechargeIntegral(id,integral)
+                .map(new HttpResultFunc<RechageScoreOrder>());
+        subscribe(aboutUs,subscriber);
+    }
+
+
+
+
 }

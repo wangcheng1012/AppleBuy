@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@drawable/score_package_selector"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/scorepackage_score"
+        style="@style/textbase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="52222"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/scorepackage_description"
+        style="@style/textbase"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="52222"
+        android:textColor="@color/blue_24B9EB" />
+
+</LinearLayout>

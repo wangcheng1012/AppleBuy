@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_F1F1F1"
     android:orientation="vertical"
     tools:context="com.dw.applebuy.ui.home.scoremanage.ReChangeScoreActivity">
 
@@ -14,101 +15,119 @@
         android:layout_marginBottom="10dp"
         tools:layout="@layout/fragment_title2" />
 
-    <include layout="@layout/line" />
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/textbase"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:padding="10dp"
-            android:text="充值积分" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/rechangescore_score"
-            style="@style/textbase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="10dp"
-            android:text="5000" />
+            <include layout="@layout/line" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-    <include layout="@layout/line" />
+                <TextView
+                    style="@style/textbase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="充值积分" />
 
-    <android.support.v4.widget.Space
-        android:layout_width="0dp"
-        android:layout_height="10dp" />
+                <EditText
+                    android:id="@+id/rechangescore_score"
+                    style="@style/inputtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:hint="请输入积分"
+                    android:inputType="phone"
+                    android:padding="10dp"
+                    android:text="" />
 
-    <include layout="@layout/line" />
+            </LinearLayout>
 
-    <TextView
-        style="@style/textbase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:text="优惠套餐" />
+            <include layout="@layout/line" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rechangescore_RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp" />
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="10dp" />
 
-    <include layout="@layout/line" />
+            <include layout="@layout/line" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                style="@style/textbase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:text="优惠套餐" />
 
-        <TextView
-            android:id="@+id/rechangescore_money"
-            style="@style/textbase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:padding="10dp"
-            android:text="@string/rechangescore_money"
-            android:textColor="@color/black2_666666" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rechangescore_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/rechangescore_score_total"
-            style="@style/textbase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="10dp"
-            android:text="@string/rechangescore_score"
-            android:textColor="@color/black2_666666" />
+            <include layout="@layout/line" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/rechangescore_money"
+                    style="@style/textbase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="@string/rechangescore_money"
+                    android:textColor="@color/black2_666666" />
 
-    <include layout="@layout/line" />
-
-    <Button
-        android:id="@+id/rechangescore_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape_corner"
-        android:text="确认充值"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/rechangescore_score_total"
+                    style="@style/textbase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="@string/rechangescore_score"
+                    android:textColor="@color/black2_666666" />
 
 
+            </LinearLayout>
+
+            <include layout="@layout/line" />
+
+            <Button
+                android:id="@+id/rechangescore_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_corner"
+                android:text="确认充值"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

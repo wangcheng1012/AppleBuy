@@ -35,6 +35,24 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="r5AATPw9f0soBFBFXUGp6ib5" />
 
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:screenOrientation="portrait" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wx622e032827e49132"/>
+            </intent-filter>
+
+        </activity>
+
         <activity android:name=".ui.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

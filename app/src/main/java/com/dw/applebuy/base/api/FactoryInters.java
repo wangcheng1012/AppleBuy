@@ -3,6 +3,8 @@ package com.dw.applebuy.base.api;
 import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.been.LoginBack;
+import com.dw.applebuy.been.RechageScoreOrder;
+import com.dw.applebuy.been.ScorePackage;
 import com.dw.applebuy.ui.home.ordermanage.m.CouponOrder;
 import com.dw.applebuy.ui.home.scoremanage.m.ScoreListResult;
 import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
@@ -145,6 +147,23 @@ public interface FactoryInters {
     @FormUrlEncoded
     @POST("app/integral/getIntegralDetails")
     Observable<HttpStateResult<ScoreListResult>> getScoreList(@Field("page")int page, @Field("type") String json);
+
+    /**
+     * 商家-充值时积分套餐
+     * @return
+     */
+    @POST("app/Common/getMctIntegralPackage")
+    Observable<HttpStateResult<ScorePackage>> getMctIntegralPackage( );
+
+    /**
+     * 商家-微信/支付宝 支付接kou
+     * @param id   	 套餐ID (传ID 可以不传积分)
+     * @param integral  积分 (散积分 可以不传ID)
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/integral/rechargeIntegral")
+    Observable<HttpStateResult<RechageScoreOrder>> rechargeIntegral(@Field("id")Integer id, @Field("integral") Integer integral);
 
 
 
