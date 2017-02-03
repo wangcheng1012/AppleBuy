@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.hd.wlj.third.pay.alipay.AlipayBean;
+import com.wlj.base.util.StringUtils;
 
 /**
  *  充值积分是获取订单的返回接口
@@ -83,7 +85,7 @@ public class RechageScoreOrder implements Parcelable {
         private String amount;
         private String integral;
         private int status;
-        private int addtime;
+        private long addtime;
         private String callback;
 
         protected PayOrderBean(Parcel in) {
@@ -93,7 +95,7 @@ public class RechageScoreOrder implements Parcelable {
             amount = in.readString();
             integral = in.readString();
             status = in.readInt();
-            addtime = in.readInt();
+            addtime = in.readLong();
             callback = in.readString();
         }
 
@@ -157,11 +159,11 @@ public class RechageScoreOrder implements Parcelable {
             this.status = status;
         }
 
-        public int getAddtime() {
+        public long getAddtime() {
             return addtime;
         }
 
-        public void setAddtime(int addtime) {
+        public void setAddtime(long addtime) {
             this.addtime = addtime;
         }
 
@@ -186,9 +188,24 @@ public class RechageScoreOrder implements Parcelable {
             dest.writeString(amount);
             dest.writeString(integral);
             dest.writeInt(status);
-            dest.writeInt(addtime);
+            dest.writeLong(addtime);
             dest.writeString(callback);
         }
+
+        public AlipayBean getAlipayPay() {
+            AlipayBean alipayBean = new AlipayBean();
+            alipayBean.setTimestamp(StringUtils.getTime(getAddtime(),"yyyy-MM-dd HH:mm:ss"));
+            alipayBean.setNotify_url(getCallback());
+            alipayBean.setBody(getIntegral());
+            alipayBean.setSubject(getPackage_id());
+            alipayBean.setOut_trade_no(getTrans_code());
+            alipayBean.setTotal_amount(getAmount());
+            alipayBean.setStore_id(getMerchant_id());
+            alipayBean.setPassback_params(getPackage_id());
+            return alipayBean;
+        }
+
+
     }
 
     public static class WxParamBean implements Parcelable {

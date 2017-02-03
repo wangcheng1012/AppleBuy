@@ -72,20 +72,32 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <RelativeLayout
+
             android:id="@+id/home_lijirenzheng_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#99ffffff">
+            android:background="#99ffffff"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/home_lijirenzheng"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/icon_lijirenzheng" />
 
-        </FrameLayout>
+            <TextView
+                style="@style/textbase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_lijirenzheng"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="请完成实名认证，保护商家权益" />
+
+        </RelativeLayout>
 
     </FrameLayout>
 

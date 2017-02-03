@@ -17,10 +17,14 @@ import rx.Subscriber;
  */
 public class ReChangeScorePresenter extends BasePresenter<Contract.ReChangeScoreView> {
     private ScorePackage scorePackage;
+    /**
+     * 钱保留的小数位数
+     */
+    private int DecimalDigit = 2;
 
     public void getScorePackage() {
-        Subscriber< ScorePackage>  ob = new Subscriber<ScorePackage>() {
 
+        Subscriber< ScorePackage>  ob = new Subscriber<ScorePackage>() {
 
             @Override
             public void onCompleted() {
@@ -44,7 +48,6 @@ public class ReChangeScorePresenter extends BasePresenter<Contract.ReChangeScore
 
     }
 
-
     public void jisuan(String s) {
         if(scorePackage == null ){
             toastMessage("请先获取套餐数据");
@@ -54,7 +57,7 @@ public class ReChangeScorePresenter extends BasePresenter<Contract.ReChangeScore
         if(integralMoney != null){
             String money = integralMoney.getIntegral_money();
 
-            BigDecimal divide = MathUtil.divide(s, money, 3);
+            BigDecimal divide = MathUtil.divide(s, money,DecimalDigit);
 
             if (mView != null ) {
                 mView.jisuanBack(divide,s);

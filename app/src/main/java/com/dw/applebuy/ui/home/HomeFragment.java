@@ -11,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.home.ordermanage.OrderListActivity;
+import com.dw.applebuy.ui.home.renzheng.RenZhengActivity;
 import com.dw.applebuy.ui.home.scoremanage.ScoreActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.ShoppingManagerActivity;
 import com.dw.applebuy.ui.home.usermanage.UserActivity;
@@ -45,7 +47,7 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.home_lijirenzheng)
     ImageView homeLijirenzheng;
     @BindView(R.id.home_lijirenzheng_layout)
-    FrameLayout homeLijirenzhengLayout;
+    RelativeLayout homeLijirenzhengLayout;
     @BindView(R.id.home_gridview)
     GridView homeGridview;
 
@@ -158,12 +160,15 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    @OnClick({R.id.title_left, R.id.title_right})
+    @OnClick({R.id.title_left, R.id.title_right,R.id.home_lijirenzheng})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_left:
                 break;
             case R.id.title_right:
+                break;
+            case R.id.home_lijirenzheng:
+                GoToHelp.go(getActivity(), RenZhengActivity.class);
                 break;
         }
     }

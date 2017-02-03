@@ -18,6 +18,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 支付宝 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.wlj.base.util.AppContext"
@@ -37,22 +43,20 @@
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
-            android:launchMode="singleTop"/>
-
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:screenOrientation="portrait" >
-
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wx622e032827e49132"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wx622e032827e49132" />
             </intent-filter>
-
         </activity>
-
         <activity android:name=".ui.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -103,7 +107,8 @@
         <activity android:name=".ui.songjifen.CreartUserActivity" />
         <activity android:name=".ui.songjifen.PhoneVerifySuccessActivity" />
         <activity android:name=".ui.songjifen.InputPhoneActivity" />
-        <activity android:name=".ui.songjifen.GiveSuccessActivity"></activity>
+        <activity android:name=".ui.songjifen.GiveSuccessActivity" />
+        <activity android:name=".ui.home.renzheng.RenZhengActivity"></activity>
     </application>
 
 </manifest>

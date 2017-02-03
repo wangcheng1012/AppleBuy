@@ -14,6 +14,7 @@ import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.google.gson.Gson;
 import com.hd.wlj.third.pay.WeiXinPay;
+import com.hd.wlj.third.pay.alipay.AlipayPay;
 import com.wlj.base.util.GoToHelp;
 
 import org.json.JSONException;
@@ -100,6 +101,12 @@ public class PayActivity extends AppCompatActivity implements Title1Fragment.Tit
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }else if(curPayWay == payZhifubao){
+                    RechageScoreOrder.PayOrderBean  pay_order = rechageScoreOrder.getPay_order();
+
+                    AlipayPay alipayPay = new AlipayPay(this);
+                    alipayPay.payV2(pay_order.getAlipayPay());
+
                 }
 
                 break;

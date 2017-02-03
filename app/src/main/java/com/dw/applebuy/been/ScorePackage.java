@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class ScorePackage {
 
-
     /**
      * package : [{"id":"5","description":"优惠25","integral":"50000","price":"475.00"},{"id":"6","description":"优惠50","integral":"100000","price":"950.00"}]
      * integral_money : {"integral_money":"100"}

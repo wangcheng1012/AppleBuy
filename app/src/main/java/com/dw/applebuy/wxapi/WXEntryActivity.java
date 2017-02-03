@@ -10,7 +10,7 @@ import com.dw.applebuy.R;
 import com.dw.applebuy.ui.loginreg.LoginActivity;
 import com.hd.wlj.third.quicklogin.qq.UserInfoBack;
 import com.hd.wlj.third.quicklogin.wx.WXLogin;
-import com.hd.wlj.third.share.Constants;
+import com.hd.wlj.third.Constants;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;

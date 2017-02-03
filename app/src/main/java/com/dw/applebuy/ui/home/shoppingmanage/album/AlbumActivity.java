@@ -52,10 +52,16 @@ public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPres
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.album_uploadfirst:
-                GoToHelp.go(this,UpLoadImageActivity.class);
+                Bundle bundle2 = new Bundle();
+//                bundle2.putString("tip","手持证件人面部无遮挡，五官清晰可见\n 身份证各项信息及头像均清晰可见，无遮挡");
+                bundle2.putInt("requestCode",UpLoadImageActivity.album_uploadfirst);
+                GoToHelp.goResult(this,UpLoadImageActivity.class,UpLoadImageActivity.album_uploadfirst,bundle2);
                 break;
             case R.id.album_uploadmore:
-                GoToHelp.go(this,UpLoadImageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tip","请上传清晰的店铺外内景图，可大大提高曝光率以及用户购买率（可上传15张）");
+                bundle.putInt("requestCode",UpLoadImageActivity.album_uploadmore);
+                GoToHelp.goResult(this,UpLoadImageActivity.class,UpLoadImageActivity.album_uploadmore,bundle);
                 break;
         }
     }
