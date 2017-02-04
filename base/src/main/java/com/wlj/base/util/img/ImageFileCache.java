@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import com.orhanobut.logger.Logger;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.Log;
 
@@ -25,7 +24,7 @@ public class ImageFileCache {
     public static final String CACHDIR = "imgCach";
 
     public static final String WHOLESALE_CONV = ".cach";
-    public static final String crop = "crop";
+    public static final String CropCache = "CropCache";
 
     /**
      * 过期时间3天
@@ -172,6 +171,34 @@ public class ImageFileCache {
     }
 
     /**
+     * 移除裁剪保存的图片
+     */
+    public static void removeCropCache() {
+
+        File dir = new File(CropCacheDirectory());
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return;
+        }
+        for (int i = 0; i < files.length; i++) {
+
+            if (files[i].getName().contains(CropCache)) {
+                files[i].delete();
+            }
+        }
+
+    }
+
+    public static String getCropCachePath() {
+        return CropCacheDirectory()+ String.valueOf(System.currentTimeMillis()).substring(3) + ImageFileCache.CropCache + ".jpg";
+    }
+
+    public static String CropCacheDirectory(){
+
+        return AppConfig.getAppConfig().getImagePath();
+    }
+
+    /**
      * 计算存储目录下的文件大小，
      * <p>
      * 当文件总大小大于规定的CACHE_SIZE或者sdcard剩余空间小于FREE_SD_SPACE_NEEDED_TO_CACHE的规定
@@ -180,7 +207,6 @@ public class ImageFileCache {
      *
      * @param dirPath
      */
-
     private boolean removeCache(String dirPath) {
 
         File dir = new File(dirPath);
@@ -190,22 +216,18 @@ public class ImageFileCache {
         if (files == null) {
 
             return true;
-
         }
 
-        if (!Environment.getExternalStorageState().equals(
-
-                Environment.MEDIA_MOUNTED)) {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 
             return false;
-
         }
 
         int dirSize = 0;
 
         for (int i = 0; i < files.length; i++) {
 
-            if (files[i].getName().contains(WHOLESALE_CONV) || files[i].getName().contains(crop)) {
+            if (files[i].getName().contains(WHOLESALE_CONV) || files[i].getName().contains(CropCache)) {
 
                 dirSize += files[i].length();
 
@@ -228,7 +250,7 @@ public class ImageFileCache {
 
             for (int i = 0; i < removeFactor; i++) {
 
-                if (files[i].getName().contains(WHOLESALE_CONV) || files[i].getName().contains(crop)) {
+                if (files[i].getName().contains(WHOLESALE_CONV) || files[i].getName().contains(CropCache)) {
 
                     files[i].delete();
 
@@ -404,12 +426,12 @@ public class ImageFileCache {
     public ImageFileCache display(String path, ImageView imageView, int width, int height) {
 
         BitmapLoadTask loadTask = new BitmapLoadTask(path, imageView);
-        loadTask.execute(width,height);
+        loadTask.execute(width, height);
 
         return this;
     }
 
-    public ImageFileCache getBitmap(Bitmap bitmap){
+    public ImageFileCache getBitmap(Bitmap bitmap) {
 
         return this;
     }
@@ -444,9 +466,9 @@ public class ImageFileCache {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            if(container == null){
+            if (container == null) {
                 getBitmap(bitmap);
-            }else{
+            } else {
                 container.setImageBitmap(bitmap);
             }
         }

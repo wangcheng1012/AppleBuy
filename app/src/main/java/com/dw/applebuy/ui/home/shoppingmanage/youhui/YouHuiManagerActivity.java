@@ -44,7 +44,7 @@ public class YouHuiManagerActivity extends AppCompatActivity {
                         fragment = TabLayoutFragment.newInstance(TabLayoutFragment.XIAJIA);
                         break;
                     case R.id.youhuimanager_kind://分类
-                        fragment = TabLayoutFragment.newInstance(TabLayoutFragment.XIAJIA);
+                        fragment = TabLayoutFragment.newInstance(TabLayoutFragment.KIND);
                         break;
                 }
                 transaction.replace(R.id.titletab_content, fragment);

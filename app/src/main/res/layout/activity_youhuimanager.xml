@@ -67,7 +67,7 @@
                 android:background="@drawable/youhuimanager_title_kind"
                 android:button="@null"
                 android:gravity="center"
-                android:text="分类"
+                android:text="审核中"
                 android:textColor="@color/youhuimanager_title_textcolor"
                 android:textSize="12sp" />
         </RadioGroup>

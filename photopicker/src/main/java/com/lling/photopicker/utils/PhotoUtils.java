@@ -53,9 +53,14 @@ public class PhotoUtils {
                 String path = mCursor.getString(pathIndex);
                 String id = mCursor.getString(idIndex);
 
+                File file = new File(path);
                 // 获取该图片的父路径名
-                File parentFile = new File(path).getParentFile();
+                File parentFile = file.getParentFile();
                 if (parentFile == null) {
+                    continue;
+                }
+                if(!file.exists()){
+                    file.delete();
                     continue;
                 }
                 String dirPath = parentFile.getAbsolutePath();

@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.wlj.base.util.img.ImageFileCache;
+
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -88,9 +90,7 @@ public class OtherUtils {
     public static File createFile(Context context) {
         File file;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            String timeStamp = String.valueOf(new Date().getTime());
-            file = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + timeStamp + ".jpg");
+            file = new File(ImageFileCache.getCropCachePath());
         } else {
             File cacheDir = context.getCacheDir();
             String timeStamp = String.valueOf(new Date().getTime());

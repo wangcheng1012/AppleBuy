@@ -29,6 +29,7 @@ import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.StringUtils;
+import com.wlj.base.util.img.ImageFileCache;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
     private final int RequestCode_type = 22;
 
     private TakePhotoCrop takePhotoCrop;
+
     private String imagePath;
 
     @Override
@@ -83,7 +85,6 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
 //        type.setText();
         title.setText(coupon.getTitle());
         time.setText(coupon.getEnd_time());
-
     }
 
     @Override
@@ -146,10 +147,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
             type.setTag(mYouhuiQuanType.getId());
         } else if (requestCode == TakePhotoCrop.IMAGE) {
             //图片选择
-//                ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
-            ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
-
-            takePhotoCrop.onCrop(Uri.parse(uristr.get(0)));
+            takePhotoCrop.onCrop(data);
         }
 
     }
@@ -159,7 +157,6 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
         String time = StringUtils.getTime(date, "yyyy-MM-dd");
         this.time.setText(time);
     }
-
 
     //——————————
     @Override
@@ -189,6 +186,10 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
 //        GoToHelp.go(this, ImageAdjustmentActivity.class, bundle);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        takePhotoCrop.removeCropCache();
+    }
 
 }

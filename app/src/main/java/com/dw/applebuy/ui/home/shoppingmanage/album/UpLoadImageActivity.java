@@ -68,5 +68,6 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
     @OnClick(R.id.upload_image_upbt)
     public void onClick() {
+
     }
 }

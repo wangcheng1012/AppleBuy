@@ -45,12 +45,14 @@ public class TabLayoutFragment extends Fragment {
     private static final String TAB = "tab";
     public static int SHOEING = 2;
     public static int XIAJIA = 3;
+    public static int KIND = 4;
 
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.viewpage)
     ViewPager viewpage;
     private String[] tabtitles = {"添加时间", "销量", "库存"};
+    private String[] tabtitles2 = {"草稿箱", "审核中"};
 
     private int mTab;
     private int sort_type;
@@ -73,6 +75,9 @@ public class TabLayoutFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTab = getArguments().getInt(TAB, SHOEING);
+            if(mTab == KIND ) {
+                tabtitles = {"草稿箱", "审核中"};
+            }
         }
     }
 

@@ -22,7 +22,6 @@ import okio.Buffer;
 
 /**
  * 添加统一 请求参数
- *
  */
 public class ParamsInterceptor implements Interceptor {
 
@@ -69,13 +68,17 @@ public class ParamsInterceptor implements Interceptor {
         //end
 
         // process post body inject
-//        String subtype = request.body().contentType().subtype();
-        if (request.method().equals("POST") /**&& subtype.equals("x-www-form-urlencoded")*/) {
+        MediaType mediaType1 = request.body().contentType();
+
+        if (mediaType1 != null && mediaType1.subtype().indexOf("form-data") >= 0) {
+            //不能去添加sessionid
+
+        } else if (request.method().equals("POST") /* && (mediaType1 == null || mediaType1.subtype().equals("x-www-form-urlencoded") )*/) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
             //动态参数 强加
             String sessionId = AppConfig.getAppConfig().get(AppConfig.CONF_KEY);
-            if(!sessionId.isEmpty()){
-                formBodyBuilder.add("sessionid",sessionId);
+            if (!sessionId.isEmpty()) {
+                formBodyBuilder.add("sessionid", sessionId);
             }
 
             if (paramsMap.size() > 0) {
@@ -89,7 +92,10 @@ public class ParamsInterceptor implements Interceptor {
             String postBodyString = bodyToString(request.body());
             postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
             Logger.d(postBodyString);
-            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
+            if (mediaType1 == null) {
+                mediaType1 = MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8");
+            }
+            requestBuilder.post(RequestBody.create(mediaType1, postBodyString));
         } else {    // can't inject into body, then inject into url
             injectParamsIntoUrl(request, requestBuilder, paramsMap);
         }

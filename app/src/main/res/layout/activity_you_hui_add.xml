@@ -41,8 +41,8 @@
 
                 <ImageView
                     android:id="@+id/youhuiadd_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_margin="10dp"
                     android:src="@drawable/icon_24_photo" />
             </LinearLayout>
@@ -218,7 +218,9 @@
                     <EditText
                         android:id="@+id/youhuiadd_price"
                         style="@style/inputtext"
-                        android:hint="请输入兑换价" />
+                        android:digits="1234567890"
+                        android:hint="请输入兑换价"
+                        android:inputType="number" />
 
                     <TextView
                         style="@style/textbase"
@@ -257,7 +259,9 @@
                     <EditText
                         android:id="@+id/youhuiadd_number"
                         style="@style/inputtext"
-                        android:hint="请输入库存" />
+                        android:digits="1234567890"
+                        android:hint="请输入库存"
+                        android:inputType="number" />
 
                 </LinearLayout>
             </LinearLayout>

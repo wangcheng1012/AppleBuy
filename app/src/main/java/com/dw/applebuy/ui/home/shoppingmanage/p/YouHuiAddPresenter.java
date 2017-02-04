@@ -42,7 +42,7 @@ public class YouHuiAddPresenter extends BasePresenter<Contract.YouHuiAddView> {
             return;
         }else{
             RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/png"), new File(imagePath));
-            photo = MultipartBody.Part.createFormData("file", "icon.png", photoRequestBody);
+            photo = MultipartBody.Part.createFormData("file", (System.currentTimeMillis()+"").substring(5)+"i.png", photoRequestBody);
 
         }
         if(StringUtils.isEmpty(arrayMap.get("category_id")+"")){

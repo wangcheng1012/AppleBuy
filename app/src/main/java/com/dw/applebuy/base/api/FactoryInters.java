@@ -86,6 +86,7 @@ public interface FactoryInters {
      */
     @Multipart
     @POST("app/coupon/save")
+//    @POST("http://192.168.1.14:8080/ww/hello.jsp")
     Observable<ResultResponse> addYouHui(@PartMap ArrayMap<String, RequestBody> arrayMap, @Part MultipartBody.Part photo);
 
     /**

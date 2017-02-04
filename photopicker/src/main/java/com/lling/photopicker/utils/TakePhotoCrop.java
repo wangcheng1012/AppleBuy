@@ -2,6 +2,7 @@ package com.lling.photopicker.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TException;
+import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
@@ -27,6 +29,7 @@ import com.wlj.base.util.UIHelper;
 import com.wlj.base.util.img.ImageFileCache;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -95,23 +98,45 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
         return takePhoto;
     }
 
-    public void onCrop(Uri parse) {
+    /**
+     * 裁剪
+     *
+     * @param data
+     */
+    public void onCrop(final Intent data) {
 
-        CropOptions cropOptions = new CropOptions.Builder()
+        UIHelper.dialog(mActivity, "是否裁剪？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                CropOptions cropOptions = new CropOptions.Builder()
 //                        .setAspectX(1).setAspectY(1)
-                .setWithOwnCrop(false).create();
-        try {
-            String imagePath = AppConfig.getAppConfig().getImagePath() + ImageFileCache.CACHDIR + File.separator;
+                        .setWithOwnCrop(false).create();
+                try {
 
-            File file = new File(imagePath + String.valueOf(System.currentTimeMillis()).substring(3) + ImageFileCache.crop + ".jpg");
-            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-            Uri imageUri = Uri.fromFile(file);
+                    File file = new File(ImageFileCache.getCropCachePath());
+                    if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+                    Uri imageUri = Uri.fromFile(file);
 
-            takePhoto.onCrop(parse, imageUri, cropOptions);
+                    ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
 
-        } catch (TException e) {
-            e.printStackTrace();
-        }
+                    takePhoto.onCrop( Uri.parse(uristr.get(0)), imageUri, cropOptions);
+
+                } catch (TException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
+                mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
+            }
+        });
+
     }
 
     public void onRequestPermissionsResult_(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -128,7 +153,8 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
         Acp.getInstance(mActivity).request(new AcpOptions.Builder()
                         .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE
                                 , Manifest.permission.READ_EXTERNAL_STORAGE
-                                , Manifest.permission.READ_PHONE_STATE).build()
+//                                , Manifest.permission.READ_PHONE_STATE
+                        ).build()
                 , new AcpListener() {
                     @Override
                     public void onGranted() {
@@ -147,9 +173,16 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
                 });
     }
 
+    public void removeCropCache() {
+        ImageFileCache.removeCropCache();
+
+
+    }
+
     public interface CropBack {
         /**
          * 裁剪返回
+         *
          * @param result
          */
         void cropback(TResult result);
