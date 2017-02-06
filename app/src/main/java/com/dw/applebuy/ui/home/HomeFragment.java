@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
+import com.dw.applebuy.been.Info;
+import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.home.ordermanage.OrderListActivity;
 import com.dw.applebuy.ui.home.renzheng.RenZhengActivity;
 import com.dw.applebuy.ui.home.scoremanage.ScoreActivity;
@@ -44,12 +46,14 @@ public class HomeFragment extends Fragment {
     TextView homeYirenzhengNumber;
     @BindView(R.id.home_yirenzheng_layout)
     FrameLayout homeYirenzhengLayout;
-    @BindView(R.id.home_lijirenzheng)
+    @BindView(R.id.home_renzhengimage)
     ImageView homeLijirenzheng;
     @BindView(R.id.home_lijirenzheng_layout)
     RelativeLayout homeLijirenzhengLayout;
     @BindView(R.id.home_gridview)
     GridView homeGridview;
+    @BindView(R.id.home_renzhengimage)
+    ImageView lijirenzheng;
 
     private OnFragmentInteractionListener mListener;
     private List<GridItem> mDatas;
@@ -62,8 +66,6 @@ public class HomeFragment extends Fragment {
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,8 +74,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -83,6 +83,40 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        MainActivity activity = (MainActivity) getActivity();
+
+        activity.getInfo(new MainActivity.InfoBack() {
+            @Override
+            public void back(Info info) {
+                //认证状态(1:未认证  2:认证中  3:已认证  4:认证失败)
+                String authenticate_status = info.getAuthenticate_status();
+                switch (authenticate_status) {
+                    case "1":
+                        homeYirenzhengLayout.setVisibility(View.VISIBLE);
+                        lijirenzheng.setImageResource(R.drawable.icon_lijirenzheng);
+
+                        homeYirenzhengNumber.setVisibility(View.GONE);
+                        break;
+                    case "2":
+
+                        break;
+                    case "3":
+                        homeYirenzhengLayout.setVisibility(View.GONE);
+                        homeYirenzhengNumber.setVisibility(View.VISIBLE);
+
+                        break;
+                    case "4":
+
+                        break;
+                }
+            }
+        });
     }
 
     private void initView() {
@@ -160,14 +194,14 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    @OnClick({R.id.title_left, R.id.title_right,R.id.home_lijirenzheng})
+    @OnClick({R.id.title_left, R.id.title_right,R.id.home_renzhengimage})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.title_left:
                 break;
             case R.id.title_right:
                 break;
-            case R.id.home_lijirenzheng:
+            case R.id.home_renzhengimage:
                 GoToHelp.go(getActivity(), RenZhengActivity.class);
                 break;
         }

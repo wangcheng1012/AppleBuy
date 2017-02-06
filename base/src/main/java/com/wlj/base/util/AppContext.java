@@ -485,14 +485,15 @@ public class AppContext extends Application {
 	/**
 	 * 保存对象
 	 * @param ser
-	 * @param file
+	 * @param name 这里只需要文件名，不能有包含/的路径 妈蛋
 	 * @throws IOException
 	 */
-	public boolean saveObject(Serializable ser, String file) {
+	public boolean saveObject(Serializable ser, String name) {
+
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		try{
-			fos = openFileOutput(file, MODE_PRIVATE);
+			fos = openFileOutput(name, MODE_PRIVATE);
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(ser);
 			oos.flush();

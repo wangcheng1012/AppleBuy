@@ -13,5 +13,12 @@ public interface Contracts {
 
         void verifyPhoneBack(InputPhoneUser inputPhoneUser);
     }
+    interface CreatUserView extends BaseView {
+
+
+        void verifyCodeBack();
+
+        void giveIntegralBack();
+    }
 
 }

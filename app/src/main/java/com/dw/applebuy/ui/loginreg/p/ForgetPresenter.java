@@ -79,7 +79,9 @@ public class ForgetPresenter extends BasePresenter<Views.ForgetView> {
         Subscriber<HttpStateResult<List>> subscriber = new Subscriber<HttpStateResult<List>>() {
             @Override
             public void onCompleted() {
-                mView.hideLoading();
+                if (mView != null){
+                    mView.hideLoading();
+                }
             }
 
             @Override

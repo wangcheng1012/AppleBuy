@@ -166,7 +166,7 @@
             android:name=".ui.pay.RechangeBackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.songjifen.CreartUserActivity"
+            android:name=".ui.songjifen.CreatUserActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.songjifen.PhoneVerifySuccessActivity"

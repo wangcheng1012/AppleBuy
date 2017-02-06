@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.dw.applebuy.ui.songjifen.CreartUserActivity">
+    tools:context="com.dw.applebuy.ui.songjifen.CreatUserActivity">
 
     <fragment
         android:id="@+id/CreartUser_titlefragment"
@@ -45,6 +45,9 @@
             android:id="@+id/creart_user_phone"
             style="@style/inputtext"
             android:hint="请输入手机号码"
+            android:maxLength="11"
+            android:digits="1234567890"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"

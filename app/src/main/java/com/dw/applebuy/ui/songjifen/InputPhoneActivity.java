@@ -2,7 +2,6 @@ package com.dw.applebuy.ui.songjifen;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import com.dw.applebuy.ui.songjifen.p.InputPhonePresenter;
 import com.dw.applebuy.ui.songjifen.v.Contracts;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.GoToHelp;
-import com.wlj.base.util.UIHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +60,7 @@ public class InputPhoneActivity extends BaseMvpActivity<Contracts.InputPhoneView
             GoToHelp.go(this, PhoneVerifySuccessActivity.class, extras);
         } else {
             extras.putString("phone",inputphonePhone.getText()+"");
-            GoToHelp.go(this, CreartUserActivity.class,extras);
+            GoToHelp.go(this, CreatUserActivity.class,extras);
         }
     }
 }

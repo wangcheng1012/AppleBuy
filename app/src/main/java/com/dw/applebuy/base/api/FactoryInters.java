@@ -2,6 +2,7 @@ package com.dw.applebuy.base.api;
 
 import android.support.v4.util.ArrayMap;
 
+import com.dw.applebuy.been.Info;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
@@ -59,6 +60,15 @@ public interface FactoryInters {
     @FormUrlEncoded
     @POST("app/user/login")
     Observable<HttpStateResult<LoginBack>> login(@Field("mobile") String phone, @Field("password") String psw);
+
+    /**
+     * 获取商家详情
+     * @param sessionid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/user/getInfo")
+    Observable<HttpStateResult<Info>> getInfo(@Field("sessionid") String sessionid);
 
     /**
      * @param page      分页
@@ -176,5 +186,26 @@ public interface FactoryInters {
     @POST("app/integral/checkMember")
     Observable<HttpStateResult<InputPhoneUser>>  checkMember(@Field("mobile") String phone);
 
+    /**
+     * 赠送积分- 创建用户验证短信
+     * @param phone
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/common/giveIntegralVerifyCode")
+    Observable<HttpStateResult<String>> giveIntegralVerifyCode(@Field("mobile") String phone);
+
+    /**
+     * 商家-赠送积分
+     * @param code          验证码        N
+     * @param id            用户ID        N
+     * @param integral   	 积分         Y
+     * @param mobile        电话          N
+     * @param name          名称          N
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/integral/giveIntegral")
+    Observable<HttpStateResult> giveIntegral(@FieldMap ArrayMap<String,Object> map);
 
 }

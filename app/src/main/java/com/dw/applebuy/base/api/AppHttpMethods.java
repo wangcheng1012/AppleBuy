@@ -2,6 +2,7 @@ package com.dw.applebuy.base.api;
 
 import android.support.v4.util.ArrayMap;
 
+import com.dw.applebuy.been.Info;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
@@ -129,6 +130,15 @@ public class AppHttpMethods {
     }
 
     /**
+     * 获取商家详情
+     * @param subscriber
+     */
+    public void getInfo(Subscriber<Info> subscriber) {
+        Observable<Info> observable = apiService.getInfo(null).map(new HttpResultFunc<Info>());
+        subscribe(observable, subscriber);
+    }
+
+    /**
      * 添加编辑优惠券
      *
      * @param subscriber
@@ -192,6 +202,26 @@ public class AppHttpMethods {
     public void checkMember(Subscriber<InputPhoneUser> subscriber, String phone) {
         Observable<InputPhoneUser> observable = apiService.checkMember(phone)
                 .map(new HttpResultFunc<InputPhoneUser>());
+        subscribe(observable,subscriber);
+    }
+
+    /**
+     * 赠送积分-给用户发短信验证
+     * @param subscriber
+     * @param phone
+     */
+    public void giveIntegralVerifyCode(Subscriber<HttpStateResult<String>> subscriber, String phone) {
+        Observable<HttpStateResult<String>> observable = apiService.giveIntegralVerifyCode(phone);
+        subscribe(observable,subscriber);
+    }
+
+    /**
+     * 商家-赠送积分
+     * @param subscriber
+     * @param map
+     */
+    public void giveIntegral(Subscriber<HttpStateResult> subscriber, ArrayMap<String,Object> map) {
+        Observable<HttpStateResult> observable = apiService.giveIntegral(map);
         subscribe(observable,subscriber);
     }
 }
