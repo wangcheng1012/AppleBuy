@@ -1,5 +1,6 @@
 package com.dw.applebuy.ui.songjifen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,6 +35,13 @@ public class CreartUserActivity extends AppCompatActivity implements Title1Fragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creart_user);
         ButterKnife.bind(this);
+        initView();
+    }
+
+    private void initView() {
+        Intent intent = getIntent();
+        String phoneStr = intent.getStringExtra("phone");
+        phone.setText(phoneStr);
     }
 
     @Override

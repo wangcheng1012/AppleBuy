@@ -44,6 +44,7 @@
         <EditText
             android:id="@+id/creart_user_phone"
             style="@style/inputtext"
+            android:hint="请输入手机号码"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -73,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:hint="请输入用户姓名"
             android:layout_marginStart="10dp" />
 
     </LinearLayout>

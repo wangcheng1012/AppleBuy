@@ -104,7 +104,7 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
      * @param data
      */
     public void onCrop(final Intent data) {
-
+        //提示框
         UIHelper.dialog(mActivity, "是否裁剪？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -175,8 +175,22 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
 
     public void removeCropCache() {
         ImageFileCache.removeCropCache();
+    }
 
+    /**
+     * 没执行        takePhoto.onActivityResult(requestCode,resultCode,data); 妈蛋什么情况
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        takePhoto.onActivityResult(requestCode,resultCode,data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == TakePhotoCrop.IMAGE) {
+                 onCrop(data);
+            }
 
+        }
     }
 
     public interface CropBack {

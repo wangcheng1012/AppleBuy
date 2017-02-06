@@ -45,14 +45,23 @@ public class TabLayoutFragment extends Fragment {
     private static final String TAB = "tab";
     public static int SHOEING = 2;
     public static int XIAJIA = 3;
-    public static int KIND = 4;
+    /**
+     * 审核中
+     */
+    public static int SHENHE = 4;
+    /**
+     * 草稿，这个状态是 审核中的一个状态
+     */
+    public static int CAOGAO = 1;
 
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.viewpage)
     ViewPager viewpage;
-    private String[] tabtitles = {"添加时间", "销量", "库存"};
+
+    private String[] tabtitle1 = {"添加时间", "销量", "库存"};
     private String[] tabtitles2 = {"草稿箱", "审核中"};
+    private String[] tabtitles ;
 
     private int mTab;
     private int sort_type;
@@ -75,8 +84,10 @@ public class TabLayoutFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTab = getArguments().getInt(TAB, SHOEING);
-            if(mTab == KIND ) {
-                tabtitles = {"草稿箱", "审核中"};
+            if(mTab == SHENHE || mTab == CAOGAO) {
+                tabtitles = tabtitles2;
+            }else{
+                tabtitles = tabtitle1;
             }
         }
     }
@@ -137,6 +148,9 @@ public class TabLayoutFragment extends Fragment {
         switch (position) {
             case 0://添加时间
                 sort_type = 1;
+                if(mTab == SHENHE){
+                    mTab =  CAOGAO;
+                }
                 break;
             case 1://销量
                 sort_type = 2;
@@ -200,7 +214,7 @@ public class TabLayoutFragment extends Fragment {
 
                 viewHolder.setText(R.id.showing_name,item.getTitle());
                 viewHolder.setText(R.id.showing_number,"销量 "+item.getSales_volume() + "    收藏 0 " + "    库存 " + item.getStock());//销量
-                viewHolder.setText(R.id.showing_time,"时间 "+ item.getEnd_time());
+                viewHolder.setText(R.id.showing_time, item.getEnd_time());
                 viewHolder.setText(R.id.showing_scors,item.getIntegral() +"积分");//积分
             }
 

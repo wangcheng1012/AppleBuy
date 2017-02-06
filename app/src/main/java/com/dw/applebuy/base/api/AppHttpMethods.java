@@ -6,6 +6,7 @@ import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
 import com.dw.applebuy.ui.set.m.AboutUsModel;
+import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
 import com.rxmvp.api.ApiException;
 import com.rxmvp.api.HttpResultFunc;
 import com.rxmvp.bean.ResultResponse;
@@ -183,7 +184,14 @@ public class AppHttpMethods {
         subscribe(aboutUs,subscriber);
     }
 
-
-
-
+    /**
+     * 赠送积分-检测用户是否存在
+     * @param subscriber
+     * @param phone
+     */
+    public void checkMember(Subscriber<InputPhoneUser> subscriber, String phone) {
+        Observable<InputPhoneUser> observable = apiService.checkMember(phone)
+                .map(new HttpResultFunc<InputPhoneUser>());
+        subscribe(observable,subscriber);
+    }
 }

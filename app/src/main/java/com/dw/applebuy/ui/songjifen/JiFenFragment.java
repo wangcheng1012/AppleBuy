@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.MathUtil;
+import com.wlj.base.util.StringUtils;
+import com.wlj.base.util.UIHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +49,15 @@ public class JiFenFragment extends Fragment {
             case R.id.jifen_saosao:
                 break;
             case R.id.jifen_phone:
-                GoToHelp.go(getActivity(),InputPhoneActivity.class);
+                String text = jifenJifen.getText()+"";
+                if(StringUtils.isEmpty(text)){
+                    UIHelper.toastMessage(getContext(),"赠送的积分必须大于0");
+                    return;
+                }
+                int jifen = MathUtil.parseInteger(text);
+                Bundle bundle = new Bundle();
+                bundle.putInt("jifen",jifen);
+                GoToHelp.go(getActivity(),InputPhoneActivity.class,bundle);
                 break;
         }
     }

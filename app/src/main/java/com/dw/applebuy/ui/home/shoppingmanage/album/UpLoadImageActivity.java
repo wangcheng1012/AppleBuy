@@ -1,7 +1,12 @@
 package com.dw.applebuy.ui.home.shoppingmanage.album;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -9,6 +14,8 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.jph.takephoto.model.TResult;
+import com.lling.photopicker.utils.TakePhotoCrop;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +24,7 @@ import butterknife.OnClick;
 /**
  * 上传图片（单图和多图）
  */
-public class UpLoadImageActivity extends AppCompatActivity implements Title1Fragment.TitleInterface {
+public class UpLoadImageActivity extends AppCompatActivity implements Title1Fragment.TitleInterface, TakePhotoCrop.CropBack {
 
     public final static int album_uploadfirst = 11;
     public final static int album_uploadmore = 12;
@@ -29,9 +36,12 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
     ImageView uploadImageImage;
     @BindView(R.id.upload_image_tip)
     TextView uploadImageTip;
+    private TakePhotoCrop takePhotoCrop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        takePhotoCrop = new TakePhotoCrop(this, this);
+        takePhotoCrop.getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_image);
         ButterKnife.bind(this);
@@ -61,6 +71,30 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        takePhotoCrop.getTakePhoto().onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        takePhotoCrop.getTakePhoto().onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == TakePhotoCrop.IMAGE) {
+                takePhotoCrop.onCrop(data);
+            }
+
+        }
+    }
+        @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //以下代码为处理Android6.0、7.0动态权限所需
+        takePhotoCrop.onRequestPermissionsResult_(requestCode, permissions, grantResults);
+    }
+    @Override
     public void setTitle(TextView title, TextView right) {
 
         title.setText("上传图片");
@@ -68,6 +102,12 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
     @OnClick(R.id.upload_image_upbt)
     public void onClick() {
+        takePhotoCrop.photoPicker();
+    }
 
+    @Override
+    public void cropback(TResult result) {
+        String path = result.getImage().getPath();
+        uploadImageImage.setImageBitmap(BitmapFactory.decodeFile(path));
     }
 }

@@ -12,6 +12,7 @@ import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.dw.applebuy.ui.set.m.AboutUsModel;
+import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
 import com.google.gson.JsonArray;
 import com.rxmvp.bean.HttpStateResult;
 import com.rxmvp.bean.ResultResponse;
@@ -166,7 +167,14 @@ public interface FactoryInters {
     @POST("app/integral/rechargeIntegral")
     Observable<HttpStateResult<RechageScoreOrder>> rechargeIntegral(@Field("id")Integer id, @Field("integral") Integer integral);
 
-
+    /**
+     *  赠送积分-检测用户是否存在
+      * @param phone  	电话号码
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/integral/checkMember")
+    Observable<HttpStateResult<InputPhoneUser>>  checkMember(@Field("mobile") String phone);
 
 
 }
