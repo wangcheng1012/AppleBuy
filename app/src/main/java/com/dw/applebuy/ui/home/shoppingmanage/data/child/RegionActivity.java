@@ -151,8 +151,18 @@ public class RegionActivity extends YouHuiTypeActivity {
     @Override
     public void setTitle(TextView title, TextView right) {
 
+        switch (curCall){
+            case call_province:
+                title.setText("选择省份");
+                break;
+            case call_city:
+                title.setText("选择城市");
+                break;
+            case call_area:
+                title.setText("选择区域");
+                break;
+        }
 
-        title.setText("优惠类型");
     }
 
     @Override

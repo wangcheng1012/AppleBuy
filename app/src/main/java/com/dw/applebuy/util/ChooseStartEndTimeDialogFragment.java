@@ -94,11 +94,11 @@ public class ChooseStartEndTimeDialogFragment extends DialogFragment {
 
             case R.id.dialog_daychoose_sure:
                 int startHour = timePickerstart.getCurrentHour();
-                Integer cstartMinute = timePickerstart.getCurrentMinute();
+                int cstartMinute = timePickerstart.getCurrentMinute();
 
                 int endHour = timePickerend.getCurrentHour();
-                Integer endMinute = timePickerend.getCurrentMinute();
-                String  time = startHour+":"+cstartMinute +"-"+endHour+":"+endMinute;
+                int endMinute = timePickerend.getCurrentMinute();
+                String  time = add0(startHour)+":"+add0(cstartMinute) +"-"+add0(endHour)+":"+add0(endMinute);
                 mTimeChoosed.choosedBack(time);
             case R.id.dialog_daychoose_canl:
                 dismiss();
@@ -110,5 +110,13 @@ public class ChooseStartEndTimeDialogFragment extends DialogFragment {
     public interface TimeChoosed{
 
         void choosedBack(String time);
+    }
+
+    private String add0(int time){
+
+        if(time < 10 ){
+            return "0"+time;
+        }
+        return time+"";
     }
 }

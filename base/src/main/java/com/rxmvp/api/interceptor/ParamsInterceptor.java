@@ -91,7 +91,7 @@ public class ParamsInterceptor implements Interceptor {
             RequestBody formBody = formBodyBuilder.build();
             String postBodyString = bodyToString(request.body());
             postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
-            Logger.d(postBodyString);
+//            Logger.d(postBodyString);
             if (mediaType1 == null) {
                 mediaType1 = MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8");
             }

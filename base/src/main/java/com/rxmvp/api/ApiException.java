@@ -6,6 +6,9 @@ package com.rxmvp.api;
 public class ApiException extends RuntimeException {
     public final static  int  TIME_MUST_10=209501;
     public final static  int  TIME_OTHER=209502;
+    public final static  int  Go_login = 100001;
+
+    private int status ;
 
     public ApiException(int resultCode) {
         this(getApiExceptionMessage(resultCode));
@@ -17,6 +20,7 @@ public class ApiException extends RuntimeException {
 
     public ApiException(int status, String message) {
         super(message);
+        this.status = status;
     }
 
     /**
@@ -34,10 +38,17 @@ public class ApiException extends RuntimeException {
             case TIME_OTHER:
                 message = "page、pagesize必须为int类型,time为10位时间戳";
                 break;
+//            case Go_login:
+//                message = "你的账号在其他地方登录\n如不是本人操作请及时修改密码";
+//                break;
             default:
                 message = "未知错误";
 
         }
         return message;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

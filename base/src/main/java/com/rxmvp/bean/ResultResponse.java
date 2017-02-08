@@ -13,8 +13,8 @@ package com.rxmvp.bean;
  */
 public class ResultResponse  {
 
-    private int status ;
-    private String message ;
+    private int status;
+    private String message;
 
     public int getStatus() {
       return status;

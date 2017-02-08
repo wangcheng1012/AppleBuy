@@ -16,6 +16,7 @@ import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.jph.takephoto.model.TResult;
 import com.lling.photopicker.utils.TakePhotoCrop;
+import com.wlj.base.util.StringUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +37,9 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
     ImageView uploadImageImage;
     @BindView(R.id.upload_image_tip)
     TextView uploadImageTip;
+
     private TakePhotoCrop takePhotoCrop;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
         String tip = intent.getStringExtra("tip");
 
         switch (requestCode) {
+
             case album_uploadfirst:
                 break;
             case album_uploadmore:
@@ -68,6 +72,14 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
                 uploadImageImage.setImageResource(R.drawable.icon_46_card);
                 break;
         }
+
+        //初始化图片显示
+        String path = intent.getStringExtra("path");
+        if(!StringUtils.isEmpty(path)){
+            uploadImageImage.setImageBitmap(BitmapFactory.decodeFile(path));
+        }
+
+
     }
 
     @Override
@@ -78,22 +90,24 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        takePhotoCrop.getTakePhoto().onActivityResult(requestCode,resultCode,data);
+        takePhotoCrop.getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == TakePhotoCrop.IMAGE) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == TakePhotoCrop.IMAGE) {
                 takePhotoCrop.onCrop(data);
             }
 
         }
     }
-        @Override
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //以下代码为处理Android6.0、7.0动态权限所需
         takePhotoCrop.onRequestPermissionsResult_(requestCode, permissions, grantResults);
     }
+
     @Override
     public void setTitle(TextView title, TextView right) {
 
@@ -107,7 +121,16 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
     @Override
     public void cropback(TResult result) {
-        String path = result.getImage().getPath();
+        path = result.getImage().getPath();
         uploadImageImage.setImageBitmap(BitmapFactory.decodeFile(path));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("path",path);
+        setResult(RESULT_OK,intent);
+        super.onBackPressed();
+
     }
 }

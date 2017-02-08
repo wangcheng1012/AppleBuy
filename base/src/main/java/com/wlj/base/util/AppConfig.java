@@ -35,6 +35,7 @@ public class AppConfig {
 	public final static String CONF_NAME = "name";
 	public final static String CONF_KEY = "key";
 	public final static String CONF_PHONE = "phone";
+	public final static String CONF_PSW = "psw";
 	public static final String CONF_ID = "id";
 	private final static String APP_CONFIG = "config";
 	private static Context mContext;

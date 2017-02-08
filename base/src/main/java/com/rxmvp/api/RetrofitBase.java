@@ -1,6 +1,7 @@
 package com.rxmvp.api;
 
 import com.rxmvp.api.GsonConverter.GsonConverterFactory_My;
+import com.rxmvp.api.interceptor.LoginInterceptor;
 import com.rxmvp.api.interceptor.ParamsInterceptor;
 import com.rxmvp.api.interceptor.ResponseInterceptor;
 import com.rxmvp.bean.HttpStateResult;
@@ -57,6 +58,7 @@ public class RetrofitBase {
 
         //返回参数[]-> null ,{} -> null
         httpClientBuilder.addInterceptor(new ResponseInterceptor());
+        httpClientBuilder.addInterceptor(new LoginInterceptor());
 
         //GsonConverterFactory_My 适配一个字段在状态码不同时返回数据类型不同的处理.eg;"成功返回时是消息数据列表，失败时是异常消息文本
         retrofit = new Retrofit.Builder()

@@ -23,11 +23,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <RelativeLayout
+            <TextView
+                android:id="@+id/renzheng_data_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="15dp"
+                android:text="请完善店铺资料"
+                android:drawableRight="@drawable/icon_25_jiantouright"
+                />
+
+            <RelativeLayout
+                android:id="@+id/renzheng_data_layoutview"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/renzheng_name"
@@ -72,10 +82,10 @@
 
                 <TextView
                     style="@style/textbase"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="营业执照类型    " />
 
                 <TextView
@@ -86,37 +96,35 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:background="@drawable/shape_selector_renzheng"
-                    android:padding="10dp"
-                    android:text=" 企业法人" />
+                    android:padding="8dp"
+                    android:text="   企业法人   " />
 
                 <TextView
                     android:id="@+id/renheng_type_business"
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:background="@drawable/shape_selector_renzheng"
-                    android:padding="10dp"
-                    android:text="个体商户" />
+                    android:padding="8dp"
+                    android:text="   个体商户   " />
 
             </LinearLayout>
 
-            <include layout="@layout/line_matchleft10" />
+            <include layout="@layout/line_matchleft15" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="营业执照名称    " />
 
                 <EditText
@@ -128,21 +136,19 @@
 
             </LinearLayout>
 
-            <include layout="@layout/line_matchleft10" />
+            <include layout="@layout/line_matchleft15" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="营业执照注册号" />
 
                 <EditText
@@ -154,21 +160,19 @@
 
             </LinearLayout>
 
-            <include layout="@layout/line_matchleft10" />
+            <include layout="@layout/line_matchleft15" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="法人姓名            " />
 
                 <EditText
@@ -180,21 +184,19 @@
 
             </LinearLayout>
 
-            <include layout="@layout/line_matchleft10" />
+            <include layout="@layout/line_matchleft15" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="法人身份证号    " />
 
                 <EditText
@@ -206,21 +208,19 @@
 
             </LinearLayout>
 
-            <include layout="@layout/line_matchleft10" />
+            <include layout="@layout/line_matchleft15" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="联系邮箱            " />
 
                 <EditText
@@ -246,14 +246,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="营业执照            " />
 
                 <TextView
@@ -268,21 +266,19 @@
 
             </LinearLayout>
 
-            <include layout="@layout/line_matchleft10" />
+            <include layout="@layout/line_matchleft15" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     style="@style/textbase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:text="手持身份证照片            " />
 
                 <TextView

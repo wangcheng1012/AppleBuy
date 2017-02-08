@@ -208,4 +208,16 @@ public interface FactoryInters {
     @POST("app/integral/giveIntegral")
     Observable<HttpStateResult> giveIntegral(@FieldMap ArrayMap<String,Object> map);
 
+    /**
+     * 编辑资料
+     * @param map
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/user/edit")
+    Observable<HttpStateResult> edit(@FieldMap ArrayMap<String, Object> map);
+
+    @Multipart
+    @POST("app/user/applyAuthentication")
+    Observable<HttpStateResult> applyAuthentication(@PartMap ArrayMap<String, RequestBody> arrayMap, @Part MultipartBody.Part photo, @Part MultipartBody.Part photo2);
 }

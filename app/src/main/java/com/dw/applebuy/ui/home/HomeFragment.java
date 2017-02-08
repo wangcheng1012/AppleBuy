@@ -19,6 +19,7 @@ import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.home.ordermanage.OrderListActivity;
 import com.dw.applebuy.ui.home.renzheng.RenZhengActivity;
+import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.home.scoremanage.ScoreActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.ShoppingManagerActivity;
 import com.dw.applebuy.ui.home.usermanage.UserActivity;
@@ -46,16 +47,13 @@ public class HomeFragment extends Fragment {
     TextView homeYirenzhengNumber;
     @BindView(R.id.home_yirenzheng_layout)
     FrameLayout homeYirenzhengLayout;
-    @BindView(R.id.home_renzhengimage)
-    ImageView homeLijirenzheng;
     @BindView(R.id.home_lijirenzheng_layout)
     RelativeLayout homeLijirenzhengLayout;
     @BindView(R.id.home_gridview)
     GridView homeGridview;
     @BindView(R.id.home_renzhengimage)
-    ImageView lijirenzheng;
+    ImageView renzhengimage;
 
-    private OnFragmentInteractionListener mListener;
     private List<GridItem> mDatas;
     private CommonAdapter<GridItem> gridviewAdapter;
 
@@ -89,9 +87,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        MainActivity activity = (MainActivity) getActivity();
-
-        activity.getInfo(new MainActivity.InfoBack() {
+        InfoUtil.getInstall().getInfoFromWeb(getActivity(),new InfoUtil.InfoBack() {
             @Override
             public void back(Info info) {
                 //认证状态(1:未认证  2:认证中  3:已认证  4:认证失败)
@@ -99,7 +95,7 @@ public class HomeFragment extends Fragment {
                 switch (authenticate_status) {
                     case "1":
                         homeYirenzhengLayout.setVisibility(View.VISIBLE);
-                        lijirenzheng.setImageResource(R.drawable.icon_lijirenzheng);
+                        renzhengimage.setImageResource(R.drawable.icon_lijirenzheng);
 
                         homeYirenzhengNumber.setVisibility(View.GONE);
                         break;
@@ -171,28 +167,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     @OnClick({R.id.title_left, R.id.title_right,R.id.home_renzhengimage})
     public void onClick(View view) {
@@ -205,11 +179,6 @@ public class HomeFragment extends Fragment {
                 GoToHelp.go(getActivity(), RenZhengActivity.class);
                 break;
         }
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     class GridItem {

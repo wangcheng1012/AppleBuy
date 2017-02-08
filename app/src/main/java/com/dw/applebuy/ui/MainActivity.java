@@ -15,6 +15,7 @@ import com.dw.applebuy.R;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.home.HomeFragment;
+import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.message.MessageFragment;
 import com.dw.applebuy.ui.set.SetFragment;
 import com.dw.applebuy.ui.songjifen.JiFenFragment;
@@ -33,7 +34,6 @@ import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String infoSerializableName = "info.txt";
     private FragmentTabHost myTabhost;
     //Tab图片
     private int mImages[] = {R.drawable.tab_apple_selector, R.drawable.tab_jifen_selector, R.drawable.tab_message_selector, R.drawable.tab_set_selector};
@@ -51,41 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initTabHost();
 
-    }
-
-    public void getInfo(final InfoBack infoBack) {
-
-        //观察者
-        Subscriber< Info> subscriber = new Subscriber<Info>() {
-            @Override
-            public void onCompleted() {
-                UIHelper.closeProgressbar();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                UIHelper.closeProgressbar();
-                UIHelper.toastMessage(getApplication(),"商家信息获取失败");
-            }
-
-            @Override
-            public void onNext(Info info) {
-                //缓存
-                AppContext.getAppContext().saveObject(info,infoSerializableName);
-                infoBack.back(info);
-            }
-
-        };//end
-        UIHelper.showProgressbar(this,null);
-        AppHttpMethods.getInstance().getInfo(subscriber);
-
-    }
-
-    /**
-     *
-     */
-    public interface InfoBack{
-        void back(Info info);
+        InfoUtil.infoUpdate = true;
     }
 
 

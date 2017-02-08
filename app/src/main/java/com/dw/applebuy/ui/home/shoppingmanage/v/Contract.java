@@ -1,6 +1,7 @@
 package com.dw.applebuy.ui.home.shoppingmanage.v;
 
 import com.rxmvp.basemvp.BaseView;
+import com.rxmvp.bean.HttpStateResult;
 
 /**
  *
@@ -20,5 +21,13 @@ public interface Contract {
     interface AlbumView extends BaseView {
 
     }
+    /**
+     * 资料管理
+     */
+    interface DataView extends BaseView {
+
+        void saveBack(HttpStateResult s);
+    }
+
 
 }

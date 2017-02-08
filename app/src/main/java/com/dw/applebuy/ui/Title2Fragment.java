@@ -46,7 +46,7 @@ public class Title2Fragment extends Fragment {
 
     @OnClick(R.id.title2_back)
     public void onClick() {
-        getActivity().finish();
+        getActivity().onBackPressed();
     }
 
     @Override

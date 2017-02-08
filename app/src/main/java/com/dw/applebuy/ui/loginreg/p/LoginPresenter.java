@@ -46,7 +46,7 @@ public class LoginPresenter extends BasePresenter<Views.LoginView> {
         LoginCall(phone,psw);
     }
 
-    private void LoginCall(String phone, String psw) {
+    private void LoginCall(String phone, final String psw) {
         //观察者
         Subscriber<HttpStateResult<LoginBack>> subscriber = new Subscriber<HttpStateResult<LoginBack>>() {
             @Override
@@ -72,6 +72,7 @@ public class LoginPresenter extends BasePresenter<Views.LoginView> {
                     String mobile = data.getMobile();
                     AppConfig.getAppConfig().set(AppConfig.CONF_KEY,sessionid);
                     AppConfig.getAppConfig().set(AppConfig.CONF_PHONE,mobile);
+                    AppConfig.getAppConfig().set(AppConfig.CONF_PSW,psw);
 
                     mView.LoginBack();
                 }

@@ -29,7 +29,6 @@ public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends Base
 
     public abstract T initPresenter();
 
-
     public void showLoading() {
         UIHelper.showProgressbar(this,null);
     }
@@ -42,5 +41,6 @@ public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends Base
     public void showMessage(String message) {
         UIHelper.toastMessage(getApplication(),message);
     }
+
 
 }

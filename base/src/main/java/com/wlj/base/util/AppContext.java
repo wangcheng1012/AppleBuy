@@ -29,7 +29,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 /**
@@ -61,7 +61,7 @@ public class AppContext extends Application {
         //注册App异常崩溃处理器
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
         appContext = this;
-		refWatcher = LeakCanary.install(this);
+//		refWatcher = LeakCanary.install(this);
         init();
 	}
 
@@ -90,7 +90,7 @@ public class AppContext extends Application {
 
 	public void loginOut() {
 		setProperty(AppConfig.CONF_KEY,"");
-		setProperty(AppConfig.CONF_PHONE, "");
+//		setProperty(AppConfig.CONF_PHONE, "");
 	}
 
 	/**

@@ -58,7 +58,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <include layout="@layout/line_matchleft10" />
+    <include layout="@layout/line_matchleft15" />
 
     <TextView
         android:id="@+id/textView9"

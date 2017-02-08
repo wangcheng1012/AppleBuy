@@ -224,4 +224,21 @@ public class AppHttpMethods {
         Observable<HttpStateResult> observable = apiService.giveIntegral(map);
         subscribe(observable,subscriber);
     }
+
+    public void edit(Subscriber<HttpStateResult> subscriber,ArrayMap<String,Object> map){
+        Observable<HttpStateResult> observable  = apiService.edit(map);
+        subscribe(observable,subscriber);
+
+    }
+
+    /**
+     * 商家-申请认证
+     *  @param subscriber
+     * @param arrayMap
+     * @param photo2
+     */
+    public void applyAuthentication(Subscriber<HttpStateResult> subscriber, ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo, MultipartBody.Part photo2) {
+        Observable<HttpStateResult> observable = apiService.applyAuthentication(arrayMap, photo,photo2);
+        subscribe(observable, subscriber);
+    }
 }

@@ -39,9 +39,14 @@ public abstract class BasePresenter<T> {
             BaseView mView = (BaseView) this.mView;
             mView.hideLoading();
             if(e instanceof ApiException){
-                mView.showMessage(e.getMessage());
+                ApiException ae = (ApiException)e;
+                int status = ae.getStatus();
+                if(status != ApiException.Go_login){
+                    mView.showMessage(e.getMessage());
+                }
             }else {
                 mView.showMessage(defMessage);
+
             }
         }
     }

@@ -10,12 +10,14 @@ import com.google.gson.annotations.Expose;
  */
 public class BusinessScope implements Parcelable{
 
+    public static String[] BusinessWeek = {"每周日","每周一","每周二","每周三","每周四","每周五","每周六"};
 
     public BusinessScope() {
     }
 
-    public BusinessScope(String name) {
+    public BusinessScope(String name,boolean selected) {
         this.name = name;
+        this.selected = selected;
     }
 
     /**
@@ -26,21 +28,23 @@ public class BusinessScope implements Parcelable{
 
     private String id;
     private String name;
-
     @Expose
     private boolean selected;
+
+
 
     protected BusinessScope(Parcel in) {
         id = in.readString();
         name = in.readString();
-//        selected = in.readByte() != 0;
+        selected = in.readByte() != 0;
     }
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
-//        dest.writeByte((byte) (selected ? 1 : 0));
+        dest.writeByte((byte) (selected ? 1 : 0));
     }
 
     @Override

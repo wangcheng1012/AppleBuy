@@ -1,11 +1,13 @@
 package com.rxmvp.basemvp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.wlj.base.util.AppManager;
 import com.wlj.base.util.UIHelper;
 
-public abstract class BaseMvpFragment<V,T extends BasePresenter<V>> extends Fragment {
+public abstract class BaseMvpFragment<V, T extends BasePresenter<V>> extends Fragment {
 
     public T presenter;
 
@@ -18,7 +20,7 @@ public abstract class BaseMvpFragment<V,T extends BasePresenter<V>> extends Frag
     @Override
     public void onResume() {
         super.onResume();
-        presenter.attach((V)this);
+        presenter.attach((V) this);
     }
 
     @Override
@@ -31,7 +33,7 @@ public abstract class BaseMvpFragment<V,T extends BasePresenter<V>> extends Frag
 
 
     public void showLoading() {
-        UIHelper.showProgressbar(getActivity(),null);
+        UIHelper.showProgressbar(getActivity(), null);
     }
 
 
@@ -40,6 +42,7 @@ public abstract class BaseMvpFragment<V,T extends BasePresenter<V>> extends Frag
     }
 
     public void showMessage(String message) {
-        UIHelper.toastMessage(getContext(),message);
+        UIHelper.toastMessage(getContext(), message);
     }
+
 }

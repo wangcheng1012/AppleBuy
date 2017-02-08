@@ -51,7 +51,7 @@ public class YouHuiTypeActivity extends BaseFragmentActivity implements Title1Fr
         swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
-
+                YouHuiTypeActivity.this.onCreateViewExtract(recyclerview,swipeRefreshLayout);
             }
 
             @Override
@@ -65,6 +65,9 @@ public class YouHuiTypeActivity extends BaseFragmentActivity implements Title1Fr
         transaction.commitAllowingStateLoss();
     }
 
+    protected void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
+
+    }
     protected SWRVContract.SWRVPresenterAdapter getMyPresenterAdapter() {
         return new SWRVContract.SWRVPresenterAdapter<YouhuiQuanType>() {
             @Override

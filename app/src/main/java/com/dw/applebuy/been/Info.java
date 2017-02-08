@@ -3,13 +3,17 @@ package com.dw.applebuy.been;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.wlj.base.util.StringUtils;
+
 import java.io.Serializable;
 import java.util.List;
 
+import static com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope.BusinessWeek;
+
 /**
- *  商家详情
+ * 商家详情
  */
-public class Info implements Serializable{
+public class Info implements Serializable {
 
     /**
      * id : 2
@@ -19,7 +23,7 @@ public class Info implements Serializable{
      * mobile : 15086856523
      * sales_volume : 0
      * business_hours : {"from":"","to":""}
-     * business_week : {"from":"","to":""}
+     * business_week : []
      * province_id : 0
      * latitude : 0
      * longitude : 0
@@ -38,7 +42,8 @@ public class Info implements Serializable{
      * area :
      * all_address :
      * business_time :
-     * distance : no
+     * contact_tel: "400-2334-6666",
+     * message_new: 1
      */
 
     private String id;
@@ -46,7 +51,7 @@ public class Info implements Serializable{
     private String mobile;
     private int sales_volume;
     private BusinessHoursBean business_hours;
-    private BusinessWeekBean business_week;
+    private List<String> business_week;
     private int province_id;
     private int latitude;
     private int longitude;
@@ -68,9 +73,69 @@ public class Info implements Serializable{
     private String all_address;
     private String business_time;
     private String distance;
-    private List<?> category_id;
-    private List<?> category;
+    private List<String> category_id;
+    private List<String> category;
     private List<ImgsBean> imgs;
+    private String contact_tel;
+    private int message_new;
+
+    public List<String> getBusiness_week() {
+        return business_week;
+    }
+
+    /**
+     * [1,2]->星期一，星期二
+     * @return
+     */
+    public String getBusiness_weekShow() {
+
+        if (business_week == null) {
+            return "";
+        }
+        if(business_week.size() == 7){
+            return "每天";
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < business_week.size(); i++) {
+            stringBuilder.append(BusinessWeek[i]+",");
+        }
+        return stringBuilder.deleteCharAt(-1 + stringBuilder.length()).toString();
+    }
+
+//    public String getBusiness_weekStr() {
+//
+//        if (business_week == null) {
+//            return "";
+//        }
+//
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for (int i = 0; i < business_week.size(); i++) {
+//            stringBuilder.append(BusinessWeek[i]+",");
+//        }
+//        return stringBuilder.deleteCharAt(-1 + stringBuilder.length()).toString();
+//    }
+
+
+
+    public void setBusiness_week(List<String> business_week) {
+        this.business_week = business_week;
+    }
+
+    public String getContact_tel() {
+        return contact_tel;
+    }
+
+    public void setContact_tel(String contact_tel) {
+        this.contact_tel = contact_tel;
+    }
+
+    public int getMessage_new() {
+        return message_new;
+    }
+
+    public void setMessage_new(int message_new) {
+        this.message_new = message_new;
+    }
 
     public String getId() {
         return id;
@@ -108,16 +173,22 @@ public class Info implements Serializable{
         return business_hours;
     }
 
+    public String getBusiness_hoursShow() {
+        if(business_hours == null )return "";
+        String from = business_hours.getFrom();
+        String to = business_hours.getTo();
+
+        if(StringUtils.isEmpty(from) && StringUtils.isEmpty(to)){
+            return "";
+        }
+        if ("0".equals(from) && "0".equals(to)) {
+            return "全天24小时";
+        }
+        return from + "-" + to;
+    }
+
     public void setBusiness_hours(BusinessHoursBean business_hours) {
         this.business_hours = business_hours;
-    }
-
-    public BusinessWeekBean getBusiness_week() {
-        return business_week;
-    }
-
-    public void setBusiness_week(BusinessWeekBean business_week) {
-        this.business_week = business_week;
     }
 
     public int getProvince_id() {
@@ -264,19 +335,19 @@ public class Info implements Serializable{
         this.distance = distance;
     }
 
-    public List<?> getCategory_id() {
+    public List<String> getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(List<?> category_id) {
+    public void setCategory_id(List<String> category_id) {
         this.category_id = category_id;
     }
 
-    public List<?> getCategory() {
+    public List<String> getCategory() {
         return category;
     }
 
-    public void setCategory(List<?> category) {
+    public void setCategory(List<String> category) {
         this.category = category;
     }
 
@@ -289,8 +360,7 @@ public class Info implements Serializable{
     }
 
 
-
-    public static class BusinessHoursBean implements Serializable{
+    public static class BusinessHoursBean implements Serializable {
         /**
          * from :
          * to :
@@ -317,34 +387,7 @@ public class Info implements Serializable{
 
     }
 
-    public static class BusinessWeekBean implements Serializable {
-        /**
-         * from :
-         * to :
-         */
-
-        private String from;
-        private String to;
-
-        public String getFrom() {
-            return from;
-        }
-
-        public void setFrom(String from) {
-            this.from = from;
-        }
-
-        public String getTo() {
-            return to;
-        }
-
-        public void setTo(String to) {
-            this.to = to;
-        }
-
-    }
-
-    public static class ImgsBean implements Serializable{
+    public static class ImgsBean implements Serializable {
         /**
          * width : 300
          * height : 300

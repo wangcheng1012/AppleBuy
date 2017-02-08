@@ -12,9 +12,12 @@ import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.loginreg.p.LoginPresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
+import com.rxmvp.api.interceptor.LoginInterceptor;
 import com.rxmvp.basemvp.BaseMvpActivity;
+import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.AppManager;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.UIHelper;
 
 import butterknife.BindView;
@@ -22,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresenter> implements Title1Fragment.TitleInterface,Views.LoginView {
+public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresenter> implements Title1Fragment.TitleInterface, Views.LoginView {
 
     @BindView(R.id.login_phone)
     AutoCompleteTextView loginPhone;
@@ -36,15 +39,20 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
 
         ButterKnife.bind(this);
 
-        if(BuildConfig.DEBUG){
-            loginPhone.setText("15310315193");
-            loginPsw.setText("123456");
+        loginPhone.setText(AppConfig.getAppConfig().get(AppConfig.CONF_PHONE));
+        loginPsw.setText(AppConfig.getAppConfig().get(AppConfig.CONF_PSW));
+
+        boolean reLogin = getIntent().getBooleanExtra(LoginInterceptor.interceptorLogin, false);
+//        String error_code = getIntent().getStringExtra(LoginInterceptor.error_code);
+
+        if (reLogin) {
+            UIHelper.dialog(this, "你的账号在其他地方登录\n如不是本人操作请及时修改密码", null, null);
         }
     }
 
     @Override
     public LoginPresenter initPresenter() {
-        return new LoginPresenter( );
+        return new LoginPresenter();
     }
 
     @Override
@@ -57,11 +65,11 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
         switch (view.getId()) {
             case R.id.login_forgetpsw:
                 Bundle bundle = new Bundle();
-                bundle.putString("title","找回密码");
-                GoToHelp.go(this , ForgetPswActivity.class,bundle);
+                bundle.putString("title", "找回密码");
+                GoToHelp.go(this, ForgetPswActivity.class, bundle);
                 break;
             case R.id.login_loginbt:
-                presenter.Login(loginPhone,loginPsw);
+                presenter.Login(loginPhone, loginPsw);
 //                LoginBack();
                 break;
             case R.id.login_reg:
@@ -79,12 +87,12 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView,LoginPresente
     @Override
     public void LoginBack() {
         GoToHelp.go(this, MainActivity.class);
-        finish();
+//        finish();
     }
 
     @Override
     public void showMessage(String message) {
-        UIHelper.toastMessage(getApplication(),message);
+        UIHelper.toastMessage(getApplication(), message);
     }
 
 }

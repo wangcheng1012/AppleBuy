@@ -79,7 +79,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/line_matchleft10" />
+    <include layout="@layout/line_matchleft15" />
 
 
     <LinearLayout

@@ -1,10 +1,13 @@
 package com.dw.applebuy.ui.home.shoppingmanage.data.child;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
@@ -13,6 +16,7 @@ import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity;
 import com.rxmvp.bean.HttpStateResult;
+import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.MathUtil;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -28,14 +32,18 @@ import rx.functions.Func1;
 public class BusinessScopeActivity extends YouHuiTypeActivity {
 
     public static final String RESULT_BusinessScope = "BusinessScope";
-    private  ArrayList<Integer> businessScopes;
-
+    private ArrayList<String> businessScopes;
+    private List<BusinessScope> data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        businessScopes = getIntent().getIntegerArrayListExtra("businessScopes");
-        if(businessScopes == null)businessScopes = new ArrayList<>();
+        businessScopes = getIntent().getStringArrayListExtra("businessScopes");
 
+    }
+
+    @Override
+    protected void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
+        recyclerview.addItemDecoration(new DividerDecoration(getApplicationContext(),DividerDecoration.HORIZONTAL_LIST));
     }
 
     protected SWRVContract.SWRVPresenterAdapter<BusinessScope> getMyPresenterAdapter() {
@@ -53,9 +61,15 @@ public class BusinessScopeActivity extends YouHuiTypeActivity {
             @Override
             public void convert(ViewHolder viewHolder, BusinessScope item, int position) {
                 viewHolder.setText(R.id.item_businessscope_text, item.getName());
-                CheckBox checkBox = viewHolder.getView(R.id.item_businessscope_checkBox);
-                boolean selected = item.getSelected();
-                checkBox.setChecked(selected);
+                ImageView checkBox = viewHolder.getView(R.id.item_businessscope_imageView);
+                if (item.getSelected()){
+
+                    checkBox.setVisibility(View.VISIBLE);
+                }else{
+
+                    checkBox.setVisibility(View.INVISIBLE);
+                }
+
             }
 
             @Override
@@ -67,7 +81,17 @@ public class BusinessScopeActivity extends YouHuiTypeActivity {
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, BusinessScope item) {
                 boolean selected = item.getSelected();
                 item.setSelected(!selected);
-//                swrvFragment.getAdapter().notifyDataSetChanged();
+
+                //
+                View byId = view.findViewById(R.id.item_businessscope_imageView);
+
+                if (item.getSelected()){
+
+                    byId.setVisibility(View.VISIBLE);
+                }else{
+
+                    byId.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -83,11 +107,17 @@ public class BusinessScopeActivity extends YouHuiTypeActivity {
                 Observable<List<BusinessScope>> observable = allCategory.map(new Func1<HttpStateResult<List<BusinessScope>>, List<BusinessScope>>() {
                     @Override
                     public List<BusinessScope> call(HttpStateResult<List<BusinessScope>> listHttpStateResult) {
-                        List<BusinessScope> data = listHttpStateResult.getData();
+
+                          data = listHttpStateResult.getData();
+
+                        if (businessScopes == null)  return data;
 
                         for (int i = data.size() - 1; i >= 0; i--) {
+
                             BusinessScope businessScope = data.get(i);
-                            if (businessScopes.indexOf(MathUtil.parseInteger(businessScope.getId())) != -1 ) {
+
+                            if (businessScopes.indexOf(businessScope.getId()) != -1) {
+
                                 businessScope.setSelected(true);
                             }
                         }
@@ -111,5 +141,12 @@ public class BusinessScopeActivity extends YouHuiTypeActivity {
         title.setText("经营范围");
     }
 
+    @Override
+    public void onBackPressed() {
 
+        Intent intent = new Intent();
+        intent.putExtra("businessScopes",new ArrayList<>(data));
+        setResult(RESULT_OK,intent);
+        super.onBackPressed();
+    }
 }
