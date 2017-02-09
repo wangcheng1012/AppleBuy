@@ -7,6 +7,9 @@ import android.widget.TextView;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
 
+/**
+ * 评论管理
+ */
 public class CommentActivity extends AppCompatActivity implements Title1Fragment.TitleInterface{
 
     @Override

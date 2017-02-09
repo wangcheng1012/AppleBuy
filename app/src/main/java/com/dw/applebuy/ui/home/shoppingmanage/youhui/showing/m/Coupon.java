@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- *
+ * 优惠券
  */
 public class Coupon implements Parcelable {
 

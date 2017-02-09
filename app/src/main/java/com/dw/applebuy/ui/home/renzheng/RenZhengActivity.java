@@ -82,7 +82,6 @@ public class RenZhengActivity extends BaseMvpActivity<Contract.RenZhengView, Ren
 
         renhengTypeFaren.setSelected(true);
         initView();
-
     }
 
     private void initView() {

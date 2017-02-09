@@ -29,6 +29,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -220,4 +221,15 @@ public interface FactoryInters {
     @Multipart
     @POST("app/user/applyAuthentication")
     Observable<HttpStateResult> applyAuthentication(@PartMap ArrayMap<String, RequestBody> arrayMap, @Part MultipartBody.Part photo, @Part MultipartBody.Part photo2);
+
+    /**
+     * -提交 删除 优惠卷审核
+     * @param path deleteCoupon/submitCoupon
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/coupon/{path}")
+    Observable<HttpStateResult> submitCoupon(@Path("path")String path, @Field("id") String id);
+
 }

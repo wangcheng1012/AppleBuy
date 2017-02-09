@@ -98,8 +98,8 @@ public class SetFragment extends BaseMvpFragment<Contracts.AboutUsView,AboutUsPr
                 break;
             case R.id.set_exit:
                 AppContext.getAppContext().loginOut();
-                AppManager.getAppManager().finishAllActivity();
                 GoToHelp.go(getActivity(), LoginActivity.class);
+                AppManager.getAppManager().finishAllActivity();
                 System.gc();
                 break;
         }

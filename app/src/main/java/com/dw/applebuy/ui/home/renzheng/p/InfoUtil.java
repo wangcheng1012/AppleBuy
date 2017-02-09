@@ -38,6 +38,7 @@ public class InfoUtil {
     }
 
     public void getInfo(Activity activity, InfoBack infoBack){
+
         if(infoUpdate){
             getInfoFromWeb(activity,infoBack);
         }else{
@@ -76,7 +77,6 @@ public class InfoUtil {
 
 
     public void getInfoFromWeb(Activity activity, final InfoBack infoBack) {
-        if (!infoUpdate) return;
         infoUpdate = false;
         Subscriber<Info> subscriber = getInfoSubscriber(infoBack);
 

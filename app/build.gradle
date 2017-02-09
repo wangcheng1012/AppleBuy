@@ -42,33 +42,36 @@ android {
             signingConfig signingConfigs.signConfig // 配置debug包的签名
         }
     }
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        compile project(':base')
+        compile('com.android.support:support-v4:23.4.0') {
+            force = true;
+        }
+        compile('com.android.support:recyclerview-v7:23.4.0') {
+            exclude module: 'support-v4'
+        }
+        //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        //    compile 'io.reactivex.rxjava2:rxjava:2.0.4'
+        //    /*rotrofit*/
+        //    compile 'com.squareup.retrofit2:retrofit:+'// Retrofit 网络支持
+        //    compile 'com.squareup.retrofit2:converter-gson:+'// Gson 适配器
+        //    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:+'// 大神写的这个库可以支持到rxjava2.X
+        //    compile 'com.squareup.retrofit2:adapter-rxjava:+'//retrofit现在只支持到rxjava1.XX 会报错：DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties
+        compile project(path: ':photopicker')
+        compile files('libs/BaiduLBS_Android.jar')
+        compile 'com.android.support:appcompat-v7:23.4.0'
+        compile 'com.android.support:design:23.4.0'
+        compile 'com.jakewharton:butterknife:8.4.0'
+        compile 'com.android.support:support-v4:23.4.0'
+        apt 'com.jakewharton:butterknife-compiler:8.4.0'
+        //漂亮的对话框
+    compile 'cn.pedant.sweetalert:library:1.3'
+        compile project(':third')
+
+    }
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile project(':base')
-    compile('com.android.support:support-v4:23.4.0') {
-        force = true;
-    }
-    compile('com.android.support:recyclerview-v7:23.4.0') {
-        exclude module: 'support-v4'
-    }
-    //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    //    compile 'io.reactivex.rxjava2:rxjava:2.0.4'
-    //    /*rotrofit*/
-    //    compile 'com.squareup.retrofit2:retrofit:+'// Retrofit 网络支持
-    //    compile 'com.squareup.retrofit2:converter-gson:+'// Gson 适配器
-    //    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:+'// 大神写的这个库可以支持到rxjava2.X
-    //    compile 'com.squareup.retrofit2:adapter-rxjava:+'//retrofit现在只支持到rxjava1.XX 会报错：DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties
-    compile project(path: ':photopicker')
-    compile files('libs/BaiduLBS_Android.jar')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile project(':third')
-}

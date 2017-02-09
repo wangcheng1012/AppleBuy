@@ -1,5 +1,6 @@
 package com.dw.applebuy.ui;
 
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.message.MessageFragment;
 import com.dw.applebuy.ui.set.SetFragment;
 import com.dw.applebuy.ui.songjifen.JiFenFragment;
+import com.dw.applebuy.util.RenZhengIngHelp;
 import com.orhanobut.logger.Logger;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.util.AppConfig;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String mFragmentTags[] = {"首页", "送积分", "消息", "设置"};
     //加载的Fragment
     private Class mFragment[] = {HomeFragment.class, JiFenFragment.class, MessageFragment.class, SetFragment.class};
+    public String authenticate_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,13 @@ public class MainActivity extends AppCompatActivity {
         initTabHost();
 
         InfoUtil.infoUpdate = true;
+//        InfoUtil.getInstall().getInfo(this, new InfoUtil.InfoBack() {
+//            @Override
+//            public void back(Info info) {
+//                  authenticate_status = info.getAuthenticate_status();
+//            }
+//        });
     }
-
 
     private void initTabHost() {
         myTabhost = (FragmentTabHost) findViewById(android.R.id.tabhost);
@@ -68,9 +76,20 @@ public class MainActivity extends AppCompatActivity {
             myTabhost.getTabWidget().getChildAt(i).setBackgroundResource(R.color.white);
 //            myTabhost.getTabWidget().setCurrentTab(1);
 //            myTabhost.getTabWidget().getChildTabViewAt(2).setSelected(true);
-
         }
-
+        myTabhost.getTabWidget().getChildAt(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( RenZhengIngHelp.renzheng_ed.equals(authenticate_status) ){
+                    //执行默认点击操作
+                    myTabhost.setCurrentTab(1);
+                    myTabhost.getTabWidget().requestFocus(View.FOCUS_FORWARD);
+                }else{
+                    //dialog
+                    UIHelper.dialog(MainActivity.this, "你暂未通过商家认证", null,null);
+                }
+            }
+        });
     }
 
     //获取图片资源
@@ -89,7 +108,5 @@ public class MainActivity extends AppCompatActivity {
         AppManager.getAppManager().AppExit(getApplicationContext());
         AppContext.getAppContext().loginOut();
     }
-
-
 
 }

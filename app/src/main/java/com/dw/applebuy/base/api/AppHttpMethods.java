@@ -241,4 +241,15 @@ public class AppHttpMethods {
         Observable<HttpStateResult> observable = apiService.applyAuthentication(arrayMap, photo,photo2);
         subscribe(observable, subscriber);
     }
+
+    /**
+     * -提交  删除 优惠卷审核
+     * @param sub
+     * @param id
+     */
+    public void submitCoupon(Subscriber<HttpStateResult> sub,String path, String id) {
+        Observable<HttpStateResult> observable = apiService.submitCoupon(path,id);
+        subscribe(observable, sub);
+
+    }
 }

@@ -46,7 +46,7 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresent
 //        String error_code = getIntent().getStringExtra(LoginInterceptor.error_code);
 
         if (reLogin) {
-            UIHelper.dialog(this, "你的账号在其他地方登录\n如不是本人操作请及时修改密码", null, null);
+            UIHelper.dialog(this, "你的账号在其他地方登录,如不是本人操作请及时修改密码", null, null);
         }
     }
 
@@ -80,7 +80,7 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresent
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        super.onBackPressed();
         AppManager.getAppManager().AppExit(this);
     }
 

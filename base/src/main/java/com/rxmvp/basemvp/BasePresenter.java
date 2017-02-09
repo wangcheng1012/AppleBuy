@@ -31,10 +31,7 @@ public abstract class BasePresenter<T> {
      * @param defMessage
      */
     protected void onErrorShow(Throwable e,String defMessage) {
-
-        if(BuildConfig.DEBUG){
-            e.printStackTrace();
-        }
+        e.printStackTrace();
         if(mView != null && mView instanceof BaseView) {
             BaseView mView = (BaseView) this.mView;
             mView.hideLoading();

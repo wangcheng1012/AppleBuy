@@ -220,7 +220,6 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
                 if (mView != null) {
                     mView.hideLoading();
                 }
-                curPageEnd = curPageStart;
                 RefreshingClose();
             }
 
@@ -233,14 +232,14 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
             @Override
             public void onNext(List<T> list) {
+                curPageEnd = curPageStart;
                 //正常
-                if (list == null) return;
+                if (list == null) list = new ArrayList<>();
 
                 //以此判定为刷新 就清除原油数据
                 if (curPageEnd <= 1) {
                     datas.clear();
                 }
-
 
                 //是否加载完成
                 if (list.size() <= 0) {

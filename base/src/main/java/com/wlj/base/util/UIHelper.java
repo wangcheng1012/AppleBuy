@@ -11,6 +11,7 @@ import android.content.Intent;
 import com.wlj.base.R;
 import com.wlj.base.util.Log;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.provider.Settings;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class UIHelper {
 
@@ -50,12 +53,12 @@ public class UIHelper {
     private static ProgressDialog progressDialog;
 
     public static void loading(String str, Activity mContext) {
-        loadingClose( );
+        loadingClose();
         progressDialog = ProgressDialog.show(mContext, "提示", str);
     }
 
     public static void loadingCir(Activity context) {
-        loadingClose( );
+        loadingClose();
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
@@ -118,7 +121,7 @@ public class UIHelper {
         builder.setTitle(R.string.app_tipr);
         builder.setMessage(message);
         builder.setPositiveButton("确认", positivelistener);
-        if(negativelistener != null) {
+        if (negativelistener != null) {
             builder.setNegativeButton("取消", negativelistener);
         }
         builder.show();
@@ -136,9 +139,26 @@ public class UIHelper {
     }
 
     public static void closeProgressbar() {
-        if(Progressbardlg != null && Progressbardlg.isShowing()) {
+        if (Progressbardlg != null && Progressbardlg.isShowing()) {
             Progressbardlg.dismiss();
             Progressbardlg = null;
+        }
+    }
+
+    static SweetAlertDialog pDialog;
+    public static void showLoading(Context context) {
+
+        pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    public static void closeLoading() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+            pDialog = null;
         }
     }
 

@@ -33,7 +33,6 @@ public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends Base
         UIHelper.showProgressbar(this,null);
     }
 
-
     public void hideLoading() {
         UIHelper.closeProgressbar();
     }

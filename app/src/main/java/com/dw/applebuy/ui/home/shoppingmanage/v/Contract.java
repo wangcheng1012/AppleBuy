@@ -28,6 +28,16 @@ public interface Contract {
 
         void saveBack(HttpStateResult s);
     }
+    /**
+     * 资料管理
+     */
+    interface TabLayoutView extends BaseView {
+
+
+        void submitBack();
+
+        void delBack();
+    }
 
 
 }

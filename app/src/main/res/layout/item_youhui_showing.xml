@@ -92,6 +92,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/showing_image_textview1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -107,6 +108,7 @@
             android:layout_weight="2" />
 
         <TextView
+            android:id="@+id/showing_image_textview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/icon_20_share"
