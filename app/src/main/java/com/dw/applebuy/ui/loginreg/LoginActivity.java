@@ -23,6 +23,7 @@ import com.wlj.base.util.UIHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresenter> implements Title1Fragment.TitleInterface, Views.LoginView {
@@ -46,7 +47,14 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresent
 //        String error_code = getIntent().getStringExtra(LoginInterceptor.error_code);
 
         if (reLogin) {
-            UIHelper.dialog(this, "你的账号在其他地方登录,如不是本人操作请及时修改密码", null, null);
+
+            new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("提示")
+                    .setContentText("你的账号在其他地方登录,如不是本人操作请及时修改密码")
+                    .setConfirmText("确认")
+                    .show();
+
+//            UIHelper.dialog(this, "你的账号在其他地方登录,如不是本人操作请及时修改密码", null, null);
         }
     }
 

@@ -32,6 +32,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 /**
  * 裁剪
@@ -105,38 +107,44 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
      */
     public void onCrop(final Intent data) {
         //提示框
-        UIHelper.dialog(mActivity, "是否裁剪？", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+        new SweetAlertDialog(mActivity)
+                .setTitleText("提示")
+                .setContentText("是否裁剪？")
+                .setConfirmText("确认")
+                .setCancelText("取消")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
 
-                CropOptions cropOptions = new CropOptions.Builder()
+                        CropOptions cropOptions = new CropOptions.Builder()
 //                        .setAspectX(1).setAspectY(1)
-                        .setWithOwnCrop(false).create();
-                try {
+                                .setWithOwnCrop(false).create();
+                        try {
 
-                    File file = new File(ImageFileCache.getCropCachePath());
-                    if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-                    Uri imageUri = Uri.fromFile(file);
+                            File file = new File(ImageFileCache.getCropCachePath());
+                            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+                            Uri imageUri = Uri.fromFile(file);
 
-                    ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
+                            ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
 
-                    takePhoto.onCrop( Uri.parse(uristr.get(0)), imageUri, cropOptions);
+                            takePhoto.onCrop( Uri.parse(uristr.get(0)), imageUri, cropOptions);
 
-                } catch (TException e) {
-                    e.printStackTrace();
-                }
+                        } catch (TException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
 
-            }
-        }, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
-                mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
-            }
-        });
-
+                        ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
+                        mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
+                    }
+                })
+                .show();
     }
 
     public void onRequestPermissionsResult_(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

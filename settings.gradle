@@ -1,1 +1,1 @@
-include ':app', ':base', ':photopicker', ':third'
+include ':app', ':base', ':photopicker', ':third', ':sweet-alert-dialog'

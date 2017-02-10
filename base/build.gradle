@@ -28,7 +28,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -43,5 +42,5 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.google.code.gson:gson:2.7'
-    compile 'cn.pedant.sweetalert:library:1.3'
+    compile project(':sweet-alert-dialog')
 }

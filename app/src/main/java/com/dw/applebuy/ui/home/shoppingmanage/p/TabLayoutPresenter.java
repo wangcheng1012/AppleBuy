@@ -72,4 +72,30 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
         AppHttpMethods.getInstance().submitCoupon(sub, "deleteCoupon", item.getId());
     }
 
+    /**
+     * 获取优惠券详情
+     * @param item
+     */
+    public void getCouponInfo(Coupon item) {
+        Subscriber  sub =  new Subscriber<Coupon>() {
+            @Override
+            public void onCompleted() {
+                if (mView != null) {
+                    mView.hideLoading();
+                }
+            }
+            @Override
+            public void onError(Throwable e) {
+                onErrorShow(e,"删除失败");
+            }
+            @Override
+            public void onNext(Coupon coupon) {
+                if(mView != null){
+                    mView.couponBack(coupon);
+                }
+            }
+        };
+        mView.showLoading();
+        AppHttpMethods.getInstance().getCouponInfo(sub,item.getId());
+    }
 }

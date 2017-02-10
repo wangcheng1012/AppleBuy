@@ -10,12 +10,14 @@ import com.dw.applebuy.ui.loginreg.LoginActivity;
 import com.mylhyl.acp.Acp;
 import com.mylhyl.acp.AcpListener;
 import com.mylhyl.acp.AcpOptions;
+import com.wlj.base.ui.BaseFragmentActivity;
+import com.wlj.base.util.AppContext;
 import com.wlj.base.util.ExecutorServices;
 import com.wlj.base.util.UIHelper;
 
 import java.util.List;
 
-public class Loading extends AppCompatActivity {
+public class Loading extends BaseFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,11 @@ public class Loading extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent intent = new Intent(Loading.this, LoginActivity.class);
+                Class cla = LoginActivity.class;
+                if(AppContext.getAppContext().islogin()){
+                    cla = MainActivity.class;
+                }
+                Intent intent = new Intent(Loading.this,cla );
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

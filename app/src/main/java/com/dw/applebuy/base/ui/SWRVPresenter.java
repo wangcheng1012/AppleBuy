@@ -1,13 +1,16 @@
 package com.dw.applebuy.base.ui;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dw.applebuy.BuildConfig;
@@ -126,7 +129,6 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
 
                     presenterAdapter.onItemClick(view, holder, position, tag);
                 }
-
             }
 
             @Override
@@ -143,19 +145,15 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
         //空 EmptyWrapper
         View emptyView = presenterAdapter.getEmptyView();
         if (emptyView == null) {
-            TextView empty = new TextView(mContext);
-            empty.setText("点击刷新");
-            empty.setTextColor(Color.BLACK);
-            empty.setGravity(Gravity.CENTER);
-            empty.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
-            emptyView = empty;
+             emptyView = LayoutInflater.from(mContext).inflate(R.layout.def_null, null);
+            emptyView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
         }
         EmptyWrapper emptyWrapper = new EmptyWrapper(commonAdapter);
         emptyWrapper.setEmptyView(emptyView);
         emptyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onRefresh();
+//                onRefresh();
             }
         });
         adapter = emptyWrapper;

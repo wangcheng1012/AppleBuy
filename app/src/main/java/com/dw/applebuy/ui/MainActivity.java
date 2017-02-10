@@ -1,6 +1,5 @@
 package com.dw.applebuy.ui;
 
-import android.content.DialogInterface;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,28 +12,20 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
-import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.home.HomeFragment;
 import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.message.MessageFragment;
 import com.dw.applebuy.ui.set.SetFragment;
 import com.dw.applebuy.ui.songjifen.JiFenFragment;
-import com.dw.applebuy.util.RenZhengIngHelp;
-import com.orhanobut.logger.Logger;
-import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.util.AppConfig;
+import com.dw.applebuy.util.RenZhengHelp;
+import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.AppContext;
 import com.wlj.base.util.AppManager;
-import com.wlj.base.util.UIHelper;
 
-import java.io.File;
-import java.io.Serializable;
-
-import rx.Subscriber;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseFragmentActivity {
 
     private FragmentTabHost myTabhost;
     //Tab图片
@@ -80,13 +71,18 @@ public class MainActivity extends AppCompatActivity {
         myTabhost.getTabWidget().getChildAt(1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( RenZhengIngHelp.renzheng_ed.equals(authenticate_status) ){
+                if (RenZhengHelp.renzheng_ed.equals(authenticate_status)) {
                     //执行默认点击操作
                     myTabhost.setCurrentTab(1);
                     myTabhost.getTabWidget().requestFocus(View.FOCUS_FORWARD);
-                }else{
+                } else {
                     //dialog
-                    UIHelper.dialog(MainActivity.this, "你暂未通过商家认证", null,null);
+//                    UIHelper.dialog(MainActivity.this, "你暂未通过商家认证", null,null);
+                    new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("你暂未通过商家认证")
+//                            .setContentText("你暂未通过商家认证")
+                            .setConfirmText("确认")
+                            .show();
                 }
             }
         });

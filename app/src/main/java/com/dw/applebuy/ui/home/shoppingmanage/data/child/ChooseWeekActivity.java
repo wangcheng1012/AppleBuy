@@ -49,13 +49,19 @@ public class ChooseWeekActivity extends AppCompatActivity implements MultiItemTy
 
         //数据准备
         Intent intent = getIntent();
-        Info info = (Info) intent.getSerializableExtra("info");
-        List<String> business_week = info.getBusiness_week();
+        ArrayList<String> business_week = intent.getStringArrayListExtra("business_week");
 
         datas = new ArrayList<>(7);
-        for (int i = 0; i < BusinessWeek.length; i++) {
+        if(business_week == null){
+            for (int i = 0; i < BusinessWeek.length; i++) {
 
-            datas.add(new BusinessScope(BusinessWeek[i], business_week.contains(i + "") ));
+                datas.add(new BusinessScope(BusinessWeek[i], false ));
+            }
+        }else {
+            for (int i = 0; i < BusinessWeek.length; i++) {
+
+                datas.add(new BusinessScope(BusinessWeek[i], business_week.contains(i + "")));
+            }
         }
         //
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

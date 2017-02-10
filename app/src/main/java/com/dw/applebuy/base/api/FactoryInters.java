@@ -12,9 +12,7 @@ import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
 import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
-import com.dw.applebuy.ui.set.m.AboutUsModel;
 import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
-import com.google.gson.JsonArray;
 import com.rxmvp.bean.HttpStateResult;
 import com.rxmvp.bean.ResultResponse;
 
@@ -119,7 +117,7 @@ public interface FactoryInters {
      */
 //    @FormUrlEncoded
     @POST("app/Common/AboutUs")
-    Observable<HttpStateResult<AboutUsModel>> getAboutUs();
+    Observable<HttpStateResult<String>> getAboutUs();
 
     /**
      * 省市区
@@ -232,4 +230,12 @@ public interface FactoryInters {
     @POST("app/coupon/{path}")
     Observable<HttpStateResult> submitCoupon(@Path("path")String path, @Field("id") String id);
 
+    /**
+     * 获取优惠券详情
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/coupon/getCouponInfo")
+    Observable<HttpStateResult<Coupon>> getCouponInfo(@Field("id") String id);
 }

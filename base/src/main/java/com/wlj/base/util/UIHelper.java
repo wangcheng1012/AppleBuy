@@ -116,21 +116,41 @@ public class UIHelper {
 
     public static void dialog(Context cont, String message, DialogInterface.OnClickListener positivelistener, DialogInterface.OnClickListener negativelistener) {
 
-        Builder builder = new Builder(cont);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setTitle(R.string.app_tipr);
-        builder.setMessage(message);
-        builder.setPositiveButton("确认", positivelistener);
-        if (negativelistener != null) {
-            builder.setNegativeButton("取消", negativelistener);
-        }
-        builder.show();
+        new SweetAlertDialog(cont)
+                .setTitleText("提示")
+                .setContentText(message)
+                .setConfirmText("确认")
+                .setCancelText("取消")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .show();
+
+//        Builder builder = new Builder(cont);
+//        builder.setIcon(android.R.drawable.ic_dialog_info);
+//        builder.setTitle(R.string.app_tipr);
+//        builder.setMessage(message);
+//        builder.setPositiveButton("确认", positivelistener);
+//        if (negativelistener != null) {
+//            builder.setNegativeButton("取消", negativelistener);
+//        }
+//        builder.show();
     }
 
     public static void showProgressbar(Activity paramActivity, DialogInterface.OnCancelListener paramOnCancelListener) {
         closeProgressbar();
 
         Progressbardlg = new AlertDialog.Builder(paramActivity).create();
+        Progressbardlg.setCancelable(false);
         Window localWindow = Progressbardlg.getWindow();
         localWindow.setBackgroundDrawable(new ColorDrawable(0));
         Progressbardlg.show();

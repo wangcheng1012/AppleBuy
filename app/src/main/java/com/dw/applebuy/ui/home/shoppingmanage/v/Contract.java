@@ -1,5 +1,6 @@
 package com.dw.applebuy.ui.home.shoppingmanage.v;
 
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BaseView;
 import com.rxmvp.bean.HttpStateResult;
 
@@ -13,6 +14,7 @@ public interface Contract {
      */
     interface YouHuiAddView extends BaseView {
 
+        void callBack();
     }
 
     /**
@@ -37,6 +39,12 @@ public interface Contract {
         void submitBack();
 
         void delBack();
+
+        /**
+         * 优惠券 详情返回
+         * @param coupon
+         */
+        void couponBack(Coupon coupon);
     }
 
 

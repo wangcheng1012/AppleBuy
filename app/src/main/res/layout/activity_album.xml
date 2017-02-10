@@ -23,8 +23,6 @@
         android:padding="10dp"
         android:text="首图管理" />
 
-    <include layout="@layout/line" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -36,7 +34,7 @@
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/common_default_169" />
+            android:src="@drawable/icon_41_renzheng" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -61,6 +59,8 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
+    <include layout="@layout/line" />
 
 
     <include layout="@layout/line" />
@@ -87,7 +87,7 @@
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/common_default_169" />
+            android:src="@drawable/icon_41_renzheng" />
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -1,6 +1,5 @@
 package com.dw.applebuy.ui.home;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,13 +22,10 @@ import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.home.scoremanage.ScoreActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.ShoppingManagerActivity;
 import com.dw.applebuy.ui.home.usermanage.UserActivity;
-import com.dw.applebuy.ui.songjifen.GiveSuccessActivity;
-import com.dw.applebuy.util.RenZhengIngHelp;
+import com.dw.applebuy.util.RenZhengHelp;
 import com.wlj.base.adapter.CommonAdapter;
 import com.wlj.base.adapter.ViewHolder;
-import com.wlj.base.util.AppContext;
 import com.wlj.base.util.GoToHelp;
-import com.wlj.base.util.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +63,7 @@ public class HomeFragment extends Fragment {
     private List<GridItem> mDatas;
     private CommonAdapter<GridItem> gridviewAdapter;
     private String authenticate_status;
-    private RenZhengIngHelp renZhengIngHelp;
+    private RenZhengHelp renZhengHelp;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -108,7 +104,7 @@ public class HomeFragment extends Fragment {
                 activity.authenticate_status = authenticate_status;
 
                 switch (authenticate_status) {
-                    case RenZhengIngHelp.renzheng_no:
+                    case RenZhengHelp.renzheng_no:
                         homeLijirenzhengLayout.setVisibility(View.VISIBLE);
                         renzhengimage.setImageResource(R.drawable.icon_renzheng);
                         homeRenzhengtext.setText("请完成实名认证，保护商家权益");
@@ -116,7 +112,7 @@ public class HomeFragment extends Fragment {
                         imageNumber.setVisibility(View.GONE);
                         titleTitle.setText("尊敬的商户，你好！");
                         break;
-                    case RenZhengIngHelp.renzheng_ing:
+                    case RenZhengHelp.renzheng_ing:
                         homeLijirenzhengLayout.setVisibility(View.VISIBLE);
                         renzhengimage.setImageResource(R.drawable.icon_renzhenging);
                         homeRenzhengtext.setText("你的认证已提交，请等待审核");
@@ -124,13 +120,13 @@ public class HomeFragment extends Fragment {
                         imageNumber.setVisibility(View.GONE);
                         titleTitle.setText("尊敬的商户，你好！");
                         break;
-                    case RenZhengIngHelp.renzheng_ed:
+                    case RenZhengHelp.renzheng_ed:
                         homeLijirenzhengLayout.setVisibility(View.GONE);
 
                         imageNumber.setVisibility(View.GONE);
                         titleTitle.setText(info.getName());
                         break;
-                    case RenZhengIngHelp.renzheng_fail:
+                    case RenZhengHelp.renzheng_fail:
                         homeLijirenzhengLayout.setVisibility(View.VISIBLE);
                         renzhengimage.setImageResource(R.drawable.icon_renzheng_fail);
                         homeRenzhengtext.setText("认证失败，请重新提交认证");
@@ -144,7 +140,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
-          renZhengIngHelp = RenZhengIngHelp.getInstall(getActivity());
+          renZhengHelp = RenZhengHelp.getInstall(getActivity());
         initGridview();
     }
 
@@ -176,45 +172,43 @@ public class HomeFragment extends Fragment {
                         GoToHelp.go(getActivity(), ShoppingManagerActivity.class);
                         break;
                     case 1://商家核销
-                        renZhengIngHelp.VerifyRenZhengIng(authenticate_status, new RenZhengIngHelp.NoRenZhengIng() {
+                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
                             @Override
-                            public void no() {
+                            public void renZhenged() {
                                 //核销
-
                             }
                         });
 
                         break;
                     case 2://评论管理
-                        renZhengIngHelp.VerifyRenZhengIng(authenticate_status, new RenZhengIngHelp.NoRenZhengIng() {
+                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
                             @Override
-                            public void no() {
+                            public void renZhenged() {
                                 GoToHelp.go(getActivity(), CommentActivity.class);
                             }
                         });
-
                         break;
                     case 3://订单管理
-                        renZhengIngHelp.VerifyRenZhengIng(authenticate_status, new RenZhengIngHelp.NoRenZhengIng() {
+                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
                             @Override
-                            public void no() {
+                            public void renZhenged() {
                                 GoToHelp.go(getActivity(), OrderListActivity.class);
                             }
                         });
 
                         break;
                     case 4://会员管理
-                        renZhengIngHelp.VerifyRenZhengIng(authenticate_status, new RenZhengIngHelp.NoRenZhengIng() {
+                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
                             @Override
-                            public void no() {
+                            public void renZhenged() {
                                 GoToHelp.go(getActivity(), UserActivity.class);
                             }
                         });
                         break;
                     case 5://积分管理
-                        renZhengIngHelp.VerifyRenZhengIng(authenticate_status, new RenZhengIngHelp.NoRenZhengIng() {
+                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
                             @Override
-                            public void no() {
+                            public void renZhenged() {
                                 GoToHelp.go(getActivity(), ScoreActivity.class);
                             }
                         });
@@ -234,31 +228,14 @@ public class HomeFragment extends Fragment {
             case R.id.title_right:
                 break;
             case R.id.home_renzhengimage:
-                if (!AppContext.getAppContext().islogin()){
-                    UIHelper.toastMessage(getContext(),"请先登录");
-                    return;
-                }
 
-                renZhengIngHelp.VerifyRenZhengIng(authenticate_status, new RenZhengIngHelp.NoRenZhengIng() {
+                renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
                     @Override
-                    public void no() {
-                        //认证
-                        GoToHelp.go(getActivity(), RenZhengActivity.class);
+                    public void renZhenged() {
                     }
                 });
-
                 break;
         }
-    }
-
-    /**
-     *  认证中状态时，点击点击跳转
-     */
-    private void renZhengingGo(){
-        //认证中
-        Bundle bundle = new Bundle();
-        bundle.putString("from",GiveSuccessActivity.FROM_RENZHENG);
-        GoToHelp.go(getActivity(), GiveSuccessActivity.class,bundle);
     }
 
     class GridItem {

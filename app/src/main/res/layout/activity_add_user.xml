@@ -48,10 +48,7 @@
             <AutoCompleteTextView
                 android:id="@+id/adduser_name"
                 style="@style/inputtext"
-                android:digits="0123456789"
-                android:hint="请输入会员名"
-                android:inputType="phone"
-                android:maxLength="11" />
+                android:hint="请输入会员名"   />
 
             <!--</android.support.design.widget.TextInputLayout>-->
 

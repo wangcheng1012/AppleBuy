@@ -47,15 +47,15 @@ public class UserActivity extends AppCompatActivity implements Title1Fragment.Ti
     @Override
     public void setTitle(TextView title, TextView right) {
         title.setText("会员管理");
-        right.setVisibility(View.VISIBLE);
-        right.setText("添加");
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                GoToHelp.go(UserActivity.this,AddUserActivity.class);
-                UIHelper.toastMessage(getApplication(),"添加");
-            }
-        });
+//        right.setVisibility(View.VISIBLE);
+//        right.setText("添加");
+//        right.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                GoToHelp.go(UserActivity.this,AddUserActivity.class);
+//                UIHelper.toastMessage(getApplication(),"添加");
+//            }
+//        });
     }
 }

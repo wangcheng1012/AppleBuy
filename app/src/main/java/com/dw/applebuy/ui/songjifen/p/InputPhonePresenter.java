@@ -3,12 +3,9 @@ package com.dw.applebuy.ui.songjifen.p;
 import android.widget.EditText;
 
 import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.ui.set.m.AboutUsModel;
-import com.dw.applebuy.ui.set.p.AboutUsPresenter;
 import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
 import com.dw.applebuy.ui.songjifen.v.Contracts;
 import com.rxmvp.basemvp.BasePresenter;
-import com.wlj.base.util.UIHelper;
 
 import rx.Subscriber;
 

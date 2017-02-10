@@ -13,6 +13,7 @@ import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
 import com.dw.applebuy.util.ChooseStartEndTimeDialogFragment;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,9 @@ public class BusinessTimeActivity extends BaseFragmentActivity implements Title1
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.businesstime_day:
-
-                GoToHelp.goResult(this, ChooseWeekActivity.class, businesstimeDay_RequsetCode, getIntent().getExtras());
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("business_week", (ArrayList<String>) businesstimeDay.getTag());
+                GoToHelp.goResult(this, ChooseWeekActivity.class, businesstimeDay_RequsetCode, bundle);
 
                 break;
             case R.id.businesstime_time:
@@ -67,9 +69,18 @@ public class BusinessTimeActivity extends BaseFragmentActivity implements Title1
                 break;
             case R.id.data_save:
 
+                if(businesstimeDay.getTag()== null){
+                    UIHelper.toastMessage(this,"请选择每周营业日");
+                    return;
+                }
+                if(businesstimeTime.getTag()== null){
+                    UIHelper.toastMessage(this,"请选择营业时间");
+                    return;
+                }
+
                 Intent intent = new Intent();
-                intent.putStringArrayListExtra("business_week",businesstimeDay.getTag()== null?null:(ArrayList<String>)businesstimeDay.getTag() );
-                intent.putExtra("time",businesstimeTime.getTag()== null ? null: businesstimeTime.getTag()+"");
+                intent.putStringArrayListExtra("business_week", (ArrayList<String>)businesstimeDay.getTag() );
+                intent.putExtra("time",  businesstimeTime.getTag()+"");
                 setResult(RESULT_OK,intent);
                 finish();
                 break;

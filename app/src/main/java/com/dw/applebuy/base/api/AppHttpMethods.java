@@ -6,9 +6,8 @@ import com.dw.applebuy.been.Info;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
-import com.dw.applebuy.ui.set.m.AboutUsModel;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
-import com.rxmvp.api.ApiException;
 import com.rxmvp.api.HttpResultFunc;
 import com.rxmvp.bean.ResultResponse;
 import com.rxmvp.api.RetrofitBase;
@@ -20,7 +19,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func1;
 
 /**
  *
@@ -165,9 +163,9 @@ public class AppHttpMethods {
      * 获取关于我们
      * @param subscriber
      */
-    public void getAboutUs(Subscriber<AboutUsModel> subscriber) {
-        Observable<AboutUsModel> aboutUs = apiService.getAboutUs()
-                .map(new HttpResultFunc<AboutUsModel>() );
+    public void getAboutUs(Subscriber<String> subscriber) {
+        Observable<String> aboutUs = apiService.getAboutUs()
+                .map(new HttpResultFunc<String>() );
         subscribe(aboutUs,subscriber);
     }
 
@@ -251,5 +249,15 @@ public class AppHttpMethods {
         Observable<HttpStateResult> observable = apiService.submitCoupon(path,id);
         subscribe(observable, sub);
 
+    }
+
+    /**
+     * 获取优惠券详情
+     * @param sub
+     * @param id
+     */
+    public void getCouponInfo(Subscriber sub, String id) {
+        Observable<Coupon> observable = apiService.getCouponInfo(id).map(new HttpResultFunc<Coupon>());
+        subscribe(observable, sub);
     }
 }

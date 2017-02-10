@@ -13,7 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
@@ -28,14 +33,28 @@ import com.orhanobut.logger.Logger;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.img.ImageFileCache;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * 添加优惠券
@@ -64,6 +83,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
     private TakePhotoCrop takePhotoCrop;
 
     private String imagePath;
+    private Coupon oldCoupon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,17 +94,25 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        Coupon coupon = intent.getParcelableExtra("Coupon");
-        if(coupon != null){
-            initView(coupon);
+        oldCoupon = intent.getParcelableExtra("Coupon");
+        if (oldCoupon != null) {
+            initView(oldCoupon);
         }
     }
 
     private void initView(Coupon coupon) {
-        Glide.with(this).load(coupon.getIcon()).into(imageView);
-//        type.setText();
+        Glide.with(this).load(coupon.getImgFromIndex(0)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        type.setText(coupon.getCategory_name());
+        type.setTag(coupon.getCategory_id());
+        long aLong = MathUtil.parseLong(coupon.getEnd_time());
+        String time = StringUtils.getTime(aLong, "yyyy-MM-dd");
+//        long millis = System.currentTimeMillis();
+//        String time2 = StringUtils.getTime(millis, "yyyy-MM-dd");
+        this.time.setText(time);
         title.setText(coupon.getTitle());
-        time.setText(coupon.getEnd_time());
+        intro.setText(coupon.getDescription());
+        youhuiaddPrice.setText(coupon.getIntegral());
+        number.setText(coupon.getStock());
     }
 
     @Override
@@ -97,7 +125,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
         title.setText("新增优惠");
     }
 
-    @OnClick({R.id.youhuiadd_type, R.id.youhuiadd_time, R.id.youhuiadd_complate,R.id.youhuiadd_image})
+    @OnClick({R.id.youhuiadd_type, R.id.youhuiadd_time, R.id.youhuiadd_complate, R.id.youhuiadd_image})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.youhuiadd_image:
@@ -113,20 +141,29 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
                 break;
             case R.id.youhuiadd_complate:
 
-                ArrayMap<String, String> arrayMap = new ArrayMap<>();
-                arrayMap.put("sessionid",AppConfig.getAppConfig().get(AppConfig.CONF_KEY) );
+                final ArrayMap<String, String> arrayMap = new ArrayMap<>();
+                arrayMap.put("sessionid", AppConfig.getAppConfig().get(AppConfig.CONF_KEY));
                 arrayMap.put("title", title.getText() + "");
-                arrayMap.put("description",intro.getText() + "");
-                arrayMap.put("category_id",type.getTag() +"");//分类ID
-                arrayMap.put("stock", number.getText()+"");//库存
-                arrayMap.put("integral",youhuiaddPrice.getText() +"");//积分
-                arrayMap.put("end_time", time.getText()+"");//优惠时间
+                arrayMap.put("description", intro.getText() + "");
+                arrayMap.put("category_id", type.getTag() + "");//分类ID
+                arrayMap.put("stock", number.getText() + "");//库存
+                arrayMap.put("integral", youhuiaddPrice.getText() + "");//积分
+                arrayMap.put("end_time", time.getText() + "");//优惠时间
 //                arrayMap.put("file", bitmap);//优惠卷图片
+                if (oldCoupon != null) {
+                    arrayMap.put("id", oldCoupon.getId());// 	优惠卷ID(传递则为编辑)
+                    arrayMap.put("img_path", oldCoupon.getDb_imgFromIndex(0));//回传路径(传递则为编辑)
+                    if (imagePath == null) {
+                        //imagePath 为空，则没有更换图片，获取原有图片
+                        presenter.originalImage(this,oldCoupon.getImgFromIndex(0),arrayMap,imagePath);
+                    } else {
+                        presenter.addYouHui(arrayMap, imagePath);
+                    }
 
-//                arrayMap.put("id", number.getText());// 	优惠卷ID(传递则为编辑)
-//                arrayMap.put("img_path", number.getText());//回传路径(传递则为编辑)
+                } else {
+                    presenter.addYouHui(arrayMap, imagePath);
+                }
 
-                presenter.addYouHui(arrayMap,imagePath);
                 break;
         }
     }
@@ -177,7 +214,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
 
         imagePath = result.getImage().getPath();
         Logger.i("takeSuccess：" + imagePath);
-        Bitmap  bitmap = BitmapFactory.decodeFile(imagePath);
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         imageView.setImageBitmap(bitmap);
 
 //        Bundle bundle = new Bundle();
@@ -192,4 +229,8 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
         takePhotoCrop.removeCropCache();
     }
 
+    @Override
+    public void callBack() {
+        finish();
+    }
 }

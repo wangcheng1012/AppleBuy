@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
-import com.dw.applebuy.ui.set.m.AboutUsModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,10 +30,10 @@ public class AboutUsActivity extends AppCompatActivity implements Title1Fragment
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        AboutUsModel aboutUs = intent.getParcelableExtra("AboutUs");
-        aboutusContent.setText(Html.fromHtml(aboutUs.getMerchant_about_us()));
+        String aboutUs = intent.getStringExtra("AboutUs");
+        aboutusContent.setText(Html.fromHtml(aboutUs));
 
-        aboutusPhone.setText(String.format(getString(R.string.about_phone),aboutUs.getContact_tel()));
+        aboutusPhone.setText(String.format(getString(R.string.about_phone),23423));
 
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

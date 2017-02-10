@@ -1,7 +1,6 @@
 package com.dw.applebuy.ui.home.shoppingmanage.youhui.showing;
 
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
@@ -25,13 +23,11 @@ import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.home.shoppingmanage.p.TabLayoutPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiAddActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BaseMvpFragment;
 import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.DpAndPx;
-import com.wlj.base.util.GoToHelp;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.Arrays;
@@ -55,9 +51,10 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
      */
     public static int SHENHE = 4;
     /**
-     * 草稿初始化，这个状态是 审核中的一个状态
+     * init，这个状态是 审核中的一个状态
      */
     public static int CAOGAO = 1;
+    private final CaoGaoDelegate caoGaoDelegate = new CaoGaoDelegate(this);
 
     @BindView(R.id.tablayout)
     TabLayout tablayout;
@@ -70,7 +67,7 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
 
     private int mTab;
     //    private int sort_type = 1;
-    private int requestcode_itemClick = 2;
+    protected int requestcode_itemClick = 2;
     private SWRVFragment<Coupon> cur;
 
     public TabLayoutFragment() {
@@ -199,13 +196,22 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
                 Glide.with(TabLayoutFragment.this).load(item.getIcon()).into(view);
 
                 viewHolder.setText(R.id.showing_name, item.getTitle());
-                viewHolder.setText(R.id.showing_number, "销量 " + item.getSales_volume() + "    收藏 0 " + "    库存 " + item.getStock());//销量
+                viewHolder.setText(R.id.showing_number,"库存 " + item.getStock());//销量
                 viewHolder.setText(R.id.showing_time, item.getEnd_time());
                 viewHolder.setText(R.id.showing_scors, item.getIntegral() + "积分");//积分
 
-                if (mTab == SHENHE && getSort_type(position) == 1) {
-                    //草稿初始化
-                    草稿初始化(viewHolder, item, swrvFragment);
+                if (mTab == SHENHE  ) {
+                    if(position == 0){
+                        //草稿
+                        caoGaoDelegate.init(viewHolder, item, swrvFragment);
+                    }else{
+                        //审核中
+                        viewHolder.getView(R.id.showing_image_layout).setVisibility(View.GONE);
+                        viewHolder.getView(R.id.showing_image_line).setVisibility(View.GONE);
+                    }
+                }else{
+
+
                 }
 
             }
@@ -216,11 +222,12 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
             }
 
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, Coupon item) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("Coupon", item);
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int p, Coupon item) {
 
-                GoToHelp.goResult(getActivity(), YouHuiAddActivity.class, requestcode_itemClick, bundle);
+                if (mTab == SHENHE && getSort_type(position) == 1) {
+                    caoGaoDelegate.itemOnClick(item);
+                }
+
             }
 
             @Override
@@ -278,39 +285,6 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
         };
     }
 
-    private void 草稿初始化(ViewHolder viewHolder, final Coupon item, final SWRVFragment<Coupon> swrvFragment) {
-        TextView view1 = viewHolder.getView(R.id.showing_image_textview1);
-        TextView view2 = viewHolder.getView(R.id.showing_image_textview2);
-
-        Drawable drawable = getResources().getDrawable(R.drawable.icon_daishenhe);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        view1.setCompoundDrawables(drawable, null, null, null);
-        view1.setTextColor(getResources().getColor(R.color.blue_24B9EB));
-        view1.setText("提交审核");
-
-        Drawable drawable2 = getResources().getDrawable(R.drawable.icon_23_del);
-        drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
-        view2.setCompoundDrawables(drawable2, null, null, null);
-        view2.setTextColor(getResources().getColor(R.color.black3_999999));
-        view2.setText("删除");
-
-        view1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cur = swrvFragment;
-                presenter.submitShenhe(item);
-            }
-        });
-        view2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                cur = swrvFragment;
-                presenter.delShenHe(item);
-            }
-        });
-    }
-
     /**
      * @param position
      * @return
@@ -337,4 +311,18 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
     public void delBack() {
         cur.getPresenter().onRefresh();
     }
+
+    @Override
+    public void couponBack(Coupon coupon) {
+        caoGaoDelegate.couponBack(coupon);
+    }
+
+    public  void  setCur(SWRVFragment<Coupon> cur) {
+        this.cur = cur;
+    }
+
+    public TabLayoutPresenter getPresenter() {
+        return presenter;
+    }
+
 }

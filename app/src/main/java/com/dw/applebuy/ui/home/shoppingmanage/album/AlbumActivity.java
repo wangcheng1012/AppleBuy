@@ -5,12 +5,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
+import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.home.shoppingmanage.p.AlbumPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.ListUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +42,19 @@ public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPres
         setContentView(R.layout.activity_album);
         ButterKnife.bind(this);
 
+        InfoUtil.getInstall().getInfo(this, new InfoUtil.InfoBack() {
+            @Override
+            public void back(Info info) {
+                Glide.with(AlbumActivity.this).load(info.getCover_img()).error(R.drawable.icon_41_renzheng).into(albumFirstImage);
+                List<Info.ImgsBean> imgs = info.getImgs();
+                if(!ListUtils.isEmpty(imgs)){
+                    Glide.with(AlbumActivity.this).load(imgs.get(0).getUrl()).error(R.drawable.icon_41_renzheng).into(albumImages);
+                    albumUploadmore.setText("已上传 "+imgs.size()+" 张环境图、点击继续上传");
+                }else{
+                    albumUploadmore.setText("已上传 0 张环境图、点击继续上传");
+                }
+            }
+        });
     }
 
     @Override

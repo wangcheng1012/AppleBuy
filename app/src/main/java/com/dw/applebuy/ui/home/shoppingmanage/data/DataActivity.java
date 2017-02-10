@@ -79,7 +79,7 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
                 dataPhone.setText(info.getMobile());
                 dataRang.setText(info.getProvince() + " " + info.getCity() + " " + info.getArea());
                 dataAddress.setText(info.getAddress());
-                dataBusinessScope.setText((info.getCategory() + "").replace("[", "").replace("]", ""));
+                dataBusinessScope.setText((info.getCategory() == null?"":info.getCategory() + "").replace("[", "").replace("]", ""));
 
                 String weekShow = info.getBusiness_weekShow();
                 dataBusinessTime.setText(info.getBusiness_hoursShow() + (StringUtils.isEmpty(weekShow) ? "" : "(" + weekShow + ")"));

@@ -9,10 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
+import com.dw.applebuy.been.Info;
+import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.loginreg.ChangePhoneActivity;
 import com.dw.applebuy.ui.loginreg.ForgetPswActivity;
 import com.dw.applebuy.ui.loginreg.LoginActivity;
-import com.dw.applebuy.ui.set.m.AboutUsModel;
 import com.dw.applebuy.ui.set.p.AboutUsPresenter;
 import com.dw.applebuy.ui.set.v.Contracts;
 import com.rxmvp.basemvp.BaseMvpFragment;
@@ -23,6 +24,7 @@ import com.wlj.base.util.GoToHelp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SetFragment extends BaseMvpFragment<Contracts.AboutUsView,AboutUsPresenter> implements Contracts.AboutUsView {
 
@@ -67,14 +69,25 @@ public class SetFragment extends BaseMvpFragment<Contracts.AboutUsView,AboutUsPr
         View view = inflater.inflate(R.layout.fragment_set, container, false);
         ButterKnife.bind(this, view);
         initTitle();
-        presenter.getAboutUs();
+        initView();
         return view;
+    }
+
+    private void initView() {
+        InfoUtil.getInstall().getInfo(getActivity(), new InfoUtil.InfoBack() {
+            @Override
+            public void back(Info info) {
+                String contact_tel = info.getContact_tel();
+                setAissaPhone.setText(contact_tel);
+                setAccont.setText(info.getName());
+            }
+        });
     }
 
     private void initTitle() {
         title2Back.setVisibility(View.GONE);
         title2Title.setText("设置");
-        title2Right.setText("保存");
+//        title2Right.setText("保存");
     }
 
     @OnClick({R.id.set_modifypsw, R.id.set_changephone, R.id.set_about, R.id.title2_back, R.id.title2_right,R.id.set_exit})
@@ -89,29 +102,37 @@ public class SetFragment extends BaseMvpFragment<Contracts.AboutUsView,AboutUsPr
                 GoToHelp.go(getActivity(), ChangePhoneActivity.class);
                 break;
             case R.id.set_about:
-                presenter.aboutUsClick();
+                presenter.getAboutUs();
                 break;
             case R.id.title2_back:
                 break;
             case R.id.title2_right:
-
                 break;
             case R.id.set_exit:
-                AppContext.getAppContext().loginOut();
-                GoToHelp.go(getActivity(), LoginActivity.class);
-                AppManager.getAppManager().finishAllActivity();
-                System.gc();
+                 new SweetAlertDialog(getActivity())
+                 .setTitleText("提示")
+                 .setContentText("确认退出？")
+                 .setConfirmText("确认")
+                 .setCancelText("取消")
+                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                     @Override
+                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                         AppContext.getAppContext().loginOut();
+                         GoToHelp.go(getActivity(), LoginActivity.class);
+                         AppManager.getAppManager().finishAllActivity();
+                         System.gc();
+                     }
+                 })
+                 .show();
+
                 break;
         }
     }
 
     @Override
-    public void aboutUs(AboutUsModel aboutUsModel, boolean aboutUsClick) {
-        setAissaPhone.setText(aboutUsModel.getContact_tel());
-         if(aboutUsClick){
-             Bundle about = new Bundle();
-             about.putParcelable("AboutUs", aboutUsModel);
-             GoToHelp.go(getActivity() ,AboutUsActivity.class,about);
-         }
+    public void aboutUs(String aboutUsModel) {
+         Bundle about = new Bundle();
+         about.putString("AboutUs", aboutUsModel);
+         GoToHelp.go(getActivity() ,AboutUsActivity.class,about);
     }
 }
