@@ -104,11 +104,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
         Glide.with(this).load(coupon.getImgFromIndex(0)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
         type.setText(coupon.getCategory_name());
         type.setTag(coupon.getCategory_id());
-        long aLong = MathUtil.parseLong(coupon.getEnd_time());
-        String time = StringUtils.getTime(aLong, "yyyy-MM-dd");
-//        long millis = System.currentTimeMillis();
-//        String time2 = StringUtils.getTime(millis, "yyyy-MM-dd");
-        this.time.setText(time);
+        time.setText(coupon.getEnd_time());
         title.setText(coupon.getTitle());
         intro.setText(coupon.getDescription());
         youhuiaddPrice.setText(coupon.getIntegral());
@@ -136,7 +132,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
                 break;
             case R.id.youhuiadd_time:
                 DayDialogFragment dayDialogFragment = DayDialogFragment.newInstance();
-                dayDialogFragment.show(getFragmentManager(), getClass().getSimpleName());
+                dayDialogFragment.show(getSupportFragmentManager(), getClass().getSimpleName());
 
                 break;
             case R.id.youhuiadd_complate:
@@ -231,6 +227,7 @@ public class YouHuiAddActivity extends BaseMvpActivity<Contract.YouHuiAddView, Y
 
     @Override
     public void callBack() {
+        setResult(RESULT_OK);
         finish();
     }
 }

@@ -3,6 +3,7 @@ package com.dw.applebuy.been;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.StringUtils;
 
 import java.io.Serializable;
@@ -53,8 +54,8 @@ public class Info implements Serializable {
     private BusinessHoursBean business_hours;
     private List<String> business_week;
     private int province_id;
-    private int latitude;
-    private int longitude;
+    private double latitude;
+    private double longitude;
     private String addtime;
     private String city_id;
     private int area_id;
@@ -85,6 +86,7 @@ public class Info implements Serializable {
 
     /**
      * [1,2]->星期一，星期二
+     *
      * @return
      */
     public String getBusiness_weekShow() {
@@ -92,15 +94,31 @@ public class Info implements Serializable {
         if (business_week == null) {
             return "";
         }
-        if(business_week.size() == 7){
+        if (business_week.size() == 7) {
             return "每天";
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < business_week.size(); i++) {
-            stringBuilder.append(BusinessWeek[i]+",");
+            int week = MathUtil.parseInteger(business_week.get(i));
+            stringBuilder.append(BusinessWeek[week] + ",");
         }
         return stringBuilder.deleteCharAt(-1 + stringBuilder.length()).toString();
     }
+
+    public String getBusiness_hoursShow() {
+        if (business_hours == null) return "";
+        String from = business_hours.getFrom();
+        String to = business_hours.getTo();
+
+        if (StringUtils.isEmpty(from) && StringUtils.isEmpty(to)) {
+            return "";
+        }
+        if ("0".equals(from) && "0".equals(to)) {
+            return "全天24小时";
+        }
+        return from + "-" + to;
+    }
+
 
 //    public String getBusiness_weekStr() {
 //
@@ -114,7 +132,6 @@ public class Info implements Serializable {
 //        }
 //        return stringBuilder.deleteCharAt(-1 + stringBuilder.length()).toString();
 //    }
-
 
 
     public void setBusiness_week(List<String> business_week) {
@@ -173,19 +190,6 @@ public class Info implements Serializable {
         return business_hours;
     }
 
-    public String getBusiness_hoursShow() {
-        if(business_hours == null )return "";
-        String from = business_hours.getFrom();
-        String to = business_hours.getTo();
-
-        if(StringUtils.isEmpty(from) && StringUtils.isEmpty(to)){
-            return "";
-        }
-        if ("0".equals(from) && "0".equals(to)) {
-            return "全天24小时";
-        }
-        return from + "-" + to;
-    }
 
     public void setBusiness_hours(BusinessHoursBean business_hours) {
         this.business_hours = business_hours;
@@ -199,19 +203,19 @@ public class Info implements Serializable {
         this.province_id = province_id;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -422,5 +426,10 @@ public class Info implements Serializable {
             this.url = url;
         }
 
+
+        @Override
+        public String toString() {
+            return getUrl();
+        }
     }
 }

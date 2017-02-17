@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  *  评论 订单
  */
-public class CouponOrder implements Parcelable {
+public class CouponOrderList implements Parcelable {
 
 
 //
@@ -41,10 +41,10 @@ public class CouponOrder implements Parcelable {
     private String icon;
     private String status;
 
-    public CouponOrder() {
+    public CouponOrderList() {
     }
 
-    protected CouponOrder(Parcel in) {
+    protected CouponOrderList(Parcel in) {
         title = in.readString();
         mct_name = in.readString();
         address = in.readString();
@@ -60,15 +60,15 @@ public class CouponOrder implements Parcelable {
         status = in.readString();
     }
 
-    public static final Creator<CouponOrder> CREATOR = new Creator<CouponOrder>() {
+    public static final Creator<CouponOrderList> CREATOR = new Creator<CouponOrderList>() {
         @Override
-        public CouponOrder createFromParcel(Parcel in) {
-            return new CouponOrder(in);
+        public CouponOrderList createFromParcel(Parcel in) {
+            return new CouponOrderList(in);
         }
 
         @Override
-        public CouponOrder[] newArray(int size) {
-            return new CouponOrder[size];
+        public CouponOrderList[] newArray(int size) {
+            return new CouponOrderList[size];
         }
     };
 
@@ -196,5 +196,15 @@ public class CouponOrder implements Parcelable {
         dest.writeString(time);
         dest.writeString(icon);
         dest.writeString(status);
+    }
+
+    public String getStatusShow() {
+        String show = "";
+        switch (status){
+            case "1": show = "未消费";break;
+            case "2": show = "已消费";break;
+            case "3": show = "已完成";break;
+        }
+        return show;
     }
 }

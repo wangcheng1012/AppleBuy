@@ -12,14 +12,12 @@ import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.been.Comment;
-import com.dw.applebuy.ui.home.ordermanage.m.CouponOrder;
-import com.rxmvp.api.HttpResultFunc;
-import com.rxmvp.bean.HttpStateResult;
+import com.dw.applebuy.ui.home.ordermanage.m.CouponOrderList;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.decoration.DividerDecoration;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -30,8 +28,8 @@ import rx.functions.Func1;
  */
 public class OrderDetailFragment extends SWRVFragment<Comment> {
 
-    public static final String ARG_ITEM_ID = "item_id";
-    private int code ;
+    public static final String ITEM = "item";
+    private CouponOrderList couponorderlist;
     private int status = 0;
 
     public OrderDetailFragment() {
@@ -42,9 +40,9 @@ public class OrderDetailFragment extends SWRVFragment<Comment> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(ITEM)) {
 
-            code = getArguments().getInt(ARG_ITEM_ID);
+            couponorderlist = getArguments().getParcelable(ITEM);
         }
     }
 
@@ -115,11 +113,11 @@ public class OrderDetailFragment extends SWRVFragment<Comment> {
 
             @Override
             public Observable<List<Comment>> call(FactoryInters apiService, int curPageStart) {
-                Observable<HttpStateResult<List<CouponOrder>>> couponOrder = apiService.getCouponOrder(code, 0, status);
+                Observable<HttpResult<List<CouponOrderList>>> couponOrder = apiService.getCouponOrder(couponorderlist.getCode(), 0, status);
 
-                Observable<List<Comment>> map = couponOrder.map(new Func1<HttpStateResult<List<CouponOrder>>, List<Comment>>() {
+                Observable<List<Comment>> map = couponOrder.map(new Func1<HttpResult<List<CouponOrderList>>, List<Comment>>() {
                     @Override
-                    public List<Comment> call(HttpStateResult<List<CouponOrder>> listHttpStateResult) {
+                    public List<Comment> call(HttpResult<List<CouponOrderList>> listHttpStateResult) {
 
                         return null;
                     }

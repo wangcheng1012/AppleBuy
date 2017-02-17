@@ -96,6 +96,7 @@ public class InfoUtil {
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 UIHelper.closeProgressbar();
                 UIHelper.toastMessage(AppContext.getAppContext(), "商家信息获取失败");
             }

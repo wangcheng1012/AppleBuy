@@ -6,21 +6,18 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.wlj.base.ui.BaseFragmentActivity;
 
-/**
- * 商家添加会员
- */
-public class AddUserActivity extends AppCompatActivity implements Title1Fragment.TitleInterface{
+public class SearchUserActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_user);
-
+        setContentView(R.layout.activity_search_user);
     }
 
     @Override
     public void setTitle(TextView title, TextView right) {
-        title.setText("添加会员");
+        title.setText("搜索结果");
     }
 }

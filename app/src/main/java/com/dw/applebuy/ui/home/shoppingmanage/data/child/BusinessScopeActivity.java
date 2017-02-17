@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +14,8 @@ import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.decoration.DividerDecoration;
-import com.wlj.base.util.MathUtil;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
@@ -102,11 +100,11 @@ public class BusinessScopeActivity extends YouHuiTypeActivity {
             @Override
             public Observable<List<BusinessScope>> call(FactoryInters apiService, int curPageStart) {
 
-                Observable<HttpStateResult<List<BusinessScope>>> allCategory = apiService.getAllCategory();
+                Observable<HttpResult<List<BusinessScope>>> allCategory = apiService.getAllCategory();
 
-                Observable<List<BusinessScope>> observable = allCategory.map(new Func1<HttpStateResult<List<BusinessScope>>, List<BusinessScope>>() {
+                Observable<List<BusinessScope>> observable = allCategory.map(new Func1<HttpResult<List<BusinessScope>>, List<BusinessScope>>() {
                     @Override
-                    public List<BusinessScope> call(HttpStateResult<List<BusinessScope>> listHttpStateResult) {
+                    public List<BusinessScope> call(HttpResult<List<BusinessScope>> listHttpStateResult) {
 
                           data = listHttpStateResult.getData();
 

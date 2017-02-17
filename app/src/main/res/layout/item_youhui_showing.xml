@@ -2,18 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:paddingTop="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/showing_image"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@color/black4_cccccc" />
@@ -77,7 +78,6 @@
         android:layout_height="1px"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
         android:background="@color/black4_cccccc" />
 
     <LinearLayout
@@ -87,41 +87,49 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/showing_image_textview1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/icon_19_yulan"
-            android:drawablePadding="10dp"
+        <RelativeLayout
             android:gravity="center"
-            android:text="预览"
-            android:textColor="@color/black2_666666" />
-
-        <View
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="2" />
-
-        <TextView
-            android:id="@+id/showing_image_textview2"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_20_share"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="分享"
-            android:textColor="@color/black2_666666" />
+            android:layout_weight="1">
+
+            <TextView
+
+                android:id="@+id/showing_image_textview1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/icon_19_yulan"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="预览"
+                android:textColor="@color/black2_666666" />
+
+        </RelativeLayout>
 
         <View
+            android:background="@color/white_F1F1F1"
+            android:layout_width="1px"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:gravity="center"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/showing_image_textview2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_20_share"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="分享"
+                android:textColor="@color/black2_666666" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 

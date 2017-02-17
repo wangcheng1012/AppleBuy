@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
-import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
+import com.dw.applebuy.ui.songjifen.m.VerifyUser;
 import com.dw.applebuy.ui.songjifen.p.InputPhonePresenter;
 import com.dw.applebuy.ui.songjifen.v.Contracts;
 import com.rxmvp.basemvp.BaseMvpActivity;
@@ -49,14 +49,14 @@ public class InputPhoneActivity extends BaseMvpActivity<Contracts.InputPhoneView
     }
 
     @Override
-    public void verifyPhoneBack(InputPhoneUser inputPhoneUser) {
+    public void verifyPhoneBack(VerifyUser verifyUser) {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
-        if (inputPhoneUser.getStatus() == InputPhoneUser.status_have) {
+        if (verifyUser.getStatus() == VerifyUser.status_have) {
 
-            extras.putParcelable("InputPhoneUser", inputPhoneUser);
+            extras.putParcelable("VerifyUser", verifyUser);
             GoToHelp.go(this, PhoneVerifySuccessActivity.class, extras);
         } else {
             extras.putString("phone",inputphonePhone.getText()+"");

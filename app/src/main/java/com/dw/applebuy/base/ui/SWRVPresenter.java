@@ -224,7 +224,6 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
             @Override
             public void onError(Throwable e) {
                 RefreshingClose();
-
                 onErrorShow(e, "获取数据失败");
             }
 

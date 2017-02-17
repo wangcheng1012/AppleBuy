@@ -26,8 +26,7 @@ import com.wlj.base.util.img.LoadImage;
 /**
  * @author wlj
  */
-public class SwitchViewPager<T> implements
-        OnPageChangeListener {
+public class SwitchViewPager<T> implements OnPageChangeListener {
 
     private AutoScrollViewPager autoScrollViewPager;
     private ImageView[] mImageViews;
@@ -244,7 +243,7 @@ public class SwitchViewPager<T> implements
             }
         }.setInfiniteLoop(true));
         autoviewPager.startAutoScroll();
-    };
+    }
 
     private String getContentText(T item) {
 
@@ -252,6 +251,10 @@ public class SwitchViewPager<T> implements
             return  ((Banner) item).getPicPath();
         }
         return item.toString();
+    }
+
+    public List<T> getList() {
+        return list;
     }
 
     private PageritemClickListener onItemPagerViewClickListener;

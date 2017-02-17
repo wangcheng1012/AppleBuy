@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white_F1F1F1"
     tools:context=".ui.home.shoppingmanage.ShoppingManagerActivity">
 
     <fragment
@@ -13,58 +14,64 @@
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_title2" />
 
-    <TextView
-        android:id="@+id/shoppingmanager_youhuimanager"
+    <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/icon_14"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:text="优惠管理"
-        android:textColor="@color/black1_333333" />
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@color/black4_cccccc" />
+        <TextView
+            android:id="@+id/shoppingmanager_youhuimanager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/icon_14"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="优惠管理"
+            android:textColor="@color/black1_333333" />
 
-    <TextView
-        android:id="@+id/shoppingmanager_phontomanager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/icon_15"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:text="相册管理"
-        android:textColor="@color/black1_333333" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/black4_cccccc" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@color/black4_cccccc" />
+        <TextView
+            android:id="@+id/shoppingmanager_phontomanager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/icon_15"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="相册管理"
+            android:textColor="@color/black1_333333" />
 
-    <TextView
-        android:id="@+id/shoppingmanager_ziliaomanager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/icon_16"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:text="资料管理"
-        android:textColor="@color/black1_333333" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/black4_cccccc" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@color/black4_cccccc" />
+        <TextView
+            android:id="@+id/shoppingmanager_ziliaomanager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/icon_16"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="资料管理"
+            android:textColor="@color/black1_333333" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/black4_cccccc" />
+    </LinearLayout>
 </LinearLayout>

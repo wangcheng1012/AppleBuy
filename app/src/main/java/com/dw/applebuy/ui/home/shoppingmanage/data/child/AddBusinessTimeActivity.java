@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 营业时间
+ * 添加营业时间
  */
-public class BusinessTimeActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface, ChooseStartEndTimeDialogFragment.TimeChoosed {
+public class AddBusinessTimeActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface, ChooseStartEndTimeDialogFragment.TimeChoosed {
 
     @BindView(R.id.businesstime_day)
     TextView businesstimeDay;
@@ -44,8 +44,12 @@ public class BusinessTimeActivity extends BaseFragmentActivity implements Title1
 
     private void initView() {
         info = (Info) getIntent().getSerializableExtra("info");
-        businesstimeDay.setText(info.getBusiness_weekShow());
+        businesstimeDay.setText(info.getBusiness_weekShow( ));
         businesstimeTime.setText(info.getBusiness_hoursShow());
+
+        businesstimeDay.setTag(info.getBusiness_week());
+        Info.BusinessHoursBean hours = info.getBusiness_hours();
+        businesstimeTime.setTag(hours.getFrom()+"-"+hours.getTo());
 
     }
 
@@ -59,7 +63,7 @@ public class BusinessTimeActivity extends BaseFragmentActivity implements Title1
         switch (view.getId()) {
             case R.id.businesstime_day:
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("business_week", (ArrayList<String>) businesstimeDay.getTag());
+                bundle.putStringArrayList("business_week_id", (ArrayList<String>) businesstimeDay.getTag());
                 GoToHelp.goResult(this, ChooseWeekActivity.class, businesstimeDay_RequsetCode, bundle);
 
                 break;
@@ -79,7 +83,7 @@ public class BusinessTimeActivity extends BaseFragmentActivity implements Title1
                 }
 
                 Intent intent = new Intent();
-                intent.putStringArrayListExtra("business_week", (ArrayList<String>)businesstimeDay.getTag() );
+                intent.putStringArrayListExtra("business_week_id", (ArrayList<String>)businesstimeDay.getTag() );
                 intent.putExtra("time",  businesstimeTime.getTag()+"");
                 setResult(RESULT_OK,intent);
                 finish();
@@ -93,9 +97,9 @@ public class BusinessTimeActivity extends BaseFragmentActivity implements Title1
 
         if (requestCode == businesstimeDay_RequsetCode && data != null) {
             ArrayList<String> business_week_id =  data.getStringArrayListExtra("business_week_id");
-            String business_week = data.getStringExtra("business_week");
 
-            businesstimeDay.setText(business_week);
+            info.setBusiness_week(business_week_id);
+            businesstimeDay.setText(info.getBusiness_weekShow());
             businesstimeDay.setTag(business_week_id);
         }
 

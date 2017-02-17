@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baidu.platform.comapi.map.B;
 import com.dw.applebuy.R;
 import com.rxmvp.basemvp.BaseMvpFragment;
 import com.wlj.base.util.UIHelper;
@@ -28,8 +29,11 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     private SWRVInterface myInterface;
 
-    public SWRVFragment() {
-    }
+
+
+    private UserVisibleHint mUserVisibleHint;
+//    public SWRVFragment() {
+//    }
 
     @Override
     public SWRVPresenter initPresenter() {
@@ -57,6 +61,14 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(mUserVisibleHint != null){
+            mUserVisibleHint.isVisibleToUser(isVisibleToUser);
+        }
+    }
+
     public SWRVPresenter getPresenter() {
         return presenter;
     }
@@ -75,6 +87,10 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         presenter.setAdapter(adapter);
+    }
+
+    public void setUserVisibleHint(UserVisibleHint mUserVisibleHint) {
+        this.mUserVisibleHint = mUserVisibleHint;
     }
 
     @Override
@@ -96,4 +112,7 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     }
 
+    public interface UserVisibleHint{
+        void isVisibleToUser(boolean isVisibleToUser);
+    }
 }

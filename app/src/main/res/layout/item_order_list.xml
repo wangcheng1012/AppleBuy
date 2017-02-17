@@ -13,19 +13,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:background="#F9FAFB"
+        android:padding="15dp">
 
         <ImageView
+            android:background="@color/black3_999999"
             android:id="@+id/itemorderlist_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/icon_58_log" />
+            android:layout_alignParentTop="true" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/itemorderlist_title"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,86 +37,90 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/itemorderlist_image"
             android:layout_toRightOf="@+id/itemorderlist_image"
-            android:text="TextView"
+            android:text="xxx"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/itemorderlist_address"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView21"
+            android:layout_alignLeft="@+id/itemorderlist_title"
             android:layout_centerVertical="true"
-            android:text="TextView"
-            android:textColor="@color/black2_666666" />
+            android:text="xx"
+            android:maxLines="1"
+            android:textColor="@color/black3_999999" />
 
 
         <TextView
-            android:id="@+id/textView232"
+            android:id="@+id/itemorderlist_score"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/itemorderlist_image"
-            android:layout_alignLeft="@+id/textView21"
-            android:layout_alignStart="@+id/textView21"
+            android:layout_alignLeft="@+id/itemorderlist_title"
+            android:layout_alignStart="@+id/itemorderlist_title"
             android:layout_marginBottom="5dp"
-            android:text="TextView" />
+            android:text="xxx" />
 
-        <TextView
-            android:id="@+id/textView3333"
-            style="@style/textbase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/itemorderlist_image"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="x1" />
+        <!--<TextView-->
+            <!--android:id="@+id/itemorderlist_number"-->
+            <!--style="@style/textbase"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBottom="@+id/itemorderlist_image"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:text="x1" />-->
 
     </RelativeLayout>
 
-    <TextView
-        style="@style/textbase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="10dp"
-        android:text="共1件" />
+    <!--<TextView-->
+        <!--android:id="@+id/itemorderlist_total"-->
+        <!--style="@style/textbase"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="right"-->
+        <!--android:padding="15dp"-->
+        <!--android:text="共1件" />-->
 
-    <include layout="@layout/line" />
+    <!--<include layout="@layout/line_matchleft15" />-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="15dp">-->
 
         <TextView
+            android:padding="15dp"
+            android:id="@+id/itemorderlist_usetime"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="消费"
             android:textColor="@color/black2_666666" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="输入验证码"
-            android:textColor="@color/blue_24B9EB" />
+        <!--<TextView-->
+            <!--android:id="@+id/itemorderlist_input"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:text="输入验证码"-->
+            <!--android:textColor="@color/blue_24B9EB" />-->
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/textView4"
-            android:layout_toStartOf="@+id/textView4"
-            android:text="扫码验证"
-            android:textColor="@color/yellow_FF552E" />
+        <!--<TextView-->
+            <!--android:id="@+id/itemorderlist_scan"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="15dp"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:layout_toLeftOf="@+id/itemorderlist_input"-->
+            <!--android:layout_toStartOf="@+id/itemorderlist_input"-->
+            <!--android:text="扫码验证"-->
+            <!--android:textColor="@color/yellow_FF552E" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 </LinearLayout>

@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:paddingBottom="10dp"
+    android:paddingEnd="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingStart="15dp"
+    android:paddingTop="10dp"
     tools:showIn="@layout/item_order_list">
 
     <LinearLayout
@@ -17,7 +22,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/itemorderlist_name"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,20 +31,20 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/itemorderlist_time"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView"
             android:text="TextView"
-
-            android:textColor="@color/black2_666666" />
+            android:textSize="12sp"
+            android:textColor="@color/black3_999999" />
 
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/itemorderlist_statusshow"
         style="@style/textbase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

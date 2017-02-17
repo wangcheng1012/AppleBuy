@@ -3,7 +3,7 @@ package com.dw.applebuy.ui.songjifen.p;
 import android.widget.EditText;
 
 import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
+import com.dw.applebuy.ui.songjifen.m.VerifyUser;
 import com.dw.applebuy.ui.songjifen.v.Contracts;
 import com.rxmvp.basemvp.BasePresenter;
 
@@ -25,7 +25,7 @@ public class InputPhonePresenter extends BasePresenter<Contracts.InputPhoneView>
         }
 
         //观察者
-        Subscriber<InputPhoneUser> subscriber = new Subscriber<InputPhoneUser>() {
+        Subscriber<VerifyUser> subscriber = new Subscriber<VerifyUser>() {
 
             @Override
             public void onCompleted() {
@@ -39,7 +39,7 @@ public class InputPhonePresenter extends BasePresenter<Contracts.InputPhoneView>
             }
 
             @Override
-            public void onNext(InputPhoneUser inputPhoneUser) {
+            public void onNext(VerifyUser inputPhoneUser) {
                 if (mView != null) {
                     mView.verifyPhoneBack(inputPhoneUser);
                 }

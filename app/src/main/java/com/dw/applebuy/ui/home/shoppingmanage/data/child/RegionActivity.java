@@ -16,7 +16,7 @@ import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityAreaRequest;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiTypeActivity;
 import com.orhanobut.logger.Logger;
 import com.rxmvp.api.HttpResultFunc;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.MathUtil;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -135,7 +135,7 @@ public class RegionActivity extends YouHuiTypeActivity {
                         break;
                 }
 
-                Observable<HttpStateResult<List<ProvinceCityArea>>> couponCategory = apiService.getProvinceCityArea(url, request.getProvince_id(),request.getCity_id());
+                Observable<HttpResult<List<ProvinceCityArea>>> couponCategory = apiService.getProvinceCityArea(url, request.getProvince_id(),request.getCity_id());
 
                 Observable<List<ProvinceCityArea>> observable = couponCategory.map(new HttpResultFunc<List<ProvinceCityArea>>() );
                 return observable;

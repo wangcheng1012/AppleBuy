@@ -16,7 +16,7 @@ import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -105,10 +105,10 @@ public class YouHuiTypeActivity extends BaseFragmentActivity implements Title1Fr
 
             @Override
             public Observable<List<YouhuiQuanType>> call(FactoryInters apiService, int curPageStart) {
-                Observable<HttpStateResult<List<YouhuiQuanType>>> couponCategory = apiService.getCouponCategory(/*AppConfig.getAppConfig().get(AppConfig.CONF_KEY)*/);
-                Observable<List<YouhuiQuanType>> observable = couponCategory.map(new Func1<HttpStateResult<List<YouhuiQuanType>>, List<YouhuiQuanType>>() {
+                Observable<HttpResult<List<YouhuiQuanType>>> couponCategory = apiService.getCouponCategory(/*AppConfig.getAppConfig().get(AppConfig.CONF_KEY)*/);
+                Observable<List<YouhuiQuanType>> observable = couponCategory.map(new Func1<HttpResult<List<YouhuiQuanType>>, List<YouhuiQuanType>>() {
                     @Override
-                    public List<YouhuiQuanType> call(HttpStateResult<List<YouhuiQuanType>> listHttpStateResult) {
+                    public List<YouhuiQuanType> call(HttpResult<List<YouhuiQuanType>> listHttpStateResult) {
                         List<YouhuiQuanType> data = listHttpStateResult.getData();
                         return data;
                     }

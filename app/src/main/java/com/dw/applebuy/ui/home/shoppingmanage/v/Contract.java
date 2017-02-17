@@ -1,8 +1,12 @@
 package com.dw.applebuy.ui.home.shoppingmanage.v;
 
+import com.dw.applebuy.ui.home.shoppingmanage.m.ImageBean;
+import com.dw.applebuy.ui.home.shoppingmanage.m.UploadCoverImg;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BaseView;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
+
+import java.util.List;
 
 /**
  *
@@ -23,13 +27,15 @@ public interface Contract {
     interface AlbumView extends BaseView {
 
     }
+
     /**
      * 资料管理
      */
     interface DataView extends BaseView {
 
-        void saveBack(HttpStateResult s);
+        void saveBack(HttpResult s);
     }
+
     /**
      * 资料管理
      */
@@ -42,10 +48,23 @@ public interface Contract {
 
         /**
          * 优惠券 详情返回
+         *
          * @param coupon
          */
         void couponBack(Coupon coupon);
+
+        void offShelfCouponBack(HttpResult hsr);
+
+        void shelvesCouponBack(HttpResult hsr);
+
     }
 
+    interface UpLoadImageView extends BaseView {
+
+
+        void uploadCoverBack(UploadCoverImg uploadCoverImg);
+
+        void uploadDetailsBack(List<ImageBean> list);
+    }
 
 }

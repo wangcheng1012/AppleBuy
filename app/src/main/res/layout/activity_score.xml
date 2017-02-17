@@ -25,7 +25,7 @@
             android:id="@+id/score_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18051"
+            android:text="0"
             android:textColor="@color/white"
             android:textSize="40sp" />
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="本月收入积分"
+            android:text="本月赠送积分"
             android:textColor="@color/white" />
 
         <LinearLayout
@@ -83,6 +83,7 @@
         <include layout="@layout/line" />
 
         <TextView
+            android:id="@+id/textView10"
             style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,6 +92,7 @@
 
         <TextView
             android:id="@+id/user_usertoalnumber"
+            style="@style/textbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -98,9 +100,12 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="109dp"
-            android:text="共赠送积分 234234（数字黄色）"
-            android:textColor="@color/black2_666666"
-            android:textSize="10sp" />
+            android:layout_toEndOf="@+id/textView10"
+            android:layout_toRightOf="@+id/textView10"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
+            android:text=" " />
 
     </RelativeLayout>
 

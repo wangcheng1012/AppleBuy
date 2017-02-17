@@ -6,12 +6,14 @@ import com.dw.applebuy.been.Info;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
+import com.dw.applebuy.ui.home.shoppingmanage.m.ImageBean;
+import com.dw.applebuy.ui.home.shoppingmanage.m.UploadCoverImg;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
-import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
+import com.dw.applebuy.ui.message.MessageBean;
+import com.dw.applebuy.ui.songjifen.m.VerifyUser;
 import com.rxmvp.api.HttpResultFunc;
-import com.rxmvp.bean.ResultResponse;
 import com.rxmvp.api.RetrofitBase;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 
 import java.util.List;
 
@@ -58,17 +60,17 @@ public class AppHttpMethods {
     }
 
 
-    /**
-     * 这个方法 返回为 HttpStateResult，相当与返回了包含state 和code的所有参数
-     *
-     * @param subscriber 返回的观察者
-     * @param s          传入的String参数
-     */
-    public void getCode(Subscriber<HttpStateResult<List>> subscriber, String s) {
-        Observable<HttpStateResult<List>> verifyCode = apiService.getRegisterVerifyCode(s);
-//                .map(new HttpResultFunc<String>());
-        subscribe(verifyCode, subscriber);
-    }
+//    /**
+//     * 这个方法 返回为 HttpStateResult，相当与返回了包含state 和code的所有参数
+//     *
+//     * @param subscriber 返回的观察者
+//     * @param s          传入的String参数
+//     */
+//    public void getCode(Subscriber<HttpResult<List>> subscriber, String s) {
+//        Observable<HttpResult<List>> verifyCode = apiService.getRegisterVerifyCode(s);
+////                .map(new HttpResultFunc<String>());
+//        subscribe(verifyCode, subscriber);
+//    }
 
     /**
      * 忘记密码验证码
@@ -76,8 +78,8 @@ public class AppHttpMethods {
      * @param subscriber
      * @param s
      */
-    public void getForgetPasswordVerifyCode(Subscriber<HttpStateResult<List>> subscriber, String s) {
-        Observable<HttpStateResult<List>> verifyCode = apiService.getForgetPasswordVerifyCode(s);
+    public void getForgetPasswordVerifyCode(Subscriber<HttpResult<List>> subscriber, String s) {
+        Observable<HttpResult<List>> verifyCode = apiService.getForgetPasswordVerifyCode(s);
 //                .map(new HttpResultFunc<String>());
         subscribe(verifyCode, subscriber);
     }
@@ -87,8 +89,8 @@ public class AppHttpMethods {
      * @param subscriber
      * @param phone
      */
-    public void getChangeMobileVerifyCode(Subscriber<HttpStateResult<List>> subscriber, String phone) {
-        Observable<HttpStateResult<List>> verifyCode = apiService.getChangeMobileVerifyCode(phone);
+    public void getChangeMobileVerifyCode(Subscriber<HttpResult<List>> subscriber, String phone) {
+        Observable<HttpResult<List>> verifyCode = apiService.getChangeMobileVerifyCode(phone);
 //                .map(new HttpResultFunc<String>());
         subscribe(verifyCode, subscriber);
     }
@@ -99,8 +101,8 @@ public class AppHttpMethods {
      * @param subscriber
      * @param arrayMap
      */
-    public void register(Subscriber<HttpStateResult<List>> subscriber, ArrayMap<String, String> arrayMap) {
-        Observable<HttpStateResult<List>> observable = apiService.register(arrayMap);
+    public void register(Subscriber<HttpResult<List>> subscriber, ArrayMap<String, String> arrayMap) {
+        Observable<HttpResult<List>> observable = apiService.register(arrayMap);
         subscribe(observable, subscriber);
     }
 
@@ -110,8 +112,8 @@ public class AppHttpMethods {
      * @param subscriber
      * @param arrayMap
      */
-    public void forgetPassword(Subscriber<HttpStateResult<List>> subscriber, ArrayMap<String, String> arrayMap) {
-        Observable<HttpStateResult<List>> observable = apiService.forgetPassword(arrayMap);
+    public void forgetPassword(Subscriber<HttpResult<List>> subscriber, ArrayMap<String, String> arrayMap) {
+        Observable<HttpResult<List>> observable = apiService.forgetPassword(arrayMap);
         subscribe(observable, subscriber);
     }
 
@@ -122,8 +124,8 @@ public class AppHttpMethods {
      * @param phone
      * @param psw
      */
-    public void Login(Subscriber<HttpStateResult<LoginBack>> subscriber, String phone, String psw) {
-        Observable<HttpStateResult<LoginBack>> observable = apiService.login(phone, psw);
+    public void Login(Subscriber<HttpResult<LoginBack>> subscriber, String phone, String psw) {
+        Observable<HttpResult<LoginBack>> observable = apiService.login(phone, psw);
         subscribe(observable, subscriber);
     }
 
@@ -136,16 +138,16 @@ public class AppHttpMethods {
         subscribe(observable, subscriber);
     }
 
-    /**
-     * 添加编辑优惠券
-     *
-     * @param subscriber
-     * @param arrayMap
-     */
-    public void addYouHui(Subscriber<ResultResponse> subscriber, ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo) {
-        Observable<ResultResponse> observable = apiService.addYouHui(arrayMap, photo);
-        subscribe(observable, subscriber);
-    }
+//    /**
+//     * 添加编辑优惠券
+//     *
+//     * @param subscriber
+//     * @param arrayMap
+//     */
+//    public void addYouHui(Subscriber<HttpResult<String>> subscriber, ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo) {
+//        Observable<HttpResult<String>> observable = apiService.addYouHui(arrayMap, photo);
+//        subscribe(observable, subscriber);
+//    }
 
     /**
      * 更换手机号码
@@ -154,8 +156,8 @@ public class AppHttpMethods {
      * @param phone
      * @param verifyCode
      */
-    public void changePhone(Subscriber<ResultResponse> subscriber, String phone, String verifyCode) {
-        Observable<ResultResponse> changePhoneObservable = apiService.changePhone(phone, verifyCode);
+    public void changePhone(Subscriber<HttpResult> subscriber, String phone, String verifyCode) {
+        Observable<HttpResult> changePhoneObservable = apiService.changePhone(phone, verifyCode);
         subscribe(changePhoneObservable, subscriber);
     }
 
@@ -197,9 +199,9 @@ public class AppHttpMethods {
      * @param subscriber
      * @param phone
      */
-    public void checkMember(Subscriber<InputPhoneUser> subscriber, String phone) {
-        Observable<InputPhoneUser> observable = apiService.checkMember(phone)
-                .map(new HttpResultFunc<InputPhoneUser>());
+    public void checkMember(Subscriber<VerifyUser> subscriber, String phone) {
+        Observable<VerifyUser> observable = apiService.checkMember(phone)
+                .map(new HttpResultFunc<VerifyUser>());
         subscribe(observable,subscriber);
     }
 
@@ -208,8 +210,8 @@ public class AppHttpMethods {
      * @param subscriber
      * @param phone
      */
-    public void giveIntegralVerifyCode(Subscriber<HttpStateResult<String>> subscriber, String phone) {
-        Observable<HttpStateResult<String>> observable = apiService.giveIntegralVerifyCode(phone);
+    public void giveIntegralVerifyCode(Subscriber<HttpResult<String>> subscriber, String phone) {
+        Observable<HttpResult<String>> observable = apiService.giveIntegralVerifyCode(phone);
         subscribe(observable,subscriber);
     }
 
@@ -218,13 +220,13 @@ public class AppHttpMethods {
      * @param subscriber
      * @param map
      */
-    public void giveIntegral(Subscriber<HttpStateResult> subscriber, ArrayMap<String,Object> map) {
-        Observable<HttpStateResult> observable = apiService.giveIntegral(map);
+    public void giveIntegral(Subscriber<HttpResult> subscriber, ArrayMap<String,Object> map) {
+        Observable<HttpResult> observable = apiService.giveIntegral(map);
         subscribe(observable,subscriber);
     }
 
-    public void edit(Subscriber<HttpStateResult> subscriber,ArrayMap<String,Object> map){
-        Observable<HttpStateResult> observable  = apiService.edit(map);
+    public void edit(Subscriber<HttpResult> subscriber, ArrayMap<String,Object> map){
+        Observable<HttpResult> observable  = apiService.edit(map);
         subscribe(observable,subscriber);
 
     }
@@ -235,8 +237,8 @@ public class AppHttpMethods {
      * @param arrayMap
      * @param photo2
      */
-    public void applyAuthentication(Subscriber<HttpStateResult> subscriber, ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo, MultipartBody.Part photo2) {
-        Observable<HttpStateResult> observable = apiService.applyAuthentication(arrayMap, photo,photo2);
+    public void applyAuthentication(Subscriber<HttpResult> subscriber, ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo, MultipartBody.Part photo2) {
+        Observable<HttpResult> observable = apiService.applyAuthentication(arrayMap, photo,photo2);
         subscribe(observable, subscriber);
     }
 
@@ -245,8 +247,8 @@ public class AppHttpMethods {
      * @param sub
      * @param id
      */
-    public void submitCoupon(Subscriber<HttpStateResult> sub,String path, String id) {
-        Observable<HttpStateResult> observable = apiService.submitCoupon(path,id);
+    public void submitCoupon(Subscriber<HttpResult> sub, String path, String id) {
+        Observable<HttpResult> observable = apiService.submitCoupon(path,id);
         subscribe(observable, sub);
 
     }
@@ -258,6 +260,83 @@ public class AppHttpMethods {
      */
     public void getCouponInfo(Subscriber sub, String id) {
         Observable<Coupon> observable = apiService.getCouponInfo(id).map(new HttpResultFunc<Coupon>());
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 获取优惠券详情
+     * @param sub
+     * @param code
+     */
+    public void useCoupon(Subscriber sub, String code) {
+        Observable<HttpResult> observable = apiService.useCoupon(code);
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 下架优惠券
+     * @param sub
+     * @param id
+     */
+    public void offShelfCoupon(Subscriber sub, String id) {
+        Observable<HttpResult> observable = apiService.offShelfCoupon(id);
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 上架优惠券
+     * @param sub
+     * @param id
+     * @param end_time  2017-01-19
+     */
+    public void shelvesCoupon(Subscriber sub, String id,String end_time) {
+        Observable<HttpResult> observable = apiService.shelvesCoupon(id,end_time);
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 上传首图
+     * @param sub
+     * @param photo
+     * @param sessionid
+     */
+    public void uploadCoverImg(Subscriber sub,MultipartBody.Part photo,RequestBody sessionid) {
+        Observable<UploadCoverImg> observable = apiService.uploadCoverImg(sessionid,photo)
+                .map(new HttpResultFunc<UploadCoverImg>());
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 上传详情图
+     * @param sub
+     * @param photo
+     * @param sessionid
+     */
+    public void uploadDetailsImgs(Subscriber sub, MultipartBody.Part photo, RequestBody sessionid) {
+        Observable<List<ImageBean>> observable = apiService.uploadDetailsImgs(sessionid,photo)
+                .map(new HttpResultFunc<List<ImageBean>>());
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 会员备注修改
+     * @param sub
+     * @param member_id
+     * @param remark
+     */
+    public void saveRemark(Subscriber<HttpResult> sub, String member_id, String remark) {
+        Observable<HttpResult> observable = apiService.saveRemark(member_id,remark);
+        subscribe(observable, sub);
+    }
+
+    /**
+     * 获取消息详情 和 已浏览状态
+     * @param sub
+     * @param id
+     */
+    public void viewMessage(Subscriber<MessageBean> sub, String id) {
+        Observable<MessageBean> observable = apiService.viewMessage(id)
+                .map(new HttpResultFunc<MessageBean>());
         subscribe(observable, sub);
     }
 }

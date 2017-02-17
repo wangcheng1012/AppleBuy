@@ -2,59 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/scorein_time"
         style="@style/textbase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20160611"
+        android:text="xxxx"
         android:textColor="@color/black3_999999" />
 
     <TextView
-        android:layout_marginTop="10dp"
         android:id="@+id/scorein_title"
         style="@style/textbase"
-        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/scorein_time"
-        android:text="满500送50" />
+        android:layout_marginTop="10dp"
+        android:text="xxxxxxxxx"
+        android:textSize="18sp" />
 
     <TextView
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/scorein_title"
         android:id="@+id/scorein_name_phone"
         style="@style/textbase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="xxxx  13845696321"
+        android:layout_below="@+id/scorein_title"
+        android:layout_marginTop="5dp"
+        android:text="xxxx  xxxxxxxxxxx"
         android:textColor="@color/black3_999999" />
 
     <LinearLayout
-        android:gravity="right"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:orientation="vertical">
 
         <TextView
-            android:textColor="@color/black2_666666"
-            android:text="消费收入"
+            android:id="@+id/scorein_typeshow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:text="xxxxx"
+            android:textColor="@color/black2_666666" />
 
         <TextView
+            android:id="@+id/scorein_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxx"
             android:textColor="@color/yellow_FF552E"
-            android:textSize="20sp"
-            android:text="1190"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

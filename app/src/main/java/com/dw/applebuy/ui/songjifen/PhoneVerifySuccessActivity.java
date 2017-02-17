@@ -3,13 +3,12 @@ package com.dw.applebuy.ui.songjifen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
-import com.dw.applebuy.ui.songjifen.m.InputPhoneUser;
+import com.dw.applebuy.ui.songjifen.m.VerifyUser;
 import com.dw.applebuy.ui.songjifen.p.CreatUserPresenter;
 import com.dw.applebuy.ui.songjifen.v.Contracts;
 import com.rxmvp.basemvp.BaseMvpActivity;
@@ -28,7 +27,7 @@ public class PhoneVerifySuccessActivity extends BaseMvpActivity<Contracts.CreatU
     EditText phoneView;
     @BindView(R.id.verifysuccess_name)
     EditText nameView;
-    private InputPhoneUser inputPhoneUser;
+    private VerifyUser verifyUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +44,9 @@ public class PhoneVerifySuccessActivity extends BaseMvpActivity<Contracts.CreatU
 
     private void initView() {
         Intent intent = getIntent();
-        inputPhoneUser = intent.getParcelableExtra("InputPhoneUser");
-        phoneView.setText(inputPhoneUser.getMobile());
-        nameView.setText(inputPhoneUser.getName());
+        verifyUser = intent.getParcelableExtra("VerifyUser");
+        phoneView.setText(verifyUser.getMobile());
+        nameView.setText(verifyUser.getName());
     }
 
     @Override
@@ -63,7 +62,7 @@ public class PhoneVerifySuccessActivity extends BaseMvpActivity<Contracts.CreatU
         arrayMap.put("mobile", phoneView.getText()+"");
         arrayMap.put("name", nameView.getText()+"");
 //        arrayMap.put("code", verify.getText()+"");
-        arrayMap.put("id", inputPhoneUser.getId() );
+        arrayMap.put("id", verifyUser.getId() );
 
         presenter.giveIntegral(arrayMap);
     }

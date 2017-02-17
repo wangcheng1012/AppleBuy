@@ -31,9 +31,6 @@ public class ResponseInterceptor implements Interceptor {
         }
         Response newResponse = response.newBuilder().body(ResponseBody.create(MediaType.parse(body.contentType().toString()), bodystring)).build(); //重组
 
-
-
-
         return newResponse;
     }
     //end

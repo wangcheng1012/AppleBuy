@@ -45,19 +45,25 @@ public class JiFenFragment extends Fragment {
 
     @OnClick({R.id.jifen_saosao, R.id.jifen_phone})
     public void onClick(View view) {
+
+        String text = jifenJifen.getText() + "";
+        if (StringUtils.isEmpty(text)) {
+            UIHelper.toastMessage(getContext(), "赠送的积分必须大于0");
+            return;
+        }
+        int jifen = MathUtil.parseInteger(text);
+        Bundle bundle = new Bundle();
+        bundle.putInt("jifen", jifen);
+
         switch (view.getId()) {
             case R.id.jifen_saosao:
+
+                GoToHelp.go(getActivity(), CodeScanActivity.class,bundle);
+
                 break;
             case R.id.jifen_phone:
-                String text = jifenJifen.getText()+"";
-                if(StringUtils.isEmpty(text)){
-                    UIHelper.toastMessage(getContext(),"赠送的积分必须大于0");
-                    return;
-                }
-                int jifen = MathUtil.parseInteger(text);
-                Bundle bundle = new Bundle();
-                bundle.putInt("jifen",jifen);
-                GoToHelp.go(getActivity(),InputPhoneActivity.class,bundle);
+
+                GoToHelp.go(getActivity(), InputPhoneActivity.class, bundle);
                 break;
         }
     }

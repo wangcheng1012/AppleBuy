@@ -26,15 +26,17 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+
     <application
         android:name="com.wlj.base.util.AppContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        tools:replace="icon">
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -49,7 +51,6 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:screenOrientation="portrait">
@@ -61,7 +62,6 @@
                 <data android:scheme="wx622e032827e49132" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.Loading"
             android:screenOrientation="portrait">
@@ -138,7 +138,7 @@
             android:name=".ui.home.shoppingmanage.data.child.BusinessScopeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.home.shoppingmanage.data.child.BusinessTimeActivity"
+            android:name=".ui.home.shoppingmanage.data.child.AddBusinessTimeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.shoppingmanage.data.child.ChooseWeekActivity"
@@ -150,7 +150,7 @@
             android:name=".ui.home.usermanage.UserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.home.usermanage.AddUserActivity"
+            android:name=".ui.home.usermanage.ConsumeHistoryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.usermanage.ModifyUserActivity"
@@ -181,7 +181,27 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.renzheng.RenZhengActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.hexiao.CodeScanActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.home.hexiao.OrderDetail2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.usermanage.SearchUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.message.MessageDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.songjifen.CodeScanActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

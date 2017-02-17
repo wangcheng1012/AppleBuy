@@ -72,6 +72,12 @@ public class ScoreListResult {
      * 积分管理的  积分列表
      */
     public static class ScoreListBean {
+//        public static final String type_赠送会员 = "1";
+//        public static final String type_兑换 = "2";
+        /**
+         * 充值
+         */
+        public static final String type_rechage = "3";
 
 
         /**

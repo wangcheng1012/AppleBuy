@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.wlj.base.util.StringUtils;
 
 import java.util.List;
 
@@ -290,6 +291,23 @@ public class Coupon implements Parcelable {
             return s;
         }
         return null;
+    }
+
+    /**
+     * 下架时的end_time参数处理
+     * @return
+     */
+    public String getShelvesEnd_time() {
+        if(!StringUtils.isEmpty(end_time)){
+            String[] split = end_time.split("：");
+            String t = split[1];
+
+            if(!StringUtils.isEmpty(t)){
+                String replace = t.replace("/", "-");
+                return replace;
+            }
+        }
+        return "";
     }
 
 //    public int getSales_volumeX() {

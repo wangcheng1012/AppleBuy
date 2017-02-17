@@ -12,7 +12,7 @@ import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.home.shoppingmanage.data.child.BusinessScopeActivity;
-import com.dw.applebuy.ui.home.shoppingmanage.data.child.BusinessTimeActivity;
+import com.dw.applebuy.ui.home.shoppingmanage.data.child.AddBusinessTimeActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.data.child.MapActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.data.child.RegionActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
@@ -20,7 +20,7 @@ import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
 import com.dw.applebuy.ui.home.shoppingmanage.p.DataPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.rxmvp.basemvp.BaseMvpActivity;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.StringUtils;
 
@@ -30,7 +30,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.functions.Action1;
 
 /**
  * 资料管理
@@ -81,7 +80,7 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
                 dataAddress.setText(info.getAddress());
                 dataBusinessScope.setText((info.getCategory() == null?"":info.getCategory() + "").replace("[", "").replace("]", ""));
 
-                String weekShow = info.getBusiness_weekShow();
+                String weekShow = info.getBusiness_weekShow( );
                 dataBusinessTime.setText(info.getBusiness_hoursShow() + (StringUtils.isEmpty(weekShow) ? "" : "(" + weekShow + ")"));
 
             }
@@ -115,7 +114,7 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
             case R.id.data_businessTime:
                 Bundle bundle1 = new Bundle();
                 bundle1.putSerializable("info", info);
-                GoToHelp.goResult(this, BusinessTimeActivity.class, businessTimeRequiestcode, bundle1);
+                GoToHelp.goResult(this, AddBusinessTimeActivity.class, businessTimeRequiestcode, bundle1);
                 break;
             case R.id.data_save:
                 ArrayMap<String, Object> arrayMap = new ArrayMap<String, Object>();
@@ -179,11 +178,15 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
 
         } else if (businessTimeRequiestcode == requestCode) {
             //营业时间
-            ArrayList<String> business_week = data.getStringArrayListExtra("business_week");
+            ArrayList<String> business_week_id = data.getStringArrayListExtra("business_week_id");
             String time = data.getStringExtra("time");
 
-            if (business_week != null) {
-                info.setBusiness_week(business_week);
+            if (info == null) {
+                return;
+            }
+
+            if ( business_week_id != null) {
+                info.setBusiness_week(business_week_id);
             }
             if (time != null) {
                 String[] split = time.split("-");
@@ -191,7 +194,7 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
                 business_hours.setFrom(split[0]);
                 business_hours.setTo(split[1]);
             }
-            String weekShow = info.getBusiness_weekShow();
+            String weekShow = info.getBusiness_weekShow( );
             dataBusinessTime.setText(info.getBusiness_hoursShow() + (StringUtils.isEmpty(weekShow) ? "" : "(" + weekShow + ")"));
         }
 
@@ -199,7 +202,7 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
     }
 
     @Override
-    public void saveBack(HttpStateResult s) {
+    public void saveBack(HttpResult s) {
         showMessage(s.getMessage());
         setResult(RESULT_OK);
         finish();

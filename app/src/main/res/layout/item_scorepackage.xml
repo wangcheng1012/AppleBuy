@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="20dp"
+    android:padding="10dp"
     android:background="@drawable/score_package_selector"
     android:orientation="vertical">
 
@@ -12,8 +12,9 @@
         style="@style/textbase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="52222"
-        android:textSize="20sp" />
+        android:text="0"
+        android:maxLines="1"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/scorepackage_description"

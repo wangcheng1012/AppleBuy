@@ -1,12 +1,10 @@
 package com.dw.applebuy.ui.home.shoppingmanage.p;
 
-import android.support.annotation.NonNull;
-
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BasePresenter;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 
 import rx.Subscriber;
 
@@ -21,7 +19,7 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
      * @param item
      */
     public void submitShenhe(Coupon item) {
-        Subscriber  sub =  new Subscriber<HttpStateResult>() {
+        Subscriber  sub =  new Subscriber<HttpResult>() {
             @Override
             public void onCompleted() {
 
@@ -35,7 +33,7 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
             }
 
             @Override
-            public void onNext(HttpStateResult httpStateResult) {
+            public void onNext(HttpResult httpStateResult) {
                 if(mView != null){
                     mView.submitBack();
                 }
@@ -50,7 +48,7 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
      * @param item
      */
     public void delShenHe(Coupon item) {
-        Subscriber  sub =  new Subscriber<HttpStateResult>() {
+        Subscriber  sub =  new Subscriber<HttpResult>() {
             @Override
             public void onCompleted() {
                 if (mView != null) {
@@ -62,7 +60,7 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
                 onErrorShow(e,"删除失败");
             }
             @Override
-            public void onNext(HttpStateResult httpStateResult) {
+            public void onNext(HttpResult httpStateResult) {
                 if(mView != null){
                     mView.delBack();
                 }
@@ -86,7 +84,7 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
             }
             @Override
             public void onError(Throwable e) {
-                onErrorShow(e,"删除失败");
+                onErrorShow(e,"获取失败");
             }
             @Override
             public void onNext(Coupon coupon) {
@@ -97,5 +95,59 @@ public class TabLayoutPresenter extends BasePresenter<Contract.TabLayoutView> {
         };
         mView.showLoading();
         AppHttpMethods.getInstance().getCouponInfo(sub,item.getId());
+    }
+
+    /**
+     * 下架优惠券
+     * @param item
+     */
+    public void offShelfCoupon(Coupon item) {
+        Subscriber<HttpResult>  sub =  new Subscriber<HttpResult>() {
+            @Override
+            public void onCompleted() {
+                if (mView != null) {
+                    mView.hideLoading();
+                }
+            }
+            @Override
+            public void onError(Throwable e) {
+                onErrorShow(e,"下架失败");
+            }
+            @Override
+            public void onNext(HttpResult hsr) {
+                if(mView != null){
+                    mView.offShelfCouponBack(hsr);
+                }
+            }
+        };
+        mView.showLoading();
+        AppHttpMethods.getInstance().offShelfCoupon(sub,item.getId());
+    }
+
+    /**
+     * 上架优惠券
+     * @param item
+     */
+    public void shelvesCoupon(Coupon item) {
+        Subscriber<HttpResult>  sub =  new Subscriber<HttpResult>() {
+            @Override
+            public void onCompleted() {
+                if (mView != null) {
+                    mView.hideLoading();
+                }
+            }
+            @Override
+            public void onError(Throwable e) {
+                onErrorShow(e,"下架失败");
+            }
+            @Override
+            public void onNext(HttpResult hsr) {
+                if(mView != null){
+                    mView.shelvesCouponBack(hsr);
+                }
+            }
+        };
+        mView.showLoading();
+        AppHttpMethods.getInstance().shelvesCoupon(sub,item.getId(),item.getShelvesEnd_time());
     }
 }

@@ -1,8 +1,8 @@
 package com.rxmvp.basemvp;
 
 
-import com.rxmvp.api.ApiException;
-import com.wlj.base.BuildConfig;
+import com.rxmvp.api.exception.ApiException_old;
+import com.rxmvp.http.exception.ErrorType;
 
 public abstract class BasePresenter<T> {
     public T mView;
@@ -30,15 +30,15 @@ public abstract class BasePresenter<T> {
      * @param e
      * @param defMessage
      */
-    protected void onErrorShow(Throwable e,String defMessage) {
+    public void onErrorShow(Throwable e,String defMessage) {
         e.printStackTrace();
         if(mView != null && mView instanceof BaseView) {
             BaseView mView = (BaseView) this.mView;
             mView.hideLoading();
-            if(e instanceof ApiException){
-                ApiException ae = (ApiException)e;
+            if(e instanceof ApiException_old){
+                ApiException_old ae = (ApiException_old)e;
                 int status = ae.getStatus();
-                if(status != ApiException.Go_login){
+                if(status != ErrorType.RE_LOGIN){
                     mView.showMessage(e.getMessage());
                 }
             }else {

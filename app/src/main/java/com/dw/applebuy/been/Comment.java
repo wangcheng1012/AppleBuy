@@ -5,5 +5,4 @@ package com.dw.applebuy.been;
  */
 public class Comment {
 
-
 }

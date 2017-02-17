@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/white_F1F1F1"
     android:orientation="vertical"
     tools:context="com.dw.applebuy.ui.home.shoppingmanage.album.AlbumActivity">
 
@@ -14,106 +14,119 @@
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_title2" />
 
-    <TextView
-        style="@style/textbase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="首图管理" />
-
-    <RelativeLayout
+    <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/album_firstImage"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="10dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_41_renzheng" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/album_firstImage"
-            android:layout_alignLeft="@+id/album_firstImage"
-            android:layout_alignRight="@+id/album_firstImage"
-            android:background="#44000000">
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/album_uploadfirst"
-                android:layout_width="wrap_content"
+                style="@style/textbase"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
                 android:padding="10dp"
-                android:text="重新上传"
-                android:textColor="@color/white" />
+                android:text="首图管理"
+                android:textSize="16sp" />
 
-        </RelativeLayout>
-    </RelativeLayout>
+            <include layout="@layout/line" />
 
-    <include layout="@layout/line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/album_firstImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_41_renzheng" />
 
-    <include layout="@layout/line" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/album_firstImage"
+                    android:layout_alignLeft="@+id/album_firstImage"
+                    android:layout_alignRight="@+id/album_firstImage"
+                    android:background="#44000000">
 
-    <TextView
-        style="@style/textbase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="环境图管理" />
+                    <TextView
+                        android:id="@+id/album_uploadfirst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:text="重新上传"
+                        android:textColor="@color/white" />
 
-    <include layout="@layout/line" />
+                </RelativeLayout>
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/black4_cccccc" />
 
-        <ImageView
-            android:id="@+id/album_images"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="10dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_41_renzheng" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/album_images"
-            android:layout_alignLeft="@+id/album_images"
-            android:layout_alignRight="@+id/album_images"
-            android:background="#44000000">
 
             <TextView
-                android:id="@+id/album_uploadmore"
-                android:layout_width="wrap_content"
+                style="@style/textbase"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
                 android:padding="10dp"
-                android:text="继续上传"
-                android:textColor="@color/white" />
+                android:text="环境图管理"
+                android:textSize="16sp" />
 
-        </RelativeLayout>
+            <include layout="@layout/line" />
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <include layout="@layout/line" />
+                <ImageView
+                    android:id="@+id/album_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_41_renzheng" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/album_images"
+                    android:layout_alignLeft="@+id/album_images"
+                    android:layout_alignRight="@+id/album_images"
+                    android:background="#44000000">
+
+                    <TextView
+                        android:id="@+id/album_uploadmore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:text="继续上传"
+                        android:textColor="@color/white" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -1,11 +1,11 @@
 package com.dw.applebuy.util;
 
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,13 +88,12 @@ public class DayDialogFragment extends DialogFragment {
 
     @Override
     public void onAttach(Context context) {
-        super.onAttach(context);
         if(context instanceof TimeChoosed ){
               mTimeChoosed = (TimeChoosed) context;
         }else{
             throw new RuntimeException("context not implements TimeChoosed");
         }
-
+        super.onAttach(context);
     }
 
     public interface TimeChoosed{

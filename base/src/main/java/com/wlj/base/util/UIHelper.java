@@ -165,6 +165,8 @@ public class UIHelper {
         }
     }
 
+
+
     static SweetAlertDialog pDialog;
     public static void showLoading(Context context) {
 
@@ -182,4 +184,19 @@ public class UIHelper {
         }
     }
 
+    /**
+     * 提示 context 确认
+     * @param context
+     * @param contenttext
+     * @param confirmClickListener
+     */
+    public static void tip(Context context,String contenttext,SweetAlertDialog.OnSweetClickListener confirmClickListener) {
+
+        new SweetAlertDialog(context)
+                .setConfirmText("确认")
+                .setTitleText("提示")
+                .setContentText(contenttext)
+                .setConfirmClickListener(confirmClickListener)
+                .show();
+    }
 }

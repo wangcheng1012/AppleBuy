@@ -53,20 +53,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/home_renzheng_defimage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon_41_renzheng"/>
+            <!--<ImageView-->
+                <!--android:id="@+id/home_renzheng_defimage"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/icon_41_renzheng"/>-->
 
-            <android.support.v4.view.ViewPager
+            <com.wlj.base.widget.AutoScrollViewPager
                 android:id="@+id/home_yirenzheng_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </android.support.v4.view.ViewPager>
+            </com.wlj.base.widget.AutoScrollViewPager>
 
             <TextView
                 android:id="@+id/home_yirenzheng_number"
@@ -77,8 +77,6 @@
                 android:text="0/0"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
-
-
 
         </FrameLayout>
 

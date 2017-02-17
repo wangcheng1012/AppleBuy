@@ -2,9 +2,8 @@ package com.rxmvp.api.interceptor;
 
 import android.os.Bundle;
 
-import com.rxmvp.api.ApiException;
+import com.rxmvp.http.exception.ErrorType;
 import com.wlj.base.util.AppConfig;
-import com.wlj.base.util.AppException;
 import com.wlj.base.util.AppManager;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.StringUtils;
@@ -19,6 +18,7 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+
 
 /**
  * 登录
@@ -55,7 +55,7 @@ public class LoginInterceptor implements Interceptor {
                         String key = AppConfig.getAppConfig().get(AppConfig.CONF_KEY);
                         if(!StringUtils.isEmpty(key)) {
 //                            jsonObject.put("message", "你的账号在其他地方登录\n如不是本人操作请及时修改密码");
-                            jsonObject.put("status", ApiException.Go_login);
+                            jsonObject.put("status",  ErrorType.RE_LOGIN);
                         }
                         //登录
                         try {

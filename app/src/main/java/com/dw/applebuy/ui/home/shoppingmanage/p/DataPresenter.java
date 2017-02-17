@@ -3,13 +3,10 @@ package com.dw.applebuy.ui.home.shoppingmanage.p;
 import android.support.v4.util.ArrayMap;
 
 import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.been.Info;
-import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.rxmvp.basemvp.BasePresenter;
-import com.rxmvp.basemvp.BaseView;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.StringUtils;
 
 import rx.Subscriber;
@@ -56,7 +53,7 @@ public class DataPresenter extends BasePresenter<Contract.DataView> {
             return;
         }
 
-        Subscriber<HttpStateResult> sub = new Subscriber<HttpStateResult>() {
+        Subscriber<HttpResult> sub = new Subscriber<HttpResult>() {
             @Override
             public void onCompleted() {
                 if (mView != null) {
@@ -70,7 +67,7 @@ public class DataPresenter extends BasePresenter<Contract.DataView> {
             }
 
             @Override
-            public void onNext(HttpStateResult s) {
+            public void onNext(HttpResult s) {
                 if (mView != null) {
                     InfoUtil.infoUpdate = true;
                     mView.saveBack(s);

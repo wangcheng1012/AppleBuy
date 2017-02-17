@@ -7,10 +7,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.target.Target;
 import com.dw.applebuy.base.api.AppHttpMethods;
+import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiAddActivity;
-import com.rxmvp.bean.ResultResponse;
+import com.orhanobut.logger.Logger;
+import com.rxmvp.bean.HttpResult;
 import com.rxmvp.basemvp.BasePresenter;
+import com.rxmvp.http.ExceptionEngine;
+import com.rxmvp.http.ServiceFactory;
+import com.rxmvp.subscribers.RxSubscriber;
+import com.rxmvp.transformer.DefaultTransformer;
+import com.rxmvp.transformer.ErrorTransformer;
+import com.rxmvp.transformer.SchedulerTransformer;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.StringUtils;
 
@@ -18,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Set;
 
 import okhttp3.MediaType;
@@ -97,31 +105,29 @@ public class YouHuiAddPresenter extends BasePresenter<Contract.YouHuiAddView> {
     }
 
     private void addYouHuiCall(ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo) {
-        //观察者
-        Subscriber<ResultResponse> subscriber = new Subscriber<ResultResponse>() {
-            @Override
-            public void onCompleted() {
-                if (mView != null) {
-                    mView.hideLoading();
-                }
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                onErrorShow(e, "提交失败");
-            }
-
-            @Override
-            public void onNext(ResultResponse stringHttpStateResult) {
-                if (mView != null) {
-                    mView.callBack();
-                    toastMessage(stringHttpStateResult.getMessage());
-                }
-
-            }
-
-        };//end
-        AppHttpMethods.getInstance().addYouHui(subscriber, arrayMap, photo);
+        ServiceFactory
+                .createService(FactoryInters.class)
+                .addYouHui(arrayMap,photo)
+                .compose(SchedulerTransformer.<HttpResult>getInstance())
+//                .onErrorResumeNext(new Func1<Throwable, Observable<? extends HttpResult>>() {
+//                    @Override
+//                    public Observable<? extends HttpResult> call(Throwable throwable) {
+//                        throwable.printStackTrace();
+//                        return Observable.error(ExceptionEngine.handleException(throwable));
+//                    }
+//                })
+                .subscribe(new RxSubscriber<HttpResult>(mView) {
+                    @Override
+                    public void onNext(HttpResult o) {
+                        //这里的异常 SchedulerTransformer 拦截不了，直接进onerror了
+                        ErrorTransformer.HttpResultNoSuccess(o);
+                        toastMessage(o.getMessage());
+                        if(mView != null){
+                           mView.callBack();
+                        }
+                    }
+                });
 
     }
 

@@ -6,7 +6,7 @@ import android.widget.EditText;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.songjifen.v.Contracts;
 import com.rxmvp.basemvp.BasePresenter;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.StringUtils;
 
@@ -25,7 +25,7 @@ public class CreatUserPresenter extends BasePresenter<Contracts.CreatUserView> {
         }
         mView.showLoading();
         //观察者
-        Subscriber<HttpStateResult<String>> subscriber = new Subscriber<HttpStateResult<String>>() {
+        Subscriber<HttpResult<String>> subscriber = new Subscriber<HttpResult<String>>() {
             @Override
             public void onCompleted() {
                 if (mView != null) {
@@ -39,7 +39,7 @@ public class CreatUserPresenter extends BasePresenter<Contracts.CreatUserView> {
             }
 
             @Override
-            public void onNext(HttpStateResult<String> stringHttpStateResult) {
+            public void onNext(HttpResult<String> stringHttpStateResult) {
                 // 计时 ，
                 if (stringHttpStateResult.getStatus() == 0) {
                     //计时
@@ -81,7 +81,7 @@ public class CreatUserPresenter extends BasePresenter<Contracts.CreatUserView> {
 
         mView.showLoading();
         //观察者
-        Subscriber<HttpStateResult> subscriber = new Subscriber<HttpStateResult>() {
+        Subscriber<HttpResult> subscriber = new Subscriber<HttpResult>() {
             @Override
             public void onCompleted() {
                 if (mView != null) {
@@ -95,7 +95,7 @@ public class CreatUserPresenter extends BasePresenter<Contracts.CreatUserView> {
             }
 
             @Override
-            public void onNext(HttpStateResult stringHttpStateResult) {
+            public void onNext(HttpResult stringHttpStateResult) {
 
                 if (mView != null) {
                     mView.giveIntegralBack();

@@ -1,15 +1,15 @@
 package com.dw.applebuy.ui.loginreg.p;
 
-import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
-import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.base.api.AppHttpMethods;
+import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.ui.loginreg.v.Views;
-import com.rxmvp.api.ApiException;
 import com.rxmvp.basemvp.BasePresenter;
-import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.util.UIHelper;
+import com.rxmvp.bean.HttpResult;
+import com.rxmvp.http.ServiceFactory;
+import com.rxmvp.subscribers.RxSubscriber;
+import com.rxmvp.transformer.DefaultTransformer;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -23,12 +23,13 @@ import rx.Subscriber;
 public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
 
-    public RegisterPresenter( ) {
+    public RegisterPresenter() {
 
     }
 
     /**
      * 获取验证码
+     *
      * @param phone
      */
     public void getVerifyCode(String phone) {
@@ -42,24 +43,25 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
     /**
      * 注册
+     *
      * @param arrayMap
      */
     public void register(ArrayMap<String, String> arrayMap) {
         //验证
-        if(arrayMap.get("mobile").length() != 11){
-           toastMessage("手机号错误");
+        if (arrayMap.get("mobile").length() != 11) {
+            toastMessage("手机号错误");
             return;
         }
-        if(arrayMap.get("code").isEmpty()){
-           toastMessage("验证码为空");
+        if (arrayMap.get("code").isEmpty()) {
+            toastMessage("验证码为空");
             return;
         }
-        if(arrayMap.get("password").length() < 6 || arrayMap.get("password").length() > 15){
-           toastMessage("密码必须为6-15位");
+        if (arrayMap.get("password").length() < 6 || arrayMap.get("password").length() > 15) {
+            toastMessage("密码必须为6-15位");
             return;
         }
-        if(!arrayMap.get("password") .equals(arrayMap.get("re_password"))){
-           toastMessage("密码与确认密码不相同");
+        if (!arrayMap.get("password").equals(arrayMap.get("re_password"))) {
+            toastMessage("密码与确认密码不相同");
             return;
         }
         mView.showLoading();
@@ -68,71 +70,80 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
 
     /**
      * 验证码
+     *
      * @param phone
      */
-    private void getCodeCall(String phone)  {
+    private void getCodeCall(String phone) {
 
-        String content = null;
-        try {
-            content = URLDecoder.decode(phone, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        //观察者
-        Subscriber<HttpStateResult<List>> subscriber = new Subscriber<HttpStateResult<List>>() {
-            @Override
-            public void onCompleted() {
-                mView.hideLoading();
-            }
+//        String content = null;
+//        try {
+//            content = URLDecoder.decode(phone, "utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        //观察者
+//        Subscriber<HttpResult<List>> subscriber = new Subscriber<HttpResult<List>>() {
+//            @Override
+//            public void onCompleted() {
+//                mView.hideLoading();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                onErrorShow(e, "验证码获取失败");
+//            }
+//
+//            @Override
+//            public void onNext(HttpResult<List> stringHttpStateResult) {
+//                // 计时 ，
+//                if (stringHttpStateResult.getStatus() == 1) {
+//                    //计时
+//                    if (mView != null) {
+//                        mView.verifyCodeBack();
+//                    }
+//                }
+//                toastMessage(stringHttpStateResult.getMessage());
+//            }
+//
+//        };//end
+//
+//        AppHttpMethods.getInstance().getCode(subscriber, content);
 
-            @Override
-            public void onError(Throwable e) {
-                onErrorShow(e,"验证码获取失败");
-            }
+        ServiceFactory
+                .createService(FactoryInters.class)
+                .getRegisterVerifyCode(phone)
+                .compose(new DefaultTransformer<String>())
+                .subscribe(new RxSubscriber<String>(mView) {
+                    @Override
+                    public void onNext(String s) {
 
-            @Override
-            public void onNext(HttpStateResult<List> stringHttpStateResult) {
-                // 计时 ，
-                if(stringHttpStateResult.getStatus() == 1){
-                    //计时
-                    if(mView != null) {
-                        mView.verifyCodeBack();
+                        if (mView != null) {
+                            mView.registeerBack();
+                        }
                     }
-                }
-               toastMessage(stringHttpStateResult.getMessage());
-            }
 
-        };//end
-
-        AppHttpMethods.getInstance().getCode(subscriber ,content);
+                });
     }
 
     /**
      * 注册call
+     *
      * @param arrayMap
      */
     private void registerCall(ArrayMap<String, String> arrayMap) {
-        //观察者
-        Subscriber<HttpStateResult<List>> subscriber = new Subscriber<HttpStateResult<List>>() {
-            @Override
-            public void onCompleted() {
-                mView.hideLoading();
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                onErrorShow(e,"注册失败");
-            }
+        ServiceFactory
+                .createService(FactoryInters.class)
+                .register(arrayMap)
+                .compose(new DefaultTransformer<List>())
+                .subscribe(new RxSubscriber<List>(mView) {
+                    @Override
+                    public void onNext(List list) {
+                        if (mView != null) {
+                            mView.registeerBack();
+                        }
+                    }
 
-            @Override
-            public void onNext(HttpStateResult<List> stringHttpStateResult) {
-               toastMessage(stringHttpStateResult.getMessage());
-                if(mView != null) {
-                    mView.registeerBack(stringHttpStateResult);
-                }
-            }
-
-        };//end
-        AppHttpMethods.getInstance().register(subscriber,arrayMap);
+                });
     }
 }

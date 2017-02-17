@@ -49,10 +49,10 @@ public class ChooseWeekActivity extends AppCompatActivity implements MultiItemTy
 
         //数据准备
         Intent intent = getIntent();
-        ArrayList<String> business_week = intent.getStringArrayListExtra("business_week");
+        ArrayList<String> business_week_id = intent.getStringArrayListExtra("business_week_id");
 
         datas = new ArrayList<>(7);
-        if(business_week == null){
+        if(business_week_id == null){
             for (int i = 0; i < BusinessWeek.length; i++) {
 
                 datas.add(new BusinessScope(BusinessWeek[i], false ));
@@ -60,7 +60,7 @@ public class ChooseWeekActivity extends AppCompatActivity implements MultiItemTy
         }else {
             for (int i = 0; i < BusinessWeek.length; i++) {
 
-                datas.add(new BusinessScope(BusinessWeek[i], business_week.contains(i + "")));
+                datas.add(new BusinessScope(BusinessWeek[i], business_week_id.contains(i + "")));
             }
         }
         //
@@ -70,7 +70,7 @@ public class ChooseWeekActivity extends AppCompatActivity implements MultiItemTy
             @Override
             protected void convert(ViewHolder holder, BusinessScope item, int position) {
 
-                holder.setText(R.id.item_businessscope_text, item.getName());
+                holder.setText(R.id.item_businessscope_text, "每"+item.getName());
                 View checkBox = holder.getView(R.id.item_businessscope_imageView);
                 if (item.getSelected()){
 
@@ -127,12 +127,10 @@ public class ChooseWeekActivity extends AppCompatActivity implements MultiItemTy
         for (int i = 0; i < datas.size(); i++) {
             BusinessScope scope = datas.get(i);
             if (scope.getSelected()) {
-                business_week.append(scope.getName().replace("每","")+",");
                 business_week_id.add(i+"");
             }
         }
         Intent intent = new Intent();
-        intent.putExtra("business_week",business_week.deleteCharAt(business_week.length()-1).toString());
         intent.putStringArrayListExtra( "business_week_id",business_week_id);
         setResult(RESULT_OK,intent);
         super.onBackPressed();

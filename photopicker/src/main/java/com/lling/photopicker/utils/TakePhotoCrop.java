@@ -106,45 +106,64 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
      * @param data
      */
     public void onCrop(final Intent data) {
-        //提示框
-        new SweetAlertDialog(mActivity)
-                .setTitleText("提示")
-                .setContentText("是否裁剪？")
-                .setConfirmText("确认")
-                .setCancelText("取消")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
 
-                        CropOptions cropOptions = new CropOptions.Builder()
-//                        .setAspectX(1).setAspectY(1)
-                                .setWithOwnCrop(false).create();
-                        try {
+        int aspectX = data.getIntExtra("aspectX", 0);
+        int aspectY = data.getIntExtra("aspectY", 0);
 
-                            File file = new File(ImageFileCache.getCropCachePath());
-                            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-                            Uri imageUri = Uri.fromFile(file);
+        if(aspectX * aspectY > 0 ){
 
-                            ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
+            onCrop(data, aspectX, aspectY);
+        }else {
+            //提示框
+            new SweetAlertDialog(mActivity)
+                    .setTitleText("提示")
+                    .setContentText("是否裁剪？")
+                    .setConfirmText("确认")
+                    .setCancelText("取消")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
 
-                            takePhoto.onCrop( Uri.parse(uristr.get(0)), imageUri, cropOptions);
+                            sweetAlertDialog.dismiss();
 
-                        } catch (TException e) {
-                            e.printStackTrace();
+                            int aspectX = data.getIntExtra("aspectX", 0);
+                            int aspectY = data.getIntExtra("aspectY", 0);
+
+                            onCrop(data, aspectX, aspectY);
+
                         }
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
+                    })
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismiss();
 
-                        ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
-                        mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
-                    }
-                })
-                .show();
+                            ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
+                            mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private void onCrop(Intent data, int aspectX, int aspectY) {
+        CropOptions cropOptions = new CropOptions.Builder()
+                .setAspectX(aspectX).setAspectY(aspectY)
+                .setWithOwnCrop(false)
+                .create();
+        try {
+
+            File file = new File(ImageFileCache.getCropCachePath());
+            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+            Uri imageUri = Uri.fromFile(file);
+
+            ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
+
+            takePhoto.onCrop( Uri.parse(uristr.get(0)), imageUri, cropOptions);
+
+        } catch (TException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onRequestPermissionsResult_(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -15,7 +15,7 @@ import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.loginreg.p.ForgetPresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.basemvp.BaseMvpActivity;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.UIHelper;
 
@@ -66,8 +66,8 @@ public class ForgetPswActivity extends BaseMvpActivity<Views.ForgetView, ForgetP
 
 
     @Override
-    public void submitBack(HttpStateResult<List> httpStateResult) {
-        if(httpStateResult.getStatus() == 1) {
+    public void submitBack(HttpResult<List> httpResult) {
+        if(httpResult.getStatus() == 1) {
             finish();
         }
     }

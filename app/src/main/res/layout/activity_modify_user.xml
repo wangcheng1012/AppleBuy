@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_F1F1F1"
     android:orientation="vertical"
-    tools:context="com.dw.applebuy.ui.home.usermanage.AddUserActivity">
+    tools:context="com.dw.applebuy.ui.home.usermanage.ConsumeHistoryActivity">
 
     <fragment
         android:id="@+id/adduser_titlefragment"
@@ -47,12 +47,10 @@
             <!--android:layout_height="wrap_content">-->
 
             <AutoCompleteTextView
-                android:id="@+id/adduser_name"
+                android:id="@+id/modifyuser_name"
                 style="@style/inputtext"
-                android:digits="0123456789"
                 android:hint="请输入会员名"
-                android:inputType="phone"
-                android:maxLength="11" />
+                android:enabled="false" />
 
             <!--</android.support.design.widget.TextInputLayout>-->
 
@@ -83,8 +81,9 @@
             <!--android:layout_height="wrap_content">-->
 
             <AutoCompleteTextView
-                android:id="@+id/adduser_phone"
+                android:id="@+id/modifyuser_phone"
                 style="@style/inputtext"
+                android:enabled="false"
                 android:digits="0123456789"
                 android:hint="请输入手机号码"
                 android:inputType="phone"
@@ -102,6 +101,7 @@
     <include layout="@layout/line" />
 
     <EditText
+        android:id="@+id/modifyuser_mark"
         style="@style/textbase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
 
 
     <Button
-        android:id="@+id/adduser_submit"
+        android:id="@+id/modifyuser_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"

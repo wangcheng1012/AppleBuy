@@ -5,39 +5,21 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.R;
-import com.dw.applebuy.base.api.FactoryInters;
-import com.dw.applebuy.base.ui.SWRVContract;
-import com.dw.applebuy.base.ui.SWRVFragment;
-import com.dw.applebuy.ui.home.ordermanage.m.CouponOrder;
 import com.dw.applebuy.ui.home.ordermanage.p.OrderListPresenter;
 import com.dw.applebuy.ui.home.ordermanage.v.Contract;
-import com.rxmvp.api.HttpResultFunc;
 import com.rxmvp.basemvp.BaseMvpActivity;
-import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.DpAndPx;
-import com.wlj.base.util.GoToHelp;
-import com.zhy.adapter.recyclerview.base.ViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * 订单列表
@@ -85,8 +67,8 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
 
             @Override
             public Fragment getItem(int position) {
-                SWRVFragment swrvFragment = getItemFragment(position);
-                return swrvFragment;
+
+                return OrderListFragment.newInstance(position);
             }
 
             @Override
@@ -96,96 +78,6 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
         };
         viewpage.setAdapter(pagerAdapter);
         tablayout.setupWithViewPager(viewpage);
-    }
-
-    private SWRVFragment getItemFragment(int position) {
-        SWRVFragment mSWRVFragment = new SWRVFragment();
-        mSWRVFragment.setMyInterface(new SWRVFragment.SWRVInterface() {
-            @Override
-            public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
-                recyclerview.addItemDecoration(new DividerDecoration(getResources().getDrawable(R.drawable.divider_white_f1f1f1_1), DividerDecoration.HORIZONTAL_LIST));
-            }
-
-            @Override
-            public SWRVContract.SWRVPresenterAdapter getPresenterAdapter() {
-                return getMyPresenterAdapter();
-            }
-        });
-
-        return mSWRVFragment;
-    }
-
-    private SWRVContract.SWRVPresenterAdapter<CouponOrder> getMyPresenterAdapter() {
-        return new SWRVContract.SWRVPresenterAdapter<CouponOrder>() {
-
-            @Override
-            public int getRecycerviewItemlayoutRes() {
-                return R.layout.item_order_list;
-            }
-
-            @Override
-            public RecyclerView.LayoutManager getLayoutManager() {
-                return new LinearLayoutManager(getApplicationContext());
-            }
-
-            @Override
-            public void convert(ViewHolder viewHolder, CouponOrder item, int position) {
-
-            }
-
-            @Override
-            public void onItemLongClick(View view, RecyclerView.ViewHolder holder, int position, CouponOrder item) {
-
-            }
-
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, CouponOrder item) {
-                Bundle bundle = new Bundle();
-                bundle.putString(OrderDetailFragment.ARG_ITEM_ID, item.getCode());
-                GoToHelp.go(OrderListActivity.this, OrderDetailActivity.class, bundle);
-            }
-
-            @Override
-            public View getEmptyView() {
-                return null;
-            }
-
-            @Override
-            public Observable<List<CouponOrder>> call(FactoryInters apiService, int curPageStart) {
-                Observable<HttpStateResult<List<CouponOrder>>> couponOrder = apiService.getCouponOrder(0, curPageStart, 0);
-                Observable<List<CouponOrder>> map;
-                if (BuildConfig.DEBUG) {
-                    map = couponOrder.map(new Func1<HttpStateResult<List<CouponOrder>>, List<CouponOrder>>() {
-                        @Override
-                        public List<CouponOrder> call(HttpStateResult<List<CouponOrder>> listHttpStateResult) {
-
-                            List<CouponOrder> data = listHttpStateResult.getData();
-
-                            if (data == null) {
-                                data = new ArrayList<CouponOrder>();
-                            }
-                            if (data.isEmpty()) {
-                                for (int i = 0; i < 12; i++) {
-                                    data.add(new CouponOrder());
-                                }
-                            }
-
-                            return data;
-                        }
-                    });
-
-                } else {
-                    map = couponOrder.map(new HttpResultFunc<List<CouponOrder>>());
-
-                }
-                return map;
-            }
-
-            @Override
-            public boolean needLoadMore() {
-                return true;
-            }
-        };
     }
 
     /**

@@ -3,8 +3,7 @@ package com.dw.applebuy.ui.loginreg.p;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.basemvp.BasePresenter;
-import com.rxmvp.bean.HttpStateResult;
-import com.rxmvp.bean.ResultResponse;
+import com.rxmvp.bean.HttpResult;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -68,7 +67,7 @@ public class ChangePhonePresenter extends BasePresenter<Views.ChangePhoneView> {
             e.printStackTrace();
         }
         //观察者
-        Subscriber<HttpStateResult<List>> subscriber = new Subscriber<HttpStateResult<List>>() {
+        Subscriber<HttpResult<List>> subscriber = new Subscriber<HttpResult<List>>() {
             @Override
             public void onCompleted() {
                 mView.hideLoading();
@@ -80,7 +79,7 @@ public class ChangePhonePresenter extends BasePresenter<Views.ChangePhoneView> {
             }
 
             @Override
-            public void onNext(HttpStateResult<List> stringHttpStateResult) {
+            public void onNext(HttpResult<List> stringHttpStateResult) {
                 // 计时 ，
                 if(stringHttpStateResult.getStatus() == 1){
                     //计时
@@ -103,7 +102,7 @@ public class ChangePhonePresenter extends BasePresenter<Views.ChangePhoneView> {
      */
     private void changePhoneCall(String phone, String verifyCode) {
         //观察者
-        Subscriber<ResultResponse> subscriber = new Subscriber<ResultResponse>() {
+        Subscriber<HttpResult> subscriber = new Subscriber<HttpResult>() {
             @Override
             public void onCompleted() {
                 if(mView != null) {
@@ -117,7 +116,7 @@ public class ChangePhonePresenter extends BasePresenter<Views.ChangePhoneView> {
             }
 
             @Override
-            public void onNext(ResultResponse  resultResponse) {
+            public void onNext(HttpResult  resultResponse) {
                toastMessage(resultResponse.getMessage());
                 if(mView != null) {
                     mView.changePhoneBack(resultResponse);

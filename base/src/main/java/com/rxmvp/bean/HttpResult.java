@@ -8,7 +8,7 @@ Http服务返回一个固定格式的数据
     "data": []
 }
  */
-public class HttpStateResult<T> {
+public class HttpResult<T> {
     private int status;
     private String message;
     private T data;

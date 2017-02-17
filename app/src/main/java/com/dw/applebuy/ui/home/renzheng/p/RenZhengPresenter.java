@@ -5,8 +5,7 @@ import android.support.v4.util.ArrayMap;
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.home.renzheng.v.Contract;
 import com.rxmvp.basemvp.BasePresenter;
-import com.rxmvp.bean.HttpStateResult;
-import com.rxmvp.bean.ResultResponse;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.StringUtils;
 
 import java.io.File;
@@ -88,7 +87,7 @@ public class RenZhengPresenter extends BasePresenter<Contract.RenZhengView> {
     private void submitCall(ArrayMap<String, RequestBody> arrayMap, MultipartBody.Part photo, MultipartBody.Part photo2) {
 
         //观察者
-        Subscriber<HttpStateResult> subscriber = new Subscriber<HttpStateResult>() {
+        Subscriber<HttpResult> subscriber = new Subscriber<HttpResult>() {
             @Override
             public void onCompleted() {
                 if(mView != null) {
@@ -102,7 +101,7 @@ public class RenZhengPresenter extends BasePresenter<Contract.RenZhengView> {
             }
 
             @Override
-            public void onNext(HttpStateResult stringHttpStateResult) {
+            public void onNext(HttpResult stringHttpStateResult) {
                 if(mView != null) {
                     toastMessage(stringHttpStateResult.getMessage());
                 }

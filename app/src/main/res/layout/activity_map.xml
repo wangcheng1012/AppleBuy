@@ -13,14 +13,6 @@
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_title2" />
 
-
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/bmapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/map_addresstext"
-        android:clickable="true" />
-
     <TextView
         android:id="@+id/map_addresstext"
         android:layout_width="match_parent"
@@ -30,6 +22,25 @@
         android:maxLines="1"
         android:padding="10dp"
         android:text="定位中……" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map_addresstext">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/loaction" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

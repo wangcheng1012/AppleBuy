@@ -10,7 +10,7 @@ import com.google.gson.annotations.Expose;
  */
 public class BusinessScope implements Parcelable{
 
-    public static String[] BusinessWeek = {"每周日","每周一","每周二","每周三","每周四","每周五","每周六"};
+    public static String[] BusinessWeek = {"周日","周一","周二","周三","周四","周五","周六"};
 
     public BusinessScope() {
     }

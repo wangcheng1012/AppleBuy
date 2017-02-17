@@ -1,6 +1,8 @@
 package com.dw.applebuy.ui.home.shoppingmanage.data.child;
 
 import android.content.Intent;
+import android.graphics.Point;
+import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,15 +23,20 @@ import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.orhanobut.logger.Logger;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.UIHelper;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MapActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
@@ -61,17 +68,59 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
+
+        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus) {
+
+            }
+
+            @Override
+            public void onMapStatusChange(MapStatus mapStatus) {
+
+            }
+
+            @Override
+            public void onMapStatusChangeFinish(MapStatus mapStatus) {
+
+                LatLngBounds bound = mapStatus.bound;
+                LatLng center = bound.getCenter();
+
+                Geocoder geocoder = new Geocoder(getApplicationContext());
+                try {
+                    List<android.location.Address> fromLocation = geocoder.getFromLocation(center.latitude - 0.004005, center.longitude - 0.01, 1);
+                    if (fromLocation != null && fromLocation.size() > 0) {
+                        for (int i = 0; i < fromLocation.size(); i++) {
+
+                            android.location.Address address = fromLocation.get(i);
+                            String s = address.getAddressLine(1) + address.getFeatureName();
+                            addresstext.setText(s);
+                            Logger.e(s);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        closeLocation();
+
+        mMapView.onDestroy();
+    }
+
+    private void closeLocation() {
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mLocationClient.stop();
         mLocationClient.unRegisterLocationListener(myListener);
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        mMapView.onDestroy();
     }
 
     @Override
@@ -95,8 +144,8 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(StringUtils.isEmpty(address)){
-                    UIHelper.toastMessage(getApplication(),"请稍后，正在定位……");
+                if (StringUtils.isEmpty(address)) {
+                    UIHelper.toastMessage(getApplication(), "请稍后，正在定位……");
                     return;
                 }
                 Intent intent = getIntent();
@@ -110,32 +159,30 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
 
     private void initLocation() {
 
-        // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-        //改图标
-        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.loaction);
-        mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
-                MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker,
-                accuracyCircleFillColor, accuracyCircleStrokeColor));
+//        // 开启定位图层
+//        mBaiduMap.setMyLocationEnabled(true);
+//        //改图标
+//        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.loaction);
+//        mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
+//                MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker,
+//                accuracyCircleFillColor, accuracyCircleStrokeColor));
 
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span = 3000;
+        option.setCoorType("gcj02");//可选，默认gcj02，设置返回的定位结果坐标系,bd09ll
+        int span = 0;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
-        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+        option.setLocationNotify(false);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
         option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIsNeedLocationPoiList(false);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
         option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
         mLocationClient.setLocOption(option);
         mLocationClient.start();
-
-
     }
 
     public class MyLocationListener implements BDLocationListener {
@@ -148,7 +195,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                     location.getLocType() == BDLocation.TypeOffLineLocation) {   // 离线定位结果
                 address = location.getAddrStr();
                 addresstext.setText(address);
-            }else{
+            } else {
                 address = "";
                 addresstext.setText("定位中……");
             }
@@ -170,6 +217,8 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 MapStatus.Builder builder = new MapStatus.Builder();
                 builder.target(ll).zoom(18.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+
+                closeLocation();
             }
         }
 

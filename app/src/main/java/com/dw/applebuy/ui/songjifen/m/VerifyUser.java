@@ -6,13 +6,13 @@ import android.os.Parcelable;
 /**
  *  验证phone 返回的user信息
  */
-public class InputPhoneUser implements Parcelable{
+public class VerifyUser implements Parcelable{
 
     /**
      * 有此用户
      */
     public final static int status_have = 1;
-    public final static int status_no = 0;
+//    public final static int status_no = 0;
 
     /**
      * id : 18
@@ -25,22 +25,22 @@ public class InputPhoneUser implements Parcelable{
     private String mobile;
     private int status;
 
-    protected InputPhoneUser(Parcel in) {
+    protected VerifyUser(Parcel in) {
         id = in.readString();
         name = in.readString();
         mobile = in.readString();
         status = in.readInt();
     }
 
-    public static final Creator<InputPhoneUser> CREATOR = new Creator<InputPhoneUser>() {
+    public static final Creator<VerifyUser> CREATOR = new Creator<VerifyUser>() {
         @Override
-        public InputPhoneUser createFromParcel(Parcel in) {
-            return new InputPhoneUser(in);
+        public VerifyUser createFromParcel(Parcel in) {
+            return new VerifyUser(in);
         }
 
         @Override
-        public InputPhoneUser[] newArray(int size) {
-            return new InputPhoneUser[size];
+        public VerifyUser[] newArray(int size) {
+            return new VerifyUser[size];
         }
     };
 

@@ -1,6 +1,8 @@
 package com.dw.applebuy.ui.home.shoppingmanage.youhui.showing;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -23,11 +25,13 @@ import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.home.shoppingmanage.p.TabLayoutPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
+import com.dw.applebuy.ui.home.shoppingmanage.youhui.YouHuiManagerActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
 import com.rxmvp.basemvp.BaseMvpFragment;
-import com.rxmvp.bean.HttpStateResult;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.DpAndPx;
+import com.wlj.base.util.Log;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.Arrays;
@@ -44,17 +48,20 @@ import rx.functions.Func1;
 public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, TabLayoutPresenter> implements Contract.TabLayoutView {
 
     private static final String TAB = "tab";
-    public static int SHOEING = 2;
+    private static final String BACK = "addback";
+    public static int SHOWING = 2;
     public static int XIAJIA = 3;
+    public final static int modifyrCode = 2;
+
     /**
      * 审核中
      */
     public static int SHENHE = 4;
     /**
-     * init，这个状态是 审核中的一个状态
+     * caoGaoinit，这个状态是 审核中的一个状态
      */
     public static int CAOGAO = 1;
-    private final CaoGaoDelegate caoGaoDelegate = new CaoGaoDelegate(this);
+    private final CouponListItemDelegate couponListItemDelegate = new CouponListItemDelegate(this);
 
     @BindView(R.id.tablayout)
     TabLayout tablayout;
@@ -66,18 +73,19 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
     private String[] tabtitles;
 
     private int mTab;
+    private int mBack;
     //    private int sort_type = 1;
-    protected int requestcode_itemClick = 2;
     private SWRVFragment<Coupon> cur;
 
     public TabLayoutFragment() {
         // Required empty public constructor
     }
 
-    public static TabLayoutFragment newInstance(int tab) {
+    public static TabLayoutFragment newInstance(int tab, int back) {
         TabLayoutFragment fragment = new TabLayoutFragment();
         Bundle args = new Bundle();
         args.putInt(TAB, tab);
+//        args.putInt(BACK, back);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,7 +94,8 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTab = getArguments().getInt(TAB, SHOEING);
+            mTab = getArguments().getInt(TAB, SHOWING);
+//            mBack = getArguments().getInt(BACK, 0);
             if (mTab == SHENHE || mTab == CAOGAO) {
                 tabtitles = tabtitles2;
             } else {
@@ -143,6 +152,8 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
         };
         viewpage.setAdapter(pagerAdapter);
         tablayout.setupWithViewPager(viewpage);
+
+//        viewpage.setCurrentItem(mBack);
     }
 
     /**
@@ -155,6 +166,16 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
     private SWRVFragment<Coupon> getItemFragment(final int position) {
 
         final SWRVFragment<Coupon> swrvFragment = new SWRVFragment<>();
+
+        swrvFragment.setUserVisibleHint(new SWRVFragment.UserVisibleHint() {
+            @Override
+            public void isVisibleToUser(boolean isVisibleToUser) {
+                if(isVisibleToUser){
+                    cur = swrvFragment;
+                }
+            }
+        });
+
         swrvFragment.setMyInterface(new SWRVFragment.SWRVInterface<Coupon>() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
@@ -163,7 +184,7 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
 
             @Override
             public SWRVContract.SWRVPresenterAdapter<Coupon> getPresenterAdapter() {
-                return getSwrvPresenterAdapter(position, swrvFragment);
+                return getSwrvPresenterAdapter(position);
             }
         });
         return swrvFragment;
@@ -175,7 +196,7 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
      * @return
      */
     @NonNull
-    private SWRVContract.SWRVPresenterAdapter<Coupon> getSwrvPresenterAdapter(final int position, final SWRVFragment<Coupon> swrvFragment) {
+    private SWRVContract.SWRVPresenterAdapter<Coupon> getSwrvPresenterAdapter(final int position) {
         return new SWRVContract.SWRVPresenterAdapter<Coupon>() {
 
             @Override
@@ -189,29 +210,36 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
             }
 
             @Override
-            public void convert(ViewHolder viewHolder, Coupon item, int p) {
+            public void convert(ViewHolder viewHolder, final Coupon item, int p) {
 
                 if (item == null) return;
                 ImageView view = viewHolder.getView(R.id.showing_image);
                 Glide.with(TabLayoutFragment.this).load(item.getIcon()).into(view);
 
                 viewHolder.setText(R.id.showing_name, item.getTitle());
-                viewHolder.setText(R.id.showing_number,"库存 " + item.getStock());//销量
+                viewHolder.setText(R.id.showing_number, "库存 " + item.getStock());//销量
                 viewHolder.setText(R.id.showing_time, item.getEnd_time());
                 viewHolder.setText(R.id.showing_scors, item.getIntegral() + "积分");//积分
 
-                if (mTab == SHENHE  ) {
-                    if(position == 0){
+                if (mTab == SHENHE) {
+                    viewHolder.setText(R.id.showing_number, "库存 " + item.getStock());//销量
+
+                    if (position == 0) {
                         //草稿
-                        caoGaoDelegate.init(viewHolder, item, swrvFragment);
-                    }else{
+                        couponListItemDelegate.caoGaoinit(viewHolder, item);
+                    } else {
                         //审核中
                         viewHolder.getView(R.id.showing_image_layout).setVisibility(View.GONE);
                         viewHolder.getView(R.id.showing_image_line).setVisibility(View.GONE);
                     }
-                }else{
+                } else if (mTab == SHOWING) {
 
+                    viewHolder.setText(R.id.showing_number, "销量 " + item.getSales_volume() + "   库存 " + item.getStock());//销量
+                    couponListItemDelegate.showing(viewHolder, item);
+                } else if (mTab == XIAJIA) {
 
+                    viewHolder.setText(R.id.showing_number, "销量 " + item.getSales_volume() + "   库存 " + item.getStock());//销量
+                    couponListItemDelegate.xiajia(viewHolder, item);
                 }
 
             }
@@ -225,7 +253,7 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int p, Coupon item) {
 
                 if (mTab == SHENHE && getSort_type(position) == 1) {
-                    caoGaoDelegate.itemOnClick(item);
+                    couponListItemDelegate.itemOnClick(item);
                 }
 
             }
@@ -248,12 +276,12 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
                     }
                 }
 
-                Observable<HttpStateResult<Coupon[]>> coupon = apiService.getCoupon(curPageStart, sort, status);
+                Observable<HttpResult<Coupon[]>> coupon = apiService.getCoupon(curPageStart, sort, status);
                 //变换
-                Observable<List<Coupon>> observable = coupon.map(new Func1<HttpStateResult<Coupon[]>, List<Coupon>>() {
+                Observable<List<Coupon>> observable = coupon.map(new Func1<HttpResult<Coupon[]>, List<Coupon>>() {
 
                     @Override
-                    public List<Coupon> call(HttpStateResult<Coupon[]> httpStateResult) {
+                    public List<Coupon> call(HttpResult<Coupon[]> httpStateResult) {
 
                         Coupon[] data = httpStateResult.getData();
 
@@ -314,15 +342,38 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
 
     @Override
     public void couponBack(Coupon coupon) {
-        caoGaoDelegate.couponBack(coupon);
+        couponListItemDelegate.couponBack(coupon);
     }
 
-    public  void  setCur(SWRVFragment<Coupon> cur) {
-        this.cur = cur;
+    @Override
+    public void offShelfCouponBack(HttpResult hsr) {
+        cur.getPresenter().onRefresh();
     }
+
+    @Override
+    public void shelvesCouponBack(HttpResult hsr) {
+        cur.getPresenter().onRefresh();
+    }
+
 
     public TabLayoutPresenter getPresenter() {
         return presenter;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) return;
+
+        if (modifyrCode == requestCode || requestCode == YouHuiManagerActivity.addrCode) {
+
+            viewpage.setCurrentItem(0);
+
+            if (cur == null) return;
+
+            cur.getPresenter().onRefresh();
+        }
+
+    }
 }

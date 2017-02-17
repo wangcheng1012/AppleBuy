@@ -13,9 +13,8 @@ import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.loginreg.p.ChangePhonePresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.basemvp.BaseMvpActivity;
-import com.rxmvp.bean.ResultResponse;
+import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.AppConfig;
-import com.wlj.base.util.GoToHelp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +50,7 @@ public class ChangePhoneActivity extends BaseMvpActivity<Views.ChangePhoneView, 
     }
 
     @Override
-    public void changePhoneBack(ResultResponse stringHttpStateResult) {
+    public void changePhoneBack(HttpResult stringHttpStateResult) {
         if(stringHttpStateResult.getStatus() == 1) {
             finish();
         }

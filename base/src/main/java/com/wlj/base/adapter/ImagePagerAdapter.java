@@ -15,16 +15,16 @@ import com.wlj.base.util.ListUtils;
 
 /**
  * ImagePagerAdapter
- * 
+ *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2014-2-23
  */
 public abstract class ImagePagerAdapter<T> extends RecyclingPagerAdapter {
 
-//    private Context       context;
-    private  List<T> imageIdList;
+    //    private Context       context;
+    private List<T> imageIdList;
 
-    private int           size;
-    private boolean       isInfiniteLoop;
+    private int size;
+    private boolean isInfiniteLoop;
 
     public ImagePagerAdapter(List<T> imageIdList) {
 //        this.context = context;
@@ -35,18 +35,20 @@ public abstract class ImagePagerAdapter<T> extends RecyclingPagerAdapter {
 
     @Override
     public int getCount() {
+        if(size == 0)return 1;//这里为了显示默认图片
         // Infinite loop
-    	 return isInfiniteLoop ? Integer.MAX_VALUE : ListUtils.getSize(imageIdList);
+        return isInfiniteLoop ? Integer.MAX_VALUE/2 : ListUtils.getSize(imageIdList);
 //        return  ListUtils.getSize(imageIdList);
     }
 
     /**
      * get really position
-     * 
+     *
      * @param position
      * @return
      */
     private int getPosition(int position) {
+        if (size == 0) return position;
         return isInfiniteLoop ? position % size : position;
     }
 
@@ -61,11 +63,22 @@ public abstract class ImagePagerAdapter<T> extends RecyclingPagerAdapter {
 //            holder = (ViewHolder)view.getTag();
 //        }
 //        holder.imageView.setImageResource(imageIdList.get(getPosition(position)));
-        
-        return getPageItemview(imageIdList.get(getPosition(position)),view,container);
+
+        return getPageItemview(size == 0 ? null : imageIdList.get(getPosition(position)), view, container);
     }
 
-    public abstract View  getPageItemview(T item, View view, ViewGroup container);
+    public abstract View getPageItemview(T item, View view, ViewGroup container);
+
+    public void setData(List<T> list){
+        imageIdList.clear();
+        addData(list);
+    }
+
+    public void addData(List<T> list){
+        imageIdList.addAll(list);
+        this.size = ListUtils.getSize(imageIdList);
+        notifyDataSetChanged();
+    }
 
 //	private static class ViewHolder {
 //

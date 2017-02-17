@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppleBuy</string>
+    <string name="app_name">果购商家</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

@@ -1,31 +1,22 @@
 package com.rxmvp.api;
 
-import com.rxmvp.api.GsonConverter.GsonConverterFactory_My;
 import com.rxmvp.api.interceptor.LoginInterceptor;
 import com.rxmvp.api.interceptor.ParamsInterceptor;
 import com.rxmvp.api.interceptor.ResponseInterceptor;
-import com.rxmvp.bean.HttpStateResult;
 import com.wlj.base.util.AppConfig;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.internal.cache.CacheInterceptor;
-import okhttp3.internal.cache.CacheRequest;
-import okhttp3.internal.cache.CacheStrategy;
-import okhttp3.internal.cache.InternalCache;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -33,7 +24,7 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitBase {
 
-    public static final String BASE_URL = " http://supplier.pingguo24.com/index.php/merchant/";
+    public static final String BASE_URL = "http://supplier.pingguo24.com/index.php/merchant/";
 
     private static final int DEFAULT_TIMEOUT = 5;
 
@@ -63,7 +54,7 @@ public class RetrofitBase {
         //GsonConverterFactory_My 适配一个字段在状态码不同时返回数据类型不同的处理.eg;"成功返回时是消息数据列表，失败时是异常消息文本
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory_My.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();

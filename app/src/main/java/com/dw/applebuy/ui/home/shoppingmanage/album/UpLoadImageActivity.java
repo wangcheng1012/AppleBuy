@@ -2,21 +2,31 @@ package com.dw.applebuy.ui.home.shoppingmanage.album;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
+import com.dw.applebuy.ui.home.shoppingmanage.m.ImageBean;
+import com.dw.applebuy.ui.home.shoppingmanage.m.UploadCoverImg;
+import com.dw.applebuy.ui.home.shoppingmanage.p.UpLoadImagePresenter;
+import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.jph.takephoto.model.TResult;
 import com.lling.photopicker.utils.TakePhotoCrop;
+import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.StringUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +35,7 @@ import butterknife.OnClick;
 /**
  * 上传图片（单图和多图）
  */
-public class UpLoadImageActivity extends AppCompatActivity implements Title1Fragment.TitleInterface, TakePhotoCrop.CropBack {
+public class UpLoadImageActivity extends BaseMvpActivity<Contract.UpLoadImageView, UpLoadImagePresenter> implements Title1Fragment.TitleInterface, TakePhotoCrop.CropBack, Contract.UpLoadImageView {
 
     public final static int album_uploadfirst = 11;
     public final static int album_uploadmore = 12;
@@ -37,9 +47,12 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
     ImageView uploadImageImage;
     @BindView(R.id.upload_image_tip)
     TextView uploadImageTip;
+    @BindView(R.id.upload_image_upbt)
+    Button upbt;
 
     private TakePhotoCrop takePhotoCrop;
     private String path;
+    private int mRequestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +64,26 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
         Intent intent = getIntent();
 
-        int requestCode = intent.getIntExtra("requestCode", album_uploadfirst);
+        mRequestCode = intent.getIntExtra("requestCode", album_uploadfirst);
         String tip = intent.getStringExtra("tip");
 
-        switch (requestCode) {
+        switch (mRequestCode) {
 
             case album_uploadfirst:
+                upbt.setText("上传图片");
                 break;
             case album_uploadmore:
+                upbt.setText("上传图片");
                 uploadImageTip.setText(tip);
                 break;
             case renheng_BusinessLicense:
+                upbt.setText("完成");
                 uploadImageTip.setText(tip);
                 uploadImageTip.setGravity(Gravity.CENTER);
                 uploadImageImage.setImageResource(R.drawable.icon_45_businesscard);
                 break;
             case renheng_card:
+                upbt.setText("完成");
                 uploadImageTip.setText(tip);
                 uploadImageTip.setGravity(Gravity.CENTER);
                 uploadImageImage.setImageResource(R.drawable.icon_46_card);
@@ -75,11 +92,21 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
         //初始化图片显示
         String path = intent.getStringExtra("path");
-        if(!StringUtils.isEmpty(path)){
-            uploadImageImage.setImageBitmap(BitmapFactory.decodeFile(path));
+        if (!StringUtils.isEmpty(path)) {
+
+            if (StringUtils.isUrl(path)) {
+                Glide.with(this).load(path).placeholder(R.drawable.upload_image).into(uploadImageImage);
+            } else {
+                uploadImageImage.setImageBitmap(BitmapFactory.decodeFile(path));
+            }
+
         }
 
+    }
 
+    @Override
+    public UpLoadImagePresenter initPresenter() {
+        return new UpLoadImagePresenter();
     }
 
     @Override
@@ -95,6 +122,11 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == TakePhotoCrop.IMAGE) {
+
+                if (mRequestCode == album_uploadfirst || album_uploadmore == mRequestCode) {
+                    data.putExtra("aspectX", 16);
+                    data.putExtra("aspectY", 9);
+                }
                 takePhotoCrop.onCrop(data);
             }
 
@@ -114,9 +146,29 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
         title.setText("上传图片");
     }
 
-    @OnClick(R.id.upload_image_upbt)
-    public void onClick() {
-        takePhotoCrop.photoPicker();
+    @OnClick({R.id.upload_image_image, R.id.upload_image_upbt})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.upload_image_image:
+                takePhotoCrop.photoPicker();
+                break;
+            case R.id.upload_image_upbt:
+
+                if (mRequestCode == album_uploadfirst) {
+                    // 上传
+                    presenter.uploadCoverImg(path);
+                } else if(album_uploadmore == mRequestCode) {
+
+                    presenter.uploadDetailsImgs(path);
+                } else {
+
+                    Intent intent = new Intent();
+                    intent.putExtra("path", path);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                break;
+        }
     }
 
     @Override
@@ -126,11 +178,16 @@ public class UpLoadImageActivity extends AppCompatActivity implements Title1Frag
     }
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putExtra("path",path);
-        setResult(RESULT_OK,intent);
-        super.onBackPressed();
+    public void uploadCoverBack(UploadCoverImg uploadCoverImg) {
+        InfoUtil.infoUpdate = true;
+        setResult(RESULT_OK);
+        finish();
+    }
 
+    @Override
+    public void uploadDetailsBack(List<ImageBean> list) {
+        InfoUtil.infoUpdate = true;
+        setResult(RESULT_OK);
+        finish();
     }
 }

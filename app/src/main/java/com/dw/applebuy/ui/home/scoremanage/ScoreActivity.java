@@ -1,33 +1,21 @@
 package com.dw.applebuy.ui.home.scoremanage;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
-import com.dw.applebuy.base.api.FactoryInters;
-import com.dw.applebuy.base.ui.SWRVContract;
-import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.scoremanage.m.ScoreListResult;
-import com.google.gson.JsonArray;
-import com.rxmvp.bean.HttpStateResult;
-import com.wlj.base.adapter.MyFragmentStatePagerAdapter;
 import com.wlj.base.util.GoToHelp;
-import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +23,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * 积分管理
@@ -97,9 +83,9 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 0){
+                if (position == 0) {
                     toggleBarSelect(scoreBarOut);
-                }else{
+                } else {
                     toggleBarSelect(scoreBarIn);
                 }
             }
@@ -161,5 +147,39 @@ public class ScoreActivity extends AppCompatActivity implements Title1Fragment.T
         }
 
     }
+
+    /**
+     *
+     * @param score
+     */
+    private void setUsertoalnumber(int score) {
+        usertoalnumber.setVisibility(View.VISIBLE);
+        String scoreStr = "共赠送积分 " + score;
+        SpannableStringBuilder builder = new SpannableStringBuilder(scoreStr);
+
+        ForegroundColorSpan yellowSpan = new ForegroundColorSpan(getResources().getColor(R.color.yellow_FF552E));
+
+        builder.setSpan(yellowSpan, 5, scoreStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        usertoalnumber.setText(builder);
+
+    }
+
+    public void changeShow(ScoreListResult.InfoBean  info,int inOrOut){
+
+        if(info == null )return;
+
+        if(ScoreFragment.inOrOut_out == inOrOut) {
+            scoreNumber.setText(info.getMonth_total()+"");
+            scoreText.setText("本月赠送积分");
+            setUsertoalnumber(info.getTotal());
+
+        }else{
+            scoreNumber.setText(info.getBalance()+"");
+            scoreText.setText("账户剩余积分");
+            usertoalnumber.setVisibility(View.GONE);
+        }
+    }
+
 
 }
