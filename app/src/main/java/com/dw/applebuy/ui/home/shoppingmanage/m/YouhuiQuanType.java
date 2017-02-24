@@ -3,9 +3,12 @@ package com.dw.applebuy.ui.home.shoppingmanage.m;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * 优惠券item
  */
+@NotProguard
 public class YouhuiQuanType implements Parcelable {
 
     private String id;

@@ -85,6 +85,7 @@ public class AppContext extends Application {
 	public void loginOut() {
 		setProperty(AppConfig.CONF_KEY,"");
 //		setProperty(AppConfig.CONF_PHONE, "");
+
 	}
 
 	/**

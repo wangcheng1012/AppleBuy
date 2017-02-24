@@ -37,6 +37,7 @@
         android:digits="0123456789"
         android:gravity="center"
         android:maxLength="11"
+        android:background="@null"
         android:textColorHint="@color/black4_cccccc"
         android:hint="请输入手机号"
         android:inputType="number"

@@ -1,8 +1,11 @@
 package com.dw.applebuy.ui.home.shoppingmanage.m;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  上传首图 返回模型
  */
+@NotProguard
 public class UploadCoverImg {
 
     /**

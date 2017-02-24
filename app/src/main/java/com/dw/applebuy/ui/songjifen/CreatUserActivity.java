@@ -93,6 +93,6 @@ public class CreatUserActivity extends BaseMvpActivity<Contracts.CreatUserView,C
 
     @Override
     public void giveIntegralBack() {
-        GoToHelp.go(this,GiveSuccessActivity.class);
+        GoToHelp.go(this,GiveSuccessActivity.class,getIntent().getExtras());
     }
 }

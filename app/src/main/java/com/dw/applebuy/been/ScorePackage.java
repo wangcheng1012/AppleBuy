@@ -4,9 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  积分套餐
  */
+@NotProguard
 public class ScorePackage {
 
     /**
@@ -33,7 +36,7 @@ public class ScorePackage {
     public void setPackageX(List<PackageBean> packageX) {
         this.packageX = packageX;
     }
-
+    @NotProguard
     public static class IntegralMoneyBean {
         /**
          * integral_money : 100
@@ -49,7 +52,7 @@ public class ScorePackage {
             this.integral_money = integral_money;
         }
     }
-
+    @NotProguard
     public static class PackageBean {
         /**
          * id : 5

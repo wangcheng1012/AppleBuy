@@ -1,19 +1,19 @@
 package com.dw.applebuy.been;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 import static com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope.BusinessWeek;
 
 /**
  * 商家详情
  */
+@NotProguard
 public class Info implements Serializable {
 
     /**
@@ -76,7 +76,7 @@ public class Info implements Serializable {
     private String distance;
     private List<String> category_id;
     private List<String> category;
-    private List<ImgsBean> imgs;
+    private List<ImageBean> imgs;
     private String contact_tel;
     private int message_new;
 
@@ -355,11 +355,11 @@ public class Info implements Serializable {
         this.category = category;
     }
 
-    public List<ImgsBean> getImgs() {
+    public List<ImageBean> getImgs() {
         return imgs;
     }
 
-    public void setImgs(List<ImgsBean> imgs) {
+    public void setImgs(List<ImageBean> imgs) {
         this.imgs = imgs;
     }
 
@@ -391,45 +391,58 @@ public class Info implements Serializable {
 
     }
 
-    public static class ImgsBean implements Serializable {
-        /**
-         * width : 300
-         * height : 300
-         * url : http://supplier.pingguo24.com/static/img/no_img.jpg
-         */
-
-        private int width;
-        private int height;
-        private String url;
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-
-        @Override
-        public String toString() {
-            return getUrl();
-        }
-    }
+//    public static class ImgsBean implements Serializable {
+//        /**
+//         * width : 300
+//         * height : 300
+//         * url : http://supplier.pingguo24.com/static/img/no_img.jpg
+//         */
+//
+//        private int width;
+//        private int height;
+//        private String url;
+//        /**
+//         * uri : uploads/merchant/69/details/main/file1487061420.png
+//         */
+//
+//        private String uri;
+//
+//        public int getWidth() {
+//            return width;
+//        }
+//
+//        public void setWidth(int width) {
+//            this.width = width;
+//        }
+//
+//        public int getHeight() {
+//            return height;
+//        }
+//
+//        public void setHeight(int height) {
+//            this.height = height;
+//        }
+//
+//        public String getUrl() {
+//            return url;
+//        }
+//
+//        public void setUrl(String url) {
+//            this.url = url;
+//        }
+//
+//
+//        @Override
+//        public String toString() {
+//            return getUrl();
+//        }
+//
+//        public String getUri() {
+//            return uri;
+//        }
+//
+//        public void setUri(String uri) {
+//            this.uri = uri;
+//        }
+//    }
 }

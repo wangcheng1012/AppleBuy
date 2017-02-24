@@ -1,16 +1,18 @@
-package com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m;
+package com.dw.applebuy.ui.home.shoppingmanage.m;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
 import com.wlj.base.util.StringUtils;
 
 import java.util.List;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * 优惠券
  */
+@NotProguard
 public class Coupon implements Parcelable {
 
     /**
@@ -318,6 +320,7 @@ public class Coupon implements Parcelable {
 //        this.sales_volumeX = sales_volumeX;
 //    }
 
+    @NotProguard
     public static class ImgBean implements Parcelable {
         /**
          * width : 3000

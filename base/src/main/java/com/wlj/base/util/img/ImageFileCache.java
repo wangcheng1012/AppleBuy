@@ -190,10 +190,11 @@ public class ImageFileCache {
     }
 
     public static String getCropCachePath() {
-        return CropCacheDirectory()+ String.valueOf(System.currentTimeMillis()).substring(3) + ImageFileCache.CropCache + ".jpg";
+//        removeCropCache();
+        return CropCacheDirectory() + String.valueOf(System.currentTimeMillis()).substring(3) + ImageFileCache.CropCache + ".jpg";
     }
 
-    public static String CropCacheDirectory(){
+    public static String CropCacheDirectory() {
 
         return AppConfig.getAppConfig().getImagePath();
     }
@@ -384,7 +385,7 @@ public class ImageFileCache {
 
     private String getDirectory() {
 
-        String dir = AppConfig.getAppConfig().getImagePath() + CACHDIR;
+        String dir = AppConfig.getAppConfig().getImagePath();
 
         String substr = dir.substring(0, 4);
 

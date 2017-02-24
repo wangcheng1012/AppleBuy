@@ -3,10 +3,12 @@ package com.dw.applebuy.ui.message;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * Created by wlj on 2017/2/15.
  */
-
+@NotProguard
 public class MessageBean implements Parcelable{
 
     /**

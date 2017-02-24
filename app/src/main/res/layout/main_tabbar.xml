@@ -3,24 +3,23 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_marginTop="5dp"
         android:id="@+id/maintabar_image"
-        android:layout_height="20dp"
         android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_gravity="center_horizontal"
-        />
+        android:layout_marginTop="5dp" />
+
     <TextView
         android:id="@+id/maintabar_text"
-        android:padding="2dp"
-        android:textSize="10sp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="2dp"
         android:textColor="@color/main_tab_textcolor"
-        />
+        android:textSize="10sp" />
 
 
 </LinearLayout>

@@ -3,9 +3,12 @@ package com.dw.applebuy.ui.home.ordermanage.m;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  评论 订单
  */
+@NotProguard
 public class CouponOrderList implements Parcelable {
 
 

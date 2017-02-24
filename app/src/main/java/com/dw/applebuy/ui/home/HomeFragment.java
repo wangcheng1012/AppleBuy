@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
+import com.dw.applebuy.been.ImageBean;
 import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.home.commentmanage.CommentActivity;
@@ -32,6 +33,7 @@ import com.wlj.base.adapter.CommonAdapter;
 import com.wlj.base.adapter.ImagePagerAdapter;
 import com.wlj.base.adapter.ViewHolder;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.UIHelper;
 import com.wlj.base.widget.AutoScrollViewPager;
 import com.wlj.base.widget.SwitchViewPager;
 
@@ -41,6 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HomeFragment extends Fragment implements ViewPager.OnPageChangeListener {
 
@@ -72,8 +75,8 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     private CommonAdapter<GridItem> gridviewAdapter;
     private String authenticate_status;
     private RenZhengHelp renZhengHelp;
-    private ImagePagerAdapter<Info.ImgsBean> adapter;
-    private List<Info.ImgsBean> list;
+    private ImagePagerAdapter<ImageBean> adapter;
+    private List<ImageBean> list;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -183,10 +186,10 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     }
 
     @NonNull
-    private ImagePagerAdapter<Info.ImgsBean> getAdapter(List<Info.ImgsBean> list) {
-        return new ImagePagerAdapter<Info.ImgsBean>(list) {
+    private ImagePagerAdapter<ImageBean> getAdapter(List<ImageBean> list) {
+        return new ImagePagerAdapter<ImageBean>(list) {
             @Override
-            public View getPageItemview(Info.ImgsBean item, View view, ViewGroup container) {
+            public View getPageItemview(ImageBean item, View view, ViewGroup container) {
                 if (view == null) {
                     view = new ImageView(getActivity());
                 }
@@ -246,12 +249,19 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
                         break;
                     case 2://评论管理
-                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
+                        UIHelper.tip(getContext(), "开发中", new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void renZhenged() {
-                                GoToHelp.go(getActivity(), CommentActivity.class);
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
                             }
-                        });
+                        },null);
+
+//                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
+//                            @Override
+//                            public void renZhenged() {
+//                                GoToHelp.go(getActivity(), CommentActivity.class);
+//                            }
+//                        });
                         break;
                     case 3://订单管理
                         renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {

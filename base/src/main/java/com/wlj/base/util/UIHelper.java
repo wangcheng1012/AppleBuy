@@ -7,29 +7,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
-import com.wlj.base.R;
-import com.wlj.base.util.Log;
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
 import android.provider.Settings;
-import android.sax.StartElementListener;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Toast;
+
+import com.wlj.base.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class UIHelper {
 
-    public final static int LISTVIEW_ACTION_INIT = 51;
-    public final static int LISTVIEW_ACTION_REFRESH = 52;
-    public final static int LISTVIEW_ACTION_SCROLL = 53;
-    public final static int LISTVIEW_ACTION_CHANGE_CATALOG = 54;
+//    public final static int LISTVIEW_ACTION_INIT = 51;
+//    public final static int LISTVIEW_ACTION_REFRESH = 52;
+//    public final static int LISTVIEW_ACTION_SCROLL = 53;
+//    public final static int LISTVIEW_ACTION_CHANGE_CATALOG = 54;
 
     private static AlertDialog Progressbardlg;
 
@@ -114,38 +109,6 @@ public class UIHelper {
     }
 
 
-    public static void dialog(Context cont, String message, DialogInterface.OnClickListener positivelistener, DialogInterface.OnClickListener negativelistener) {
-
-        new SweetAlertDialog(cont)
-                .setTitleText("提示")
-                .setContentText(message)
-                .setConfirmText("确认")
-                .setCancelText("取消")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                    }
-                })
-                .show();
-
-//        Builder builder = new Builder(cont);
-//        builder.setIcon(android.R.drawable.ic_dialog_info);
-//        builder.setTitle(R.string.app_tipr);
-//        builder.setMessage(message);
-//        builder.setPositiveButton("确认", positivelistener);
-//        if (negativelistener != null) {
-//            builder.setNegativeButton("取消", negativelistener);
-//        }
-//        builder.show();
-    }
-
     public static void showProgressbar(Activity paramActivity, DialogInterface.OnCancelListener paramOnCancelListener) {
         closeProgressbar();
 
@@ -166,8 +129,8 @@ public class UIHelper {
     }
 
 
-
     static SweetAlertDialog pDialog;
+
     public static void showLoading(Context context) {
 
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
@@ -184,19 +147,23 @@ public class UIHelper {
         }
     }
 
-    /**
-     * 提示 context 确认
-     * @param context
-     * @param contenttext
-     * @param confirmClickListener
-     */
-    public static void tip(Context context,String contenttext,SweetAlertDialog.OnSweetClickListener confirmClickListener) {
+    public static void tip(Context cont, String message, SweetAlertDialog.OnSweetClickListener confirmClickListener, SweetAlertDialog.OnSweetClickListener cancelClickListener) {
 
-        new SweetAlertDialog(context)
-                .setConfirmText("确认")
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(cont)
                 .setTitleText("提示")
-                .setContentText(contenttext)
-                .setConfirmClickListener(confirmClickListener)
-                .show();
+                .setContentText(message);
+
+        if (confirmClickListener != null) {
+            sweetAlertDialog.setConfirmText("确认")
+                    .setConfirmClickListener(confirmClickListener);
+        }
+
+        if(cancelClickListener != null){
+            sweetAlertDialog.setCancelText("取消")
+                    .setCancelClickListener(cancelClickListener);
+        }
+        sweetAlertDialog.show();
+
     }
+
 }

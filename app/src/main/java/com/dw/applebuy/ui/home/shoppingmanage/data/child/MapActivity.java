@@ -1,8 +1,10 @@
 package com.dw.applebuy.ui.home.shoppingmanage.data.child;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Geocoder;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +33,9 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.mylhyl.acp.Acp;
+import com.mylhyl.acp.AcpListener;
+import com.mylhyl.acp.AcpOptions;
 import com.orhanobut.logger.Logger;
 import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.StringUtils;
@@ -38,6 +43,13 @@ import com.wlj.base.util.UIHelper;
 
 import java.io.IOException;
 import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class MapActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
 
@@ -51,10 +63,14 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
     private static final int accuracyCircleStrokeColor = 0xAA00FF00;
     private String address;
     private TextView addresstext;
+    private LatLng center;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        auth();
 
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         //注意该方法要再setContentView方法之前实现
@@ -67,6 +83,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
         mBaiduMap = mMapView.getMap();
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
+
         initLocation();
 
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
@@ -84,27 +101,90 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
 
                 LatLngBounds bound = mapStatus.bound;
-                LatLng center = bound.getCenter();
+                final LatLng center = bound.getCenter();
 
-                Geocoder geocoder = new Geocoder(getApplicationContext());
-                try {
-                    List<android.location.Address> fromLocation = geocoder.getFromLocation(center.latitude - 0.004005, center.longitude - 0.01, 1);
-                    if (fromLocation != null && fromLocation.size() > 0) {
-                        for (int i = 0; i < fromLocation.size(); i++) {
+                addresstext.setText("定位中...");
 
-                            android.location.Address address = fromLocation.get(i);
-                            String s = address.getAddressLine(1) + address.getFeatureName();
-                            addresstext.setText(s);
-                            Logger.e(s);
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Observable.just("")
+                        .map(new Func1<String, String>() {
+                                 @Override
+                                 public String call(String str) {
+                                     String s = loactiontoString(center);
+                                     if (s != null) return s;
+                                     return "位置获取失败";
+                                 }
+                             }
+                        )
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<String>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                addresstext.setText("定位失败！！");
+                            }
+
+                            @Override
+                            public void onNext(String s) {
+                                addresstext.setText(s);
+                            }
+                        });
+
 
             }
         });
 
+    }
+
+    private void auth() {
+        Acp.getInstance(this).request(new AcpOptions.Builder().setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE).build(), new AcpListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onDenied(List<String> permissions) {
+                UIHelper.toastMessage(getApplicationContext(),permissions.toString()+"权限拒绝");
+                finish();
+            }
+        });
+
+    }
+
+    @Nullable
+    private String loactiontoString(LatLng center) {
+        this.center = center;
+
+        Geocoder geocoder = new Geocoder(getApplicationContext());
+        try {
+
+            List<android.location.Address> fromLocation = geocoder.getFromLocation(center.latitude - 0.004001, center.longitude - 0.012, 1);
+            if (fromLocation != null && fromLocation.size() > 0) {
+                for (int i = 0; i < fromLocation.size(); i++) {
+
+                    android.location.Address address = fromLocation.get(i);
+//                    StringBuilder sb = new StringBuilder();
+//                    for (int i1 = 0; i1 < address.getMaxAddressLineIndex(); i1++) {
+//                        sb.append(address.getAddressLine(i1));
+//                    }
+                    String s = address.getAddressLine(1) + address.getFeatureName();
+                    String s1 = address.getAdminArea() + address.getLocality() + address.getSubLocality() + address.getFeatureName();
+                    Logger.e(address.toString() + "\n " + s);
+                    return s1 ;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -150,6 +230,8 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 }
                 Intent intent = getIntent();
                 intent.putExtra("address", address);
+                intent.putExtra("Latitude",center.latitude);
+                intent.putExtra("Longitude",center.longitude);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -189,7 +271,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-
+            closeLocation();
             if (location.getLocType() == BDLocation.TypeGpsLocation ||           // GPS定位结果
                     location.getLocType() == BDLocation.TypeNetWorkLocation ||   // 网络定位结果
                     location.getLocType() == BDLocation.TypeOffLineLocation) {   // 离线定位结果
@@ -197,7 +279,8 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 addresstext.setText(address);
             } else {
                 address = "";
-                addresstext.setText("定位中……");
+//                addresstext.setText("定位中……");
+                return;
             }
             // map view 销毁后不在处理新接收的位置
             if (location == null || mMapView == null) {
@@ -218,7 +301,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 builder.target(ll).zoom(18.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
-                closeLocation();
+
             }
         }
 

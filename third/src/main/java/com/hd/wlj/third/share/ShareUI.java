@@ -125,7 +125,6 @@ public class ShareUI {
 
         initGridView(localView);
 
-
     }
 
     private void initGridView(View localView) {

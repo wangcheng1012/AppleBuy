@@ -1,12 +1,17 @@
-package com.dw.applebuy.ui.home.shoppingmanage.m;
+package com.dw.applebuy.been;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *
  */
-public class ImageBean implements Parcelable{
+@NotProguard
+public class ImageBean implements Parcelable,Serializable{
 
 
     /**

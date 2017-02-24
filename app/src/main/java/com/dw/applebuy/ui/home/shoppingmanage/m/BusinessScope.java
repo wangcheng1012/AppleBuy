@@ -5,9 +5,12 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * 商家经营范围-分类
  */
+@NotProguard
 public class BusinessScope implements Parcelable{
 
     public static String[] BusinessWeek = {"周日","周一","周二","周三","周四","周五","周六"};

@@ -1,9 +1,12 @@
 package com.dw.applebuy.ui.home.usermanage.m;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * Created by wlj on 2017/2/15.
  * 会员消费记录[积分兑换记录]
  */
+@NotProguard
 public class MemberIntegralLog {
 
     /**

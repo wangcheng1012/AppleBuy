@@ -1,17 +1,25 @@
 package com.dw.applebuy.ui.home.renzheng.p;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.dw.applebuy.base.api.AppHttpMethods;
+import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.home.renzheng.RenZhengActivity;
 import com.orhanobut.logger.Logger;
+import com.rxmvp.http.ServiceFactory;
+import com.rxmvp.subscribers.CommonSubscriber;
+import com.rxmvp.transformer.DefaultTransformer;
+import com.rxmvp.transformer.SchedulerTransformer;
 import com.wlj.base.util.AppContext;
 import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.UIHelper;
+
+import java.io.File;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -37,11 +45,11 @@ public class InfoUtil {
         return mInfoUtil;
     }
 
-    public void getInfo(Activity activity, InfoBack infoBack){
+    public void getInfo(Activity activity, InfoBack infoBack) {
 
-        if(infoUpdate){
-            getInfoFromWeb(activity,infoBack);
-        }else{
+        if (infoUpdate) {
+            getInfoFromWeb(activity, infoBack);
+        } else {
             getInfoFromLocation(infoBack);
         }
     }
@@ -53,8 +61,8 @@ public class InfoUtil {
 
         Observable.just(infoSerializableName)
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
                 .map(getFunc())
+//                .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getInfoSubscriber(infoBack));
 //                .subscribe(getAction1());
@@ -81,6 +89,26 @@ public class InfoUtil {
         Subscriber<Info> subscriber = getInfoSubscriber(infoBack);
 
         UIHelper.showProgressbar(activity, null);
+        ServiceFactory
+                .createService(FactoryInters.class)
+                .getInfo(null)
+                .compose(new DefaultTransformer<Info>())
+                .map(new Func1<Info, Info>() {
+                    @Override
+                    public Info call(Info info) {
+                        AppContext.getAppContext().saveObject(info, infoSerializableName);
+                        Logger.e("InfoUtil  "+info);
+                        return info;
+                    }
+                })
+                .subscribe(new CommonSubscriber<Info>(activity) {
+                    @Override
+                    public void onNext(Info info) {
+//                        AppContext.getAppContext().saveObject(info, infoSerializableName);
+                        infoBack.back(info);
+                    }
+                });
+
         AppHttpMethods.getInstance().getInfo(subscriber);
 
     }
@@ -104,11 +132,23 @@ public class InfoUtil {
             @Override
             public void onNext(Info info) {
                 //缓存
-                AppContext.getAppContext().saveObject(info, infoSerializableName);
                 infoBack.back(info);
             }
 
         };
+    }
+
+    /**
+     * 清除缓存
+     *
+     * @param mContext
+     */
+    public void clean(Context mContext) {
+        File data = mContext.getFileStreamPath(infoSerializableName);
+        if (data != null) {
+
+            data.delete();
+        }
     }
 
     /**

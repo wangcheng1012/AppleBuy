@@ -82,7 +82,7 @@ public class CodeScanActivity extends MipcaActivityCapture {
                                 sweetAlertDialog.dismiss();
                                 finish();
                             }
-                        });
+                        },null);
 
                     }
                 });

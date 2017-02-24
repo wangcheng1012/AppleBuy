@@ -11,12 +11,7 @@ import com.rxmvp.utils.NetworkUtil;
 import com.wlj.base.util.UIHelper;
 
 /**
- * @author YorkYu
- * @version V1.0
- * @Project: Retrofit2RxjavaDemo
- * @Package york.com.retrofit2rxjavademo.subscribers
- * @Description:
- * @time 2016/8/11 10:54
+ *
  */
 public abstract class RxSubscriber<T> extends BaseSubscriber<T> {
 

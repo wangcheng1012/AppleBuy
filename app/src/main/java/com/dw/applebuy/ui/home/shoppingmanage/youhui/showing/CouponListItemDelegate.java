@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
-import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.add.YouHuiAddActivity;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
 import com.wlj.base.util.GoToHelp;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

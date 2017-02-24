@@ -3,7 +3,6 @@ package com.dw.applebuy.ui.home.shoppingmanage.youhui.add;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
@@ -13,48 +12,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.FutureTarget;
-import com.bumptech.glide.request.target.Target;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
 import com.dw.applebuy.ui.home.shoppingmanage.p.YouHuiAddPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
 import com.dw.applebuy.util.DayDialogFragment;
 import com.jph.takephoto.model.TResult;
-import com.lling.photopicker.PhotoPickerActivity;
 import com.lling.photopicker.utils.TakePhotoCrop;
 import com.orhanobut.logger.Logger;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.GoToHelp;
-import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.StringUtils;
-import com.wlj.base.util.img.ImageFileCache;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * 添加优惠券

@@ -104,6 +104,7 @@ public class RenZhengPresenter extends BasePresenter<Contract.RenZhengView> {
             public void onNext(HttpResult stringHttpStateResult) {
                 if(mView != null) {
                     toastMessage(stringHttpStateResult.getMessage());
+                    mView.submitBack();
                 }
                 InfoUtil.infoUpdate =true;
             }

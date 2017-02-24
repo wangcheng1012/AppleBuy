@@ -96,10 +96,17 @@ public class CreatUserPresenter extends BasePresenter<Contracts.CreatUserView> {
 
             @Override
             public void onNext(HttpResult stringHttpStateResult) {
+                    if(stringHttpStateResult.getStatus() == 1){
+                        if (mView != null) {
+                            mView.giveIntegralBack();
+                        }
+                    }else{
+                        if (mView != null) {
 
-                if (mView != null) {
-                    mView.giveIntegralBack();
-                }
+                            mView.showMessage(stringHttpStateResult.getMessage());
+                        }
+                    }
+
 
             }
 

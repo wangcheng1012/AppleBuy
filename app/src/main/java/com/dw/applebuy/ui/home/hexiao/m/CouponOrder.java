@@ -5,9 +5,12 @@ import android.os.Parcelable;
 
 import java.util.List;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *
  */
+@NotProguard
 public class CouponOrder implements Parcelable {
 
 
@@ -328,7 +331,7 @@ public class CouponOrder implements Parcelable {
         dest.writeString(icon);
         dest.writeTypedList(img);
     }
-
+    @NotProguard
     public static class ImgBean implements Parcelable {
         /**
          * width : 1280

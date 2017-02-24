@@ -7,9 +7,12 @@ import com.google.gson.annotations.SerializedName;
 import com.hd.wlj.third.pay.alipay.AlipayBean;
 import com.wlj.base.util.StringUtils;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  充值积分是获取订单的返回接口
  */
+@NotProguard
 public class RechageScoreOrder implements Parcelable {
 
 
@@ -67,6 +70,7 @@ public class RechageScoreOrder implements Parcelable {
     }
 
 
+    @NotProguard
     public static class PayOrderBean implements Parcelable {
         /**
          * merchant_id : 1
@@ -208,6 +212,7 @@ public class RechageScoreOrder implements Parcelable {
 
     }
 
+    @NotProguard
     public static class WxParamBean implements Parcelable {
         /**
          * appid : wx0041540a81a6cfce

@@ -123,10 +123,13 @@ public class ScoreFragment extends SWRVFragment<ScoreListResult.ScoreListBean> {
                     TextView name_phone = viewHolder.getView(R.id.scorein_name_phone);
                     TextView typeshow = viewHolder.getView(R.id.scorein_typeshow);
 
-                    if (ScoreListResult.ScoreListBean.type_rechage.equals(type)) {
+                    if (ScoreListResult.ScoreListBean.type_rechage.equals(type) ) {
                         name_phone.setVisibility(View.GONE);
                         typeshow.setText("充值收入");
-                    } else {
+                    } else if ( ScoreListResult.ScoreListBean.type_xiaofei.equals(type)){
+                        name_phone.setVisibility(View.GONE);
+                        typeshow.setText("充值收入");
+                    }else {
                         name_phone.setVisibility(View.VISIBLE);
                         name_phone.setText(item.getName() + " " + item.getMobile());
                         typeshow.setText("消费收入");
@@ -160,6 +163,7 @@ public class ScoreFragment extends SWRVFragment<ScoreListResult.ScoreListBean> {
                 } else {
                     jsonArray.add(2);
                     jsonArray.add(3);
+                    jsonArray.add(4);
                 }
 
                 Observable<HttpResult<ScoreListResult>> scoreList = apiService.getScoreList(curPageStart, jsonArray.toString());

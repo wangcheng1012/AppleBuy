@@ -1,7 +1,10 @@
 package com.dw.applebuy.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentTabHost;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,13 +21,23 @@ import com.dw.applebuy.ui.set.SetFragment;
 import com.dw.applebuy.ui.songjifen.JiFenFragment;
 import com.dw.applebuy.util.RenZhengHelp;
 import com.wlj.base.ui.BaseFragmentActivity;
+import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.AppContext;
 import com.wlj.base.util.AppManager;
 
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MainActivity extends BaseFragmentActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    public static final String CURTAB = "curtab";
+    public static final int CURTAB_MESSAGE = 2;
 
     private FragmentTabHost myTabhost;
     //Tab图片
@@ -45,12 +58,45 @@ public class MainActivity extends BaseFragmentActivity {
         initTabHost();
 
         InfoUtil.infoUpdate = true;
-//        InfoUtil.getInstall().getInfo(this, new InfoUtil.InfoBack() {
-//            @Override
-//            public void back(Info info) {
-//                  authenticate_status = info.getAuthenticate_status();
-//            }
-//        });
+
+        initJpush();
+    }
+
+    private void initJpush() {
+        JPushInterface.init(getApplicationContext());
+
+        if (JPushInterface.isPushStopped(getApplicationContext())) {
+            JPushInterface.resumePush(getApplicationContext());
+        }
+        String jpushalias = AppConfig.getAppConfig().get(AppConfig.CONF_JPUSH_ALIAS);
+        JPushInterface.setAlias(getApplicationContext(), jpushalias, new TagAliasCallback() {
+            @Override
+            public void gotResult(int code, String alias, Set<String> tags) {
+                String logs;
+                switch (code) {
+                    case 0:
+                        logs = "Set tag and alias success";
+                        Log.e(TAG, logs);
+                        break;
+
+                    case 6002:
+                        logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                        Log.e(TAG, logs);
+                        if (AppContext.getAppContext().isNetworkAvailable() ) {
+
+                            Log.i(TAG, "6002  "+alias);
+                        } else {
+                            Log.i(TAG, "No network");
+                        }
+                        break;
+
+                    default:
+
+                        logs = "Failed with errorCode = " + code;
+                        Log.e(TAG, logs);
+                }
+            }
+        });
     }
 
     private void initTabHost() {
@@ -67,6 +113,7 @@ public class MainActivity extends BaseFragmentActivity {
 //            myTabhost.getTabWidget().setCurrentTab(1);
 //            myTabhost.getTabWidget().getChildTabViewAt(2).setSelected(true);
         }
+
         myTabhost.getTabWidget().getChildAt(1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +132,10 @@ public class MainActivity extends BaseFragmentActivity {
                 }
             }
         });
+
+        //是否指定了tab
+        int intExtra = getIntent().getIntExtra(CURTAB, 0);
+        myTabhost.setCurrentTab(intExtra);
     }
 
     //获取图片资源

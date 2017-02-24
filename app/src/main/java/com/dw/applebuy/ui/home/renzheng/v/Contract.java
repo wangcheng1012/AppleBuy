@@ -9,6 +9,7 @@ public interface Contract {
 
     interface RenZhengView extends BaseView{
 
+        void submitBack();
     }
 
 }

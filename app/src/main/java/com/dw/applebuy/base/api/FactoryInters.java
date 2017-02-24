@@ -10,11 +10,11 @@ import com.dw.applebuy.ui.home.hexiao.m.CouponOrder;
 import com.dw.applebuy.ui.home.ordermanage.m.CouponOrderList;
 import com.dw.applebuy.ui.home.scoremanage.m.ScoreListResult;
 import com.dw.applebuy.ui.home.shoppingmanage.m.BusinessScope;
-import com.dw.applebuy.ui.home.shoppingmanage.m.ImageBean;
+import com.dw.applebuy.been.ImageBean;
 import com.dw.applebuy.ui.home.shoppingmanage.m.ProvinceCityArea;
 import com.dw.applebuy.ui.home.shoppingmanage.m.UploadCoverImg;
 import com.dw.applebuy.ui.home.shoppingmanage.m.YouhuiQuanType;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
 import com.dw.applebuy.ui.home.usermanage.m.MemberIntegralLog;
 import com.dw.applebuy.ui.home.usermanage.m.UserList;
 import com.dw.applebuy.ui.message.MessageBean;
@@ -347,6 +347,16 @@ public interface FactoryInters {
     @FormUrlEncoded
     @POST("app/integral/checkMemberSao")
     Observable<HttpResult<VerifyUser>> checkMemberSao(@Field("mobile") String mobile);
+
+    /**
+     * 删除详情图片
+     * @param uri
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/user/removeDetailsImgs")
+    Observable<HttpResult> removeDetailsImgs(@Field("uri") String uri);
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.rxmvp.transformer;
 
 
+import com.orhanobut.logger.Logger;
 import com.rxmvp.bean.HttpResult;
 import com.rxmvp.http.ExceptionEngine;
 import com.rxmvp.http.exception.ErrorType;
@@ -25,9 +26,8 @@ public class ErrorTransformer<T> implements Observable.Transformer<HttpResult<T>
             public T call(HttpResult<T> httpResult) {
                 // 通过对返回码进行业务判断决定是返回错误还是正常取数据
 //                if (httpResult.getCode() != 200) throw new RuntimeException(httpResult.getMessage());
-
                 HttpResultNoSuccess(httpResult);
-
+                Logger.e(httpResult+"  ccccc");
                 return httpResult.getData();
             }
         }).onErrorResumeNext(new Func1<Throwable, Observable<? extends T>>() {
@@ -65,8 +65,9 @@ public class ErrorTransformer<T> implements Observable.Transformer<HttpResult<T>
 
 
     public static void HttpResultNoSuccess(HttpResult httpResult) {
-        if (httpResult.getStatus() != ErrorType.SUCCESS)
+        if (httpResult.getStatus() != ErrorType.SUCCESS) {
             throw new ServerException(httpResult.getMessage(), httpResult.getStatus());
+        }
     }
 
 }

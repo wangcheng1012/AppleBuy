@@ -3,9 +3,12 @@ package com.dw.applebuy.ui.songjifen.m;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  验证phone 返回的user信息
  */
+@NotProguard
 public class VerifyUser implements Parcelable{
 
     /**

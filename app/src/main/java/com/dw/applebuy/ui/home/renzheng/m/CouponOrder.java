@@ -3,9 +3,12 @@ package com.dw.applebuy.ui.home.renzheng.m;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  评论 订单
  */
+@NotProguard
 public class CouponOrder implements Parcelable {
 
 

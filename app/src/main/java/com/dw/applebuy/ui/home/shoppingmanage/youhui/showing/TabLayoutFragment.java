@@ -26,12 +26,11 @@ import com.dw.applebuy.base.ui.SWRVFragment;
 import com.dw.applebuy.ui.home.shoppingmanage.p.TabLayoutPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.YouHuiManagerActivity;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
 import com.rxmvp.basemvp.BaseMvpFragment;
 import com.rxmvp.bean.HttpResult;
 import com.wlj.base.decoration.DividerDecoration;
 import com.wlj.base.util.DpAndPx;
-import com.wlj.base.util.Log;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.Arrays;

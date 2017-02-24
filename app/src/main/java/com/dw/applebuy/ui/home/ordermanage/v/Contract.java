@@ -14,11 +14,4 @@ public interface Contract {
 
     }
 
-    /**
-     * 相册管理
-     */
-    interface AlbumView extends BaseView {
-
-    }
-
 }

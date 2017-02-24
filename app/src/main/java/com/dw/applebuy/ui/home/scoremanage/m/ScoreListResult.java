@@ -2,9 +2,12 @@ package com.dw.applebuy.ui.home.scoremanage.m;
 
 import java.util.List;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  积分列表
  */
+@NotProguard
 public class ScoreListResult {
 
     /**
@@ -30,6 +33,7 @@ public class ScoreListResult {
         this.list = list;
     }
 
+    @NotProguard
     public static class InfoBean {
 
         /**
@@ -71,6 +75,7 @@ public class ScoreListResult {
     /**
      * 积分管理的  积分列表
      */
+    @NotProguard
     public static class ScoreListBean {
 //        public static final String type_赠送会员 = "1";
 //        public static final String type_兑换 = "2";
@@ -78,7 +83,10 @@ public class ScoreListResult {
          * 充值
          */
         public static final String type_rechage = "3";
-
+        /**
+         *
+         */
+        public static final String type_xiaofei = "4";
 
         /**
          * name : 张三

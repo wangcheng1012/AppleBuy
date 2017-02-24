@@ -3,9 +3,12 @@ package com.dw.applebuy.ui.home.shoppingmanage.m;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * 省 市 区都用这 modle
  */
+@NotProguard
 public class ProvinceCityArea implements Parcelable {
 
     /**

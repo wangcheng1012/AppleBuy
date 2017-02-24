@@ -43,7 +43,7 @@ public class OrderInfoUtil2_0 {
 		// 业务类型， 固定值
 		keyValues.put("biz_type", "openservice");
 
-		// 产品码， 固定值
+		// 产品码， 固定值 WAP_FAST_LOGIN  APP_FAST_LOGIN
 		keyValues.put("product_id", "APP_FAST_LOGIN");
 
 		// 授权范围， 固定值
@@ -71,19 +71,32 @@ public class OrderInfoUtil2_0 {
 		//支付宝分配给开发者的应用ID
 		keyValues.put("app_id", ab.getApp_id());
 		//业务请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，具体参照各产品快速接入文档
-		try { keyValues.put("biz_content", getOrderInfo(ab)); } catch (JSONException e) { e.printStackTrace(); }
-		//商户生成签名字符串所使用的签名算法类型，目前支持RSA2和RSA，推荐使用RSA2
-		keyValues.put("sign_type", ab.getSign_type());//rsa2 ? "RSA2" : "RSA"
-		// 	发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"
-		keyValues.put("timestamp",ab.getTimestamp());
-		//支付宝服务器主动通知商户服务器里指定的页面http/https路径。建议商户使用https
-		keyValues.put("notify_url", ab.getNotify_url());
+//		try { keyValues.put("biz_content", getOrderInfo(ab)); } catch (JSONException e) { e.printStackTrace(); }
+//		//支付宝服务器主动通知商户服务器里指定的页面http/https路径。建议商户使用https
+//		keyValues.put("notify_url", ab.getNotify_url());
+//
+//		//请求使用的编码格式，如utf-8,gbk,gb2312等
+//		keyValues.put("charset", "utf-8");
+//		// 	接口名称
+//		keyValues.put("method", "alipay.trade.app.pay");
+//		//商户生成签名字符串所使用的签名算法类型，目前支持RSA2和RSA，推荐使用RSA2
+//		keyValues.put("sign_type", ab.getSign_type());//rsa2 ? "RSA2" : "RSA"
+//		// 	发送请求的时间，格式"yyyy-MM-dd HH:mm:ss"
+//		keyValues.put("timestamp",ab.getTimestamp());
+//		//调用的接口版本，固定为：1.0
+//		keyValues.put("version", "1.0");
 
-		//请求使用的编码格式，如utf-8,gbk,gb2312等
+
+		keyValues.put("biz_content", "{\"timeout_express\":\"30m\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"0.01\",\"subject\":\"1\",\"body\":\"我是测试数据\",\"out_trade_no\":\"" + getOutTradeNo() +  "\"}");
+
 		keyValues.put("charset", "utf-8");
-		// 	接口名称
+
 		keyValues.put("method", "alipay.trade.app.pay");
-		//调用的接口版本，固定为：1.0
+
+		keyValues.put("sign_type",  "RSA");
+
+		keyValues.put("timestamp", "2016-07-29 16:55:53");
+
 		keyValues.put("version", "1.0");
 
 		return keyValues;
@@ -115,19 +128,19 @@ public class OrderInfoUtil2_0 {
 		 *---------------- 非必填
 		 */
 		//该笔订单允许的最晚付款时间，非必填。默认30分钟，逾期将关闭交易。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。 该参数数值不接受小数点， 如 1.5h，可转换为 90m。
-		jsonObject.put("timeout_express","30m");
+//		jsonObject.put("timeout_express","30m");
 		//收款支付宝用户ID,非必填。 如果该值为空，则默认为商户签约账号对应的支付宝用户ID
 //		jsonObject.put("seller_id","");
 		//商品主类型：0—虚拟类商品，1—实物类商品 注：虚拟类商品不支持使用花呗渠道
 //		jsonObject.put("goods_type","0");
 		//公用回传参数，如果请求时传递了该参数，则返回给商户时会回传该参数。支付宝会在异步通知时将该参数原样返回。本参数必须进行UrlEncode之后才可以发送给支付宝  512
-		jsonObject.put("passback_params",ab.getPassback_params());
+//		jsonObject.put("passback_params",ab.getPassback_params());
 		//优惠参数 注：仅与支付宝协商后可用  512
 //		jsonObject.put("promo_params","0");
 		//业务扩展参数，详见下面的“业务扩展参数说明”
 //		jsonObject.put("extend_params","0");
 		// 商户门店编号  32
-		jsonObject.put("store_id",ab.getStore_id());
+//		jsonObject.put("store_id",ab.getStore_id());
 
 		/**
 		 * 还有非必填参数没写入完

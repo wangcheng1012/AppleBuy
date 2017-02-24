@@ -29,6 +29,7 @@ public class GiveSuccessActivity extends AppCompatActivity implements Title1Frag
 
     public static String FROM_RENZHENG = "FROM_RENZHENG";
     private String from;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,9 @@ public class GiveSuccessActivity extends AppCompatActivity implements Title1Frag
 
             giveIntro.setText("审核结果将在48小时内以短信的形式通知你，\n请注意查收！");
             giveIntro.setGravity(Gravity.CENTER);
+        } else {
+
+            giveIntro.setText(score + "积分");
         }
     }
 
@@ -51,11 +55,17 @@ public class GiveSuccessActivity extends AppCompatActivity implements Title1Frag
     public void setTitle(TextView title, TextView right) {
         Intent intent = getIntent();
         from = intent.getStringExtra("from");
-
+        score = intent.getIntExtra("jifen", 0);
         if (FROM_RENZHENG.equals(from)) {
             title.setText("提交成功");
         } else {
             title.setText("赠送成功");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
     }
 }

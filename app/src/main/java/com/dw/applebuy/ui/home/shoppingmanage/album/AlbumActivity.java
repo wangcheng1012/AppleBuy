@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
+import com.dw.applebuy.been.ImageBean;
 import com.dw.applebuy.been.Info;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
-import com.dw.applebuy.ui.home.shoppingmanage.p.AlbumPresenter;
-import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
-import com.rxmvp.basemvp.BaseMvpActivity;
+import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.ListUtils;
 
@@ -26,7 +25,7 @@ import butterknife.OnClick;
 /**
  * 相册管理
  */
-public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPresenter> implements Title1Fragment.TitleInterface, Contract.AlbumView {
+public class AlbumActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
 
     @BindView(R.id.album_firstImage)
     ImageView albumFirstImage;
@@ -48,11 +47,6 @@ public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPres
     }
 
     @Override
-    public AlbumPresenter initPresenter() {
-        return new AlbumPresenter();
-    }
-
-    @Override
     public void setTitle(TextView title, TextView right) {
         title.setText("门店相册");
     }
@@ -69,10 +63,10 @@ public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPres
                 break;
             case R.id.album_uploadmore:
                 Bundle bundle = new Bundle();
-                bundle.putString("tip", "请上传清晰的店铺外内景图，可大大提高曝光率以及用户购买率（可上传15张）");
-                bundle.putInt("requestCode", UpLoadImageActivity.album_uploadmore);
+//                bundle.putString("tip", "");
+//                bundle.putInt("requestCode", UpLoadImageActivity.album_uploadmore);
                 bundle.putSerializable("info",info);
-                GoToHelp.goResult(this, UpLoadImageActivity.class, UpLoadImageActivity.album_uploadmore, bundle);
+                GoToHelp.goResult(this, UpLoadMoreActivity.class, UpLoadImageActivity.album_uploadmore, bundle);
                 break;
         }
     }
@@ -83,7 +77,6 @@ public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPres
 
         if(resultCode == RESULT_OK){
             updataInfo();
-
         }
 
     }
@@ -97,15 +90,17 @@ public class AlbumActivity extends BaseMvpActivity<Contract.AlbumView, AlbumPres
                 AlbumActivity.this.info = info;
 
                 Glide.with(AlbumActivity.this).load(info.getCover_img()).error(R.drawable.icon_41_renzheng).into(albumFirstImage);
-                List<Info.ImgsBean> imgs = info.getImgs();
+                List<ImageBean> imgs = info.getImgs();
                 if (!ListUtils.isEmpty(imgs)) {
                     Glide.with(AlbumActivity.this).load(imgs.get(0).getUrl()).error(R.drawable.icon_41_renzheng).into(albumImages);
                     albumUploadmore.setText("已上传 " + imgs.size() + " 张环境图、点击继续上传");
                 } else {
+                    Glide.with(AlbumActivity.this).load( R.drawable.icon_41_renzheng).into(albumImages);
                     albumUploadmore.setText("已上传 0 张环境图、点击继续上传");
                 }
 
             }
         });
     }
+
 }

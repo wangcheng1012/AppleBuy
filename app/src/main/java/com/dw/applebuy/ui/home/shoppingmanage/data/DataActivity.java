@@ -22,6 +22,7 @@ import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.rxmvp.bean.HttpResult;
 import com.wlj.base.util.GoToHelp;
+import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.StringUtils;
 
 import java.util.ArrayList;
@@ -69,7 +70,6 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
     }
 
     private void initView() {
-
         InfoUtil.getInstall().getInfo(this, new InfoUtil.InfoBack() {
             @Override
             public void back(Info info) {
@@ -85,7 +85,6 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
 
             }
         });
-
     }
 
     @Override
@@ -128,9 +127,9 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
                 arrayMap.put("province", info.getProvince_id());
                 arrayMap.put("city", info.getCity_id());
                 arrayMap.put("area", info.getArea_id());
-                arrayMap.put("address", info.getAddress());
-//                arrayMap.put("longitude", info.getAddress());
-//                arrayMap.put("latitude", info.getAddress());
+                arrayMap.put("address", dataAddress.getText()+"");
+                arrayMap.put("longitude", info.getLongitude());
+                arrayMap.put("latitude", info.getLatitude());
 
                 presenter.save(arrayMap);
 
@@ -149,8 +148,16 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
             ProvinceCityArea area = data.getParcelableExtra("area");
 
             dataRang.setText(province.getName() + " " + city.getName() + " " + area.getName());
+
+            info.setProvince_id(MathUtil.parseInteger(province.getId()));
+            info.setCity_id( city.getId());
+            info.setArea_id(MathUtil.parseInteger(area.getId()));
+
         } else if (addressrequiestcode == requestCode) {
             String address = data.getStringExtra("address");
+            info.setAddress(address);
+            info.setLatitude(data.getDoubleExtra("Latitude",0));
+            info.setLongitude(data.getDoubleExtra("Longitude",0));
             dataAddress.setText(address);
         } else if (businessScopeRequiestcode == requestCode) {
             //经营范围 选择返回
@@ -204,6 +211,7 @@ public class DataActivity extends BaseMvpActivity<Contract.DataView, DataPresent
     @Override
     public void saveBack(HttpResult s) {
         showMessage(s.getMessage());
+
         setResult(RESULT_OK);
         finish();
     }

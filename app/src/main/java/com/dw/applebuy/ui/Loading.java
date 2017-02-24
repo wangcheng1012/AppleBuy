@@ -17,6 +17,8 @@ import com.wlj.base.util.UIHelper;
 
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class Loading extends BaseFragmentActivity {
 
     @Override
@@ -54,6 +56,7 @@ public class Loading extends BaseFragmentActivity {
                 if(AppContext.getAppContext().islogin()){
                     cla = MainActivity.class;
                 }
+
                 Intent intent = new Intent(Loading.this,cla );
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

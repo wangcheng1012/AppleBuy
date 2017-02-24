@@ -43,6 +43,7 @@
                     android:text="充值积分" />
 
                 <EditText
+                    android:enabled="false"
                     android:id="@+id/rechangescore_score"
                     style="@style/inputtext"
                     android:layout_width="match_parent"

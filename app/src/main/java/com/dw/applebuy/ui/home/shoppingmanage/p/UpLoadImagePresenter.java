@@ -1,7 +1,7 @@
 package com.dw.applebuy.ui.home.shoppingmanage.p;
 
 import com.dw.applebuy.base.api.AppHttpMethods;
-import com.dw.applebuy.ui.home.shoppingmanage.m.ImageBean;
+import com.dw.applebuy.been.ImageBean;
 import com.dw.applebuy.ui.home.shoppingmanage.m.UploadCoverImg;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.rxmvp.basemvp.BasePresenter;
@@ -20,8 +20,6 @@ import rx.Subscriber;
  * Created by wlj on 2017/2/14.
  */
 public class UpLoadImagePresenter extends BasePresenter<Contract.UpLoadImageView> {
-
-
 
 
     /**

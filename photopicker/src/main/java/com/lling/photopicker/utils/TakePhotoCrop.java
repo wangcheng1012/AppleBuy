@@ -110,39 +110,33 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
         int aspectX = data.getIntExtra("aspectX", 0);
         int aspectY = data.getIntExtra("aspectY", 0);
 
-        if(aspectX * aspectY > 0 ){
+        if (aspectX * aspectY > 0) {
 
             onCrop(data, aspectX, aspectY);
-        }else {
+        } else {
             //提示框
-            new SweetAlertDialog(mActivity)
-                    .setTitleText("提示")
-                    .setContentText("是否裁剪？")
-                    .setConfirmText("确认")
-                    .setCancelText("取消")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+            UIHelper.tip(mActivity, "是否裁剪？", new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
 
-                            sweetAlertDialog.dismiss();
+                    sweetAlertDialog.dismiss();
 
-                            int aspectX = data.getIntExtra("aspectX", 0);
-                            int aspectY = data.getIntExtra("aspectY", 0);
+                    int aspectX = data.getIntExtra("aspectX", 0);
+                    int aspectY = data.getIntExtra("aspectY", 0);
 
-                            onCrop(data, aspectX, aspectY);
+                    onCrop(data, aspectX, aspectY);
 
-                        }
-                    })
-                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            sweetAlertDialog.dismiss();
+                }
+            }, new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    sweetAlertDialog.dismiss();
 
-                            ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
-                            mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
-                        }
-                    })
-                    .show();
+                    ArrayList<String> result = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT);
+                    mCropBack.cropback(TResult.of(TImage.of(result.get(0))));
+                }
+            });
+
         }
     }
 
@@ -159,7 +153,7 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
 
             ArrayList<String> uristr = data.getStringArrayListExtra(PhotoPickerActivity.KEY_RESULT_URLSTR);
 
-            takePhoto.onCrop( Uri.parse(uristr.get(0)), imageUri, cropOptions);
+            takePhoto.onCrop(Uri.parse(uristr.get(0)), imageUri, cropOptions);
 
         } catch (TException e) {
             e.printStackTrace();
@@ -206,15 +200,16 @@ public class TakePhotoCrop implements InvokeListener, TakePhoto.TakeResultListen
 
     /**
      * 没执行        takePhoto.onActivityResult(requestCode,resultCode,data); 妈蛋什么情况
+     *
      * @param requestCode
      * @param resultCode
      * @param data
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        takePhoto.onActivityResult(requestCode,resultCode,data);
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == TakePhotoCrop.IMAGE) {
-                 onCrop(data);
+        takePhoto.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == TakePhotoCrop.IMAGE) {
+                onCrop(data);
             }
 
         }

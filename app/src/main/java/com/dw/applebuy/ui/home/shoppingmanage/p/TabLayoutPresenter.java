@@ -2,7 +2,7 @@ package com.dw.applebuy.ui.home.shoppingmanage.p;
 
 import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
 import com.rxmvp.basemvp.BasePresenter;
 import com.rxmvp.bean.HttpResult;
 

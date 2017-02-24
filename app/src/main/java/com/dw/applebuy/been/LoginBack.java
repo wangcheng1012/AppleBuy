@@ -1,8 +1,11 @@
 package com.dw.applebuy.been;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  *  登录成功返回
  */
+@NotProguard
 public class LoginBack {
 
     /**
@@ -12,6 +15,11 @@ public class LoginBack {
 
     private String sessionid;
     private String mobile;
+    /**
+     * jpush_code : 58a1838d8c30a49342994234
+     */
+
+    private String jpush_code;
 
     public String getSessionid() {
         return sessionid;
@@ -27,5 +35,18 @@ public class LoginBack {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    @Override
+    public String toString() {
+        return "sessionid:"+sessionid +" mobile:"+mobile;
+    }
+
+    public String getJpush_code() {
+        return jpush_code;
+    }
+
+    public void setJpush_code(String jpush_code) {
+        this.jpush_code = jpush_code;
     }
 }

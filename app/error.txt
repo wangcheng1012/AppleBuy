@@ -1,0 +1,15 @@
+com.e.d.a.b
+    at com.e.f.b$2.a(Unknown Source)
+    at com.e.f.b$2.call(Unknown Source)
+    at f.d.a.e$a.onNext(Unknown Source)
+    at f.d.a.j$a.call(Unknown Source)
+    at f.d.c.h.run(Unknown Source)
+    at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:423)
+    at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:154)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:269)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+    at java.lang.Thread.run(Thread.java:818)
+Caused by: f.b.g$a: OnError while emitting onNext value: com.e.c.a.class
+	... 10 more

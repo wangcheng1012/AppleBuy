@@ -22,15 +22,13 @@ import com.wlj.base.util.img.ImageFileCache;
  */
 public class AppConfig {
 
-	public final static String CONF_APP_UNIQUEID = "APP_UNIQUEID";
-	public final static String CONF_FIRSRLOGIN = "firstlogin";
+	public final static String CONF_JPUSH_ALIAS = "jpush_alias";
 	public final static String CONF_COOKIE = "cookie";
 	public final static String CONF_ACCESSTOKEN = "accessToken";
 	public final static String CONF_ACCESSSECRET = "accessSecret";
 	public final static String CONF_EXPIRESIN = "expiresIn";
 	public final static String CONF_LOAD_IMAGE = "perf_loadimage";
 	public final static String SAVE_IMAGE_PATH = "save_image_path";
-	public final static String CONF_FIRSTSTART = "perf_firststart";
 	public final static String CONF_TYPT = "type";
 	public final static String CONF_NAME = "name";
 	public final static String CONF_KEY = "key";
@@ -72,7 +70,7 @@ public class AppConfig {
 		String saveImagePath = get(AppConfig.SAVE_IMAGE_PATH);
 
 		if (StringUtils.isEmpty(saveImagePath)) {
-			saveImagePath = ImageFileCache.getSDPath() + File.separator + mContext.getString(R.string.app_name) + File.separator;
+			saveImagePath = ImageFileCache.getSDPath() + File.separator + mContext.getString(R.string.app_name) + File.separator +  ImageFileCache.CACHDIR + File.separator ;
 			set(AppConfig.SAVE_IMAGE_PATH, saveImagePath);
 		}
 		return saveImagePath;

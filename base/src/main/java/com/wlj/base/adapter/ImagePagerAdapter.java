@@ -75,6 +75,10 @@ public abstract class ImagePagerAdapter<T> extends RecyclingPagerAdapter {
     }
 
     public void addData(List<T> list){
+        if(list == null ){
+            this.size = 0;
+            return;
+        }
         imageIdList.addAll(list);
         this.size = ListUtils.getSize(imageIdList);
         notifyDataSetChanged();

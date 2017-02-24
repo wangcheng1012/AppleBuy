@@ -75,40 +75,6 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
      */
     private void getCodeCall(String phone) {
 
-//        String content = null;
-//        try {
-//            content = URLDecoder.decode(phone, "utf-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        //观察者
-//        Subscriber<HttpResult<List>> subscriber = new Subscriber<HttpResult<List>>() {
-//            @Override
-//            public void onCompleted() {
-//                mView.hideLoading();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                onErrorShow(e, "验证码获取失败");
-//            }
-//
-//            @Override
-//            public void onNext(HttpResult<List> stringHttpStateResult) {
-//                // 计时 ，
-//                if (stringHttpStateResult.getStatus() == 1) {
-//                    //计时
-//                    if (mView != null) {
-//                        mView.verifyCodeBack();
-//                    }
-//                }
-//                toastMessage(stringHttpStateResult.getMessage());
-//            }
-//
-//        };//end
-//
-//        AppHttpMethods.getInstance().getCode(subscriber, content);
-
         ServiceFactory
                 .createService(FactoryInters.class)
                 .getRegisterVerifyCode(phone)
@@ -118,7 +84,7 @@ public class RegisterPresenter extends BasePresenter<Views.RegisterView> {
                     public void onNext(String s) {
 
                         if (mView != null) {
-                            mView.registeerBack();
+                            mView.verifyCodeBack();
                         }
                     }
 

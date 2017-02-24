@@ -203,4 +203,9 @@ public class RenZhengActivity extends BaseMvpActivity<Contract.RenZhengView, Ren
     public RenZhengPresenter initPresenter() {
         return new RenZhengPresenter();
     }
+
+    @Override
+    public void submitBack() {
+        finish();
+    }
 }

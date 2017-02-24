@@ -1,8 +1,8 @@
 package com.dw.applebuy.ui.home.shoppingmanage.v;
 
-import com.dw.applebuy.ui.home.shoppingmanage.m.ImageBean;
+import com.dw.applebuy.been.ImageBean;
 import com.dw.applebuy.ui.home.shoppingmanage.m.UploadCoverImg;
-import com.dw.applebuy.ui.home.shoppingmanage.youhui.showing.m.Coupon;
+import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
 import com.rxmvp.basemvp.BaseView;
 import com.rxmvp.bean.HttpResult;
 
@@ -24,8 +24,11 @@ public interface Contract {
     /**
      * 相册管理
      */
-    interface AlbumView extends BaseView {
+    interface UpLoadMoreView extends BaseView {
 
+        void delBack(HttpResult httpResult);
+
+        void uploadDetailsBack();
     }
 
     /**

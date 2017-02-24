@@ -5,10 +5,12 @@ import android.os.Parcelable;
 
 import java.util.List;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * Created by wlj on 2017/2/14.
  */
-
+@NotProguard
 public class UserList {
 
     /**
@@ -33,7 +35,7 @@ public class UserList {
     public void setList(List<ListBean> list) {
         this.list = list;
     }
-
+    @NotProguard
     public static class InfoBean {
         /**
          * month_num : 0
@@ -59,7 +61,7 @@ public class UserList {
             this.member_sum = member_sum;
         }
     }
-
+    @NotProguard
     public static class ListBean implements Parcelable {
         /**
          * merchant_id : 1

@@ -39,6 +39,52 @@
 #18、-dontwarn//不用输出警告
 #19、-dontnote//不用输出通知
 
+#把优化时移除的类及方法记录下来
+-printusage ./jar/deadCode.txt
+#SweetAlert
+-keep class cn.pedant.SweetAlert.Rotate3dAnimation {
+    public <init>(...);
+}
+#-keep class com.dw.applebuy.ui.loginreg.LoginActivity{*;}
+#-keep class com.rxmvp.api.GsonConverter.**{*;}
+
+# keep annotated by NotProguard
+-keep @cn.trinea.android.common.annotation.NotProguard class * {*;}
+-keep class * {
+@cn.trinea.android.common.annotation.NotProguard <fields>;
+}
+-keepclassmembers class * {
+@cn.trinea.android.common.annotation.NotProguard <methods>;
+}
+#Serializable接口的不混淆
+-keepnames class * implements java.io.Serializable
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+
+static final long serialVersionUID;
+
+private static final java.io.ObjectStreamField[] serialPersistentFields;
+
+!static !transient <fields>;
+
+private void writeObject(java.io.ObjectOutputStream);
+
+private void readObject(java.io.ObjectInputStream);
+
+java.lang.Object writeReplace();
+
+java.lang.Object readResolve();
+
+}
+
+-keepnames class com.AnywayAds.Mini$* {
+    public <fields>;
+    public <methods>;
+}
+
+#---------- 三方包的 -------
+
+
 # 百度
 -keep class com.baidu.** {*;}
 -keep class vi.com.** {*;}
@@ -117,7 +163,12 @@
     @butterknife.* <methods>;
 }
 
-#自定义
--keep class cn.pedant.SweetAlert.Rotate3dAnimation{*;}
--keep class com.dw.applebuy.ui.loginreg.LoginActivity{*;}
--keep class com.rxmvp.api.GsonConverter.**{*;}
+#极光
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }

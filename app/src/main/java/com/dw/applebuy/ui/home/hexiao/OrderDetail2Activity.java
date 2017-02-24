@@ -128,6 +128,6 @@ public class OrderDetail2Activity extends BaseMvpActivity<Contract.OrderDetail2V
                 sweetAlertDialog.dismiss();
                 finish();
             }
-        });
+        },null);
     }
 }

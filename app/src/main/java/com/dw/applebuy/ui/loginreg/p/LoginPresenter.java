@@ -7,6 +7,7 @@ import com.dw.applebuy.base.api.AppHttpMethods;
 import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.ui.loginreg.v.Views;
+import com.orhanobut.logger.Logger;
 import com.rxmvp.basemvp.BasePresenter;
 import com.rxmvp.bean.HttpResult;
 import com.rxmvp.http.ServiceFactory;
@@ -56,14 +57,15 @@ public class LoginPresenter extends BasePresenter<Views.LoginView> {
                     public void onNext(LoginBack loginBack) {
                         // 计时
                         if (mView != null) {
-
                             String sessionid = loginBack.getSessionid();
                             String mobile = loginBack.getMobile();
+                            String jpush_code = loginBack.getJpush_code();
                             //缓存
                             AppConfig.getAppConfig().set(AppConfig.CONF_KEY, sessionid);
                             AppConfig.getAppConfig().set(AppConfig.CONF_PHONE, mobile);
-                            AppConfig.getAppConfig().set(AppConfig.CONF_PSW, psw);
+                            AppConfig.getAppConfig().set(AppConfig.CONF_JPUSH_ALIAS, jpush_code);
 
+                            AppConfig.getAppConfig().set(AppConfig.CONF_PSW, psw);
                             mView.LoginBack();
                         }
                     }

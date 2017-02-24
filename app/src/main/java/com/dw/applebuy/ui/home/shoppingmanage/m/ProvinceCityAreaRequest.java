@@ -5,9 +5,12 @@ import android.os.Parcelable;
 
 import com.wlj.base.util.AppConfig;
 
+import cn.trinea.android.common.annotation.NotProguard;
+
 /**
  * 省 市 区都用这 modle
  */
+@NotProguard
 public class ProvinceCityAreaRequest implements Parcelable {
 
     private String  sessionid = AppConfig.getAppConfig().get(AppConfig.CONF_KEY);

@@ -10,15 +10,19 @@ import com.dw.applebuy.BuildConfig;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.Title1Fragment;
+import com.dw.applebuy.ui.home.renzheng.p.InfoUtil;
 import com.dw.applebuy.ui.loginreg.p.LoginPresenter;
 import com.dw.applebuy.ui.loginreg.v.Views;
 import com.rxmvp.api.interceptor.LoginInterceptor;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.AppConfig;
+import com.wlj.base.util.AppContext;
 import com.wlj.base.util.AppManager;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.StringUtils;
 import com.wlj.base.util.UIHelper;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +58,6 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresent
                     .setConfirmText("确认")
                     .show();
 
-//            UIHelper.dialog(this, "你的账号在其他地方登录,如不是本人操作请及时修改密码", null, null);
         }
     }
 
@@ -94,6 +97,7 @@ public class LoginActivity extends BaseMvpActivity<Views.LoginView, LoginPresent
 
     @Override
     public void LoginBack() {
+        InfoUtil.getInstall().clean(this);
         GoToHelp.go(this, MainActivity.class);
 //        finish();
     }

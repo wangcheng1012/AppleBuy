@@ -90,7 +90,6 @@ public class PayActivity extends AppCompatActivity implements Title1Fragment.Tit
                 break;
             case R.id.pay_submit:
 
-//                GoToHelp.go(this, RechangeBackActivity.class);
                 if (curPayWay == payWeixin) {
                     try {
                         RechageScoreOrder.WxParamBean wx_param = rechageScoreOrder.getWx_param();
@@ -105,7 +104,8 @@ public class PayActivity extends AppCompatActivity implements Title1Fragment.Tit
                     RechageScoreOrder.PayOrderBean  pay_order = rechageScoreOrder.getPay_order();
 
                     AlipayPay alipayPay = new AlipayPay(this);
-                    alipayPay.payV2(pay_order.getAlipayPay());
+                    alipayPay.pay(pay_order.getAlipayPay());
+//                    alipayPay.payV2(pay_order.getAlipayPay());
 
                 }
 
