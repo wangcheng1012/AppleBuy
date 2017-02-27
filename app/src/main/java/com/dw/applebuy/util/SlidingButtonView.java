@@ -10,11 +10,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dw.applebuy.R;
+import com.orhanobut.logger.Logger;
+import com.wlj.base.util.DpAndPx;
 
-public class SlidingButtonView extends HorizontalScrollView   {
+public class SlidingButtonView extends HorizontalScrollView {
 
     private TextView mTextView_Delete;
 
@@ -31,7 +34,7 @@ public class SlidingButtonView extends HorizontalScrollView   {
     }
 
     public SlidingButtonView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public SlidingButtonView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -44,37 +47,59 @@ public class SlidingButtonView extends HorizontalScrollView   {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        if(!once){
+        if (!once) {
             mTextView_Delete = (TextView) findViewById(R.id.tv_delete);
+            findViewById(R.id.layout_content).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mIonSlidingButtonListener.onClick(v);
+                }
+            });
             once = true;
         }
 
     }
 
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if(changed){
-            this.scrollTo(0,0);
+        if (changed) {
+            this.scrollTo(0, 0);
             mScrollWidth = mTextView_Delete.getWidth();
-            Log.i("asd", "mScrollWidth:" + mScrollWidth);
+//            Log.i("asd", "mScrollWidth:" + mScrollWidth);
         }
 
     }
 
+
+    float sx = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                sx = ev.getX();
             case MotionEvent.ACTION_MOVE:
                 mIonSlidingButtonListener.onDownOrMove(this);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                changeScrollx();
-                return true;
+                float ex = ev.getX();
+                if (Math.abs(sx - ex) > 10) {
+                    changeScrollx();
+                    return true;
+                }
+//                else if (!isOpen) {
+//
+//                    mIonSlidingButtonListener.onClick(this);
+//                }
+//                else {
+//
+//                    closeMenu();
+//                }
+
             default:
                 break;
         }
@@ -89,12 +114,12 @@ public class SlidingButtonView extends HorizontalScrollView   {
 
     /**
      */
-    public void changeScrollx(){
-        if(getScrollX() >= (mScrollWidth/2)){
+    public void changeScrollx() {
+        if (getScrollX() >= (mScrollWidth / 2)) {
             this.smoothScrollTo(mScrollWidth, 0);
             isOpen = true;
             mIonSlidingButtonListener.onMenuIsOpen(this);
-        }else{
+        } else {
             this.smoothScrollTo(0, 0);
             isOpen = false;
         }
@@ -102,9 +127,8 @@ public class SlidingButtonView extends HorizontalScrollView   {
 
     /**
      */
-    public void openMenu()
-    {
-        if (isOpen){
+    public void openMenu() {
+        if (isOpen) {
             return;
         }
         this.smoothScrollTo(mScrollWidth, 0);
@@ -114,9 +138,8 @@ public class SlidingButtonView extends HorizontalScrollView   {
 
     /**
      */
-    public void closeMenu()
-    {
-        if (!isOpen){
+    public void closeMenu() {
+        if (!isOpen) {
             return;
         }
         this.smoothScrollTo(0, 0);
@@ -124,13 +147,16 @@ public class SlidingButtonView extends HorizontalScrollView   {
     }
 
 
-    public void setSlidingButtonListener(IonSlidingButtonListener listener){
+    public void setSlidingButtonListener(IonSlidingButtonListener listener) {
         mIonSlidingButtonListener = listener;
     }
 
-    public interface IonSlidingButtonListener{
+    public interface IonSlidingButtonListener {
         void onMenuIsOpen(View view);
+
         void onDownOrMove(SlidingButtonView slidingButtonView);
+
+        void onClick(View content);
     }
 
 

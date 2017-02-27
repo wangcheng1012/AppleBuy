@@ -12,6 +12,7 @@ import com.dw.applebuy.ui.MainActivity;
 import com.dw.applebuy.ui.home.renzheng.RenZhengActivity;
 import com.orhanobut.logger.Logger;
 import com.rxmvp.http.ServiceFactory;
+import com.rxmvp.http.exception.ApiException;
 import com.rxmvp.subscribers.CommonSubscriber;
 import com.rxmvp.transformer.DefaultTransformer;
 import com.rxmvp.transformer.SchedulerTransformer;
@@ -86,7 +87,7 @@ public class InfoUtil {
 
     public void getInfoFromWeb(Activity activity, final InfoBack infoBack) {
         infoUpdate = false;
-        Subscriber<Info> subscriber = getInfoSubscriber(infoBack);
+//        Subscriber<Info> subscriber = getInfoSubscriber(infoBack);
 
         UIHelper.showProgressbar(activity, null);
         ServiceFactory
@@ -97,19 +98,27 @@ public class InfoUtil {
                     @Override
                     public Info call(Info info) {
                         AppContext.getAppContext().saveObject(info, infoSerializableName);
-                        Logger.e("InfoUtil  "+info);
                         return info;
                     }
                 })
                 .subscribe(new CommonSubscriber<Info>(activity) {
-                    @Override
-                    public void onNext(Info info) {
-//                        AppContext.getAppContext().saveObject(info, infoSerializableName);
-                        infoBack.back(info);
-                    }
-                });
+                               @Override
+                               public void onNext(Info info) {
+                                   UIHelper.closeProgressbar();
+                                   infoBack.back(info);
+                               }
 
-        AppHttpMethods.getInstance().getInfo(subscriber);
+                               @Override
+                               protected void onError(ApiException ex) {
+                                   super.onError(ex);
+                                   UIHelper.closeProgressbar();
+                               }
+                           }
+
+
+                );
+
+//        AppHttpMethods.getInstance().getInfo(subscriber);
 
     }
 
@@ -126,7 +135,7 @@ public class InfoUtil {
             public void onError(Throwable e) {
                 e.printStackTrace();
                 UIHelper.closeProgressbar();
-                UIHelper.toastMessage(AppContext.getAppContext(), "商家信息获取失败");
+                UIHelper.toastMessage(AppContext.getAppContext(), e.getMessage());
             }
 
             @Override

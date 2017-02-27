@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png",
-        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ic_search_api_mtrl_alpha.png",
@@ -28,16 +28,16 @@
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_list_focused_holo.9.png",
-        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_list_focused_holo.9.png"
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_list_selector_disabled_holo_dark.9.png",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_list_selector_disabled_holo_dark.9.png"
     },
     {
-        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png",
-        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_list_focused_holo.9.png",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_list_focused_holo.9.png"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_scrubber_track_mtrl_alpha.9.png",

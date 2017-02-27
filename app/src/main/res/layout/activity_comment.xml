@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_comment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,35 +15,57 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingBottom="5dp"
+        android:layout_height="wrap_content" >
 
         <TextView
+            android:id="@+id/commont_total"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="总评价" />
+            android:lines="2"
+            android:text="总评价\n "
+            android:textColor="@color/black2_666666" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:background="#80c0c0c0" />
 
         <TextView
+            android:id="@+id/commont_good"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="好评" />
+            android:text="好评\n"
+            android:textColor="@color/black2_666666" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:background="#80c0c0c0" />
 
         <TextView
+            android:id="@+id/commont_bad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="差评" />
+            android:text="差评\n"
+            android:textColor="@color/black2_666666" />
 
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/comment_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

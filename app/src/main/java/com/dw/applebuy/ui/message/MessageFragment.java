@@ -15,6 +15,7 @@ import com.wlj.base.ui.BaseFragment;
 
 public class MessageFragment extends BaseFragment {
     Fragment target;
+    public static boolean isForeground = false;
 
     /**
      * Fragment的布局
@@ -38,12 +39,28 @@ public class MessageFragment extends BaseFragment {
         }
     }
 
-    private void initTitle(   ) {
+    private void initTitle() {
         view.findViewById(R.id.title2_back).setVisibility(View.GONE);
         TextView title = (TextView) view.findViewById(R.id.title2_title);
         title.setText("我的消息");
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (target != null && target.isResumed()) {
+            target.onResume();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (target != null) {
+
+            target.onPause();
+        }
+    }
 
 }

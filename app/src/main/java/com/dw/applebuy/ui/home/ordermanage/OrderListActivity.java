@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.home.ordermanage.p.OrderListPresenter;
 import com.dw.applebuy.ui.home.ordermanage.v.Contract;
+import com.dw.applebuy.util.OtherTool;
 import com.rxmvp.basemvp.BaseMvpActivity;
 import com.wlj.base.util.DpAndPx;
 
@@ -57,7 +58,7 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
 
     private void tablayoutViewPager() {
 
-        splitLine(tablayout);
+        OtherTool.splitLine(this,tablayout);
         //Adapter
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -80,18 +81,7 @@ public class OrderListActivity extends BaseMvpActivity<Contract.OrderListView, O
         tablayout.setupWithViewPager(viewpage);
     }
 
-    /**
-     * 分割线
-     *
-     * @param tablayout
-     */
-    private void splitLine(TabLayout tablayout) {
-        //分割线
-        LinearLayout child = (LinearLayout) tablayout.getChildAt(0);
-        child.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        child.setDividerDrawable(getResources().getDrawable(R.drawable.shape_divider));
-        child.setDividerPadding(DpAndPx.dpToPx(getApplicationContext(), 15));
-    }
+
 
     private void initTitle() {
         toolbar.setTitle("");

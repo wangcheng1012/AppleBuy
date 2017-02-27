@@ -44,4 +44,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.google.code.gson:gson:2.7'
     compile project(':sweet-alert-dialog')
+    compile 'com.android.support:design:23.4.0'
 }

@@ -12,6 +12,7 @@ import org.json.JSONException;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -27,12 +28,12 @@ public class ExceptionEngine {
     private static final int SERVICE_UNAVAILABLE = 503;
     private static final int GATEWAY_TIMEOUT = 504;
 
-    public static ApiException handleException(Throwable e){
+    public static ApiException handleException(Throwable e) {
         ApiException ex;
-        if (e instanceof HttpException){             //HTTP错误
+        if (e instanceof HttpException) {             //HTTP错误
             HttpException httpException = (HttpException) e;
             ex = new ApiException(e, ErrorType.HTTP_ERROR);
-            switch(httpException.code()){
+            switch (httpException.code()) {
                 case UNAUTHORIZED:
                     ex.message = "当前请求需要用户验证";
                     break;
@@ -62,24 +63,26 @@ public class ExceptionEngine {
                     break;
             }
             return ex;
-        } else if (e instanceof ServerException){    //服务器返回的错误
+        } else if (e instanceof ServerException) {    //服务器返回的错误
             ServerException resultException = (ServerException) e;
             ex = new ApiException(resultException, resultException.code);
             ex.message = resultException.message;
             return ex;
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
-                || e instanceof ParseException){
+                || e instanceof ParseException) {
             ex = new ApiException(e, ErrorType.PARSE_ERROR);
             ex.message = "解析错误";            //均视为解析错误
             return ex;
-        }else if(e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof ConnectTimeoutException){
+        } else if (e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof ConnectTimeoutException) {
             ex = new ApiException(e, ErrorType.NETWORD_ERROR);
-            ex.message = "连接失败";  //均视为网络错误
+            ex.message = "网络异常";  //均视为网络错误
             return ex;
-        }
-        else {
-            //UnknownHostException
+        } else if (e instanceof UnknownHostException) {
+            ex = new ApiException(e, ErrorType.NETWORD_ERROR);
+            ex.message = "网络不给力，请稍后再试";          //未知错误
+            return ex;
+        } else {
             ex = new ApiException(e, ErrorType.UNKNOWN);
             ex.message = "未知错误";          //未知错误
             return ex;

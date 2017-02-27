@@ -329,14 +329,16 @@ public class AppHttpMethods {
         subscribe(observable, sub);
     }
 
-    /**
-     * 获取消息详情 和 已浏览状态
-     * @param sub
-     * @param id
-     */
-    public void viewMessage(Subscriber<MessageBean> sub, String id) {
-        Observable<MessageBean> observable = apiService.viewMessage(id)
-                .map(new HttpResultFunc<MessageBean>());
-        subscribe(observable, sub);
-    }
+//    /**
+//     * 获取消息详情 和 已浏览状态
+//     * @param sub
+//     * @param id
+//     */
+//    public void viewMessage(Subscriber<MessageBean> sub, String id) {
+//        Observable<MessageBean> observable = apiService.viewMessage(id)
+//                .map(new HttpResultFunc<MessageBean>());
+//        subscribe(observable, sub);
+//    }
+
+
 }

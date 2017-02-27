@@ -271,4 +271,11 @@ public class SWRVPresenter<T> extends BasePresenter<SWRVContract.SWRVView> {
         this.adapter = adapter;
     }
 
+    public boolean remove(T item){
+
+        boolean remove = datas.remove(item);
+        adapter.notifyDataSetChanged();
+
+        return remove;
+    }
 }

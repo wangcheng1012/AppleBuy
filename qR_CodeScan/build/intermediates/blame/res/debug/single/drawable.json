@@ -4,12 +4,12 @@
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/sweet-alert-dialog/unspecified/res/drawable/dialog_background.xml"
     },
     {
-        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/error_center_x.xml",
-        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/sweet-alert-dialog/unspecified/res/drawable/error_center_x.xml"
-    },
-    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_dark.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/error_center_x.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/sweet-alert-dialog/unspecified/res/drawable/error_center_x.xml"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
@@ -22,6 +22,14 @@
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/drawable/design_fab_background.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/divider_white_ffffff_10.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/base/unspecified/res/drawable/divider_white_ffffff_10.xml"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
@@ -60,6 +68,10 @@
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/base/unspecified/res/drawable/divider_white_f1f1f1_10.xml"
     },
     {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/divider_white_f1f1f1_1.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/base/unspecified/res/drawable/divider_white_f1f1f1_1.xml"
+    },
+    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_edit_text_material.xml"
     },
@@ -82,6 +94,10 @@
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/design_snackbar_background.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/drawable/design_snackbar_background.xml"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",

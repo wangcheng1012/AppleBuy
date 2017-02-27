@@ -47,8 +47,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder viewHolder = getViewHolder(position, convertView,
 				parent);
-			View view = getListItemview(viewHolder,viewHolder.getConvertView(), getItem(position),
-					position, parent);
+			View view = getListItemview(viewHolder,viewHolder.getConvertView(), getItem(position),position, parent);
 			if (view == null) {
 				return viewHolder.getConvertView();
 			} else {

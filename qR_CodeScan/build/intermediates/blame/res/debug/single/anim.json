@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/design_fab_in.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/anim/design_fab_in.xml"
+    },
+    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/anim/abc_shrink_fade_out_from_bottom.xml"
     },
@@ -16,12 +20,20 @@
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/anim/abc_slide_out_bottom.xml"
     },
     {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_in.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/anim/design_bottom_sheet_slide_in.xml"
+    },
+    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/success_bow_roate.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/sweet-alert-dialog/unspecified/res/anim/success_bow_roate.xml"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/design_fab_out.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/anim/design_fab_out.xml"
     },
     {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/modal_in.xml",
@@ -60,7 +72,19 @@
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/anim/abc_fade_in.xml"
     },
     {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_out.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/anim/design_bottom_sheet_slide_out.xml"
+    },
+    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/modal_out.xml",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/sweet-alert-dialog/unspecified/res/anim/modal_out.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/design_snackbar_out.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/anim/design_snackbar_out.xml"
+    },
+    {
+        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/anim/design_snackbar_in.xml",
+        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/design/23.4.0/res/anim/design_snackbar_in.xml"
     }
 ]

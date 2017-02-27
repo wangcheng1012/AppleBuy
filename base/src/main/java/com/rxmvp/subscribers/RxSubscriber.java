@@ -17,17 +17,17 @@ public abstract class RxSubscriber<T> extends BaseSubscriber<T> {
 
     private static final String TAG = RxSubscriber.class.getSimpleName();
     private BaseView mView;
-    private Context mContext;
+//    private Context mContext;
 
     public RxSubscriber(BaseView mView) {
 
         this.mView = mView;
     }
 
-    public RxSubscriber(Context mContext) {
-        this.mContext = mContext;
-
-    }
+//    public RxSubscriber(Context mContext) {
+//        this.mContext = mContext;
+//
+//    }
 
     @Override
     public void onStart() {

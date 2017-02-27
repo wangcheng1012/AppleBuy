@@ -6,6 +6,7 @@ import com.dw.applebuy.been.Info;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
+import com.dw.applebuy.ui.home.commentmanage.CommentListBean;
 import com.dw.applebuy.ui.home.hexiao.m.CouponOrder;
 import com.dw.applebuy.ui.home.ordermanage.m.CouponOrderList;
 import com.dw.applebuy.ui.home.scoremanage.m.ScoreListResult;
@@ -67,6 +68,7 @@ public interface FactoryInters {
 
     /**
      * 获取商家详情
+     *
      * @param sessionid
      * @return
      */
@@ -134,7 +136,6 @@ public interface FactoryInters {
     Observable<HttpResult<List<ProvinceCityArea>>> getProvinceCityArea(@Url String url, @Field("province_id") int province_id, @Field("city_id") int city_id);
 
     /**
-     *
      * 获取商家经营范围-分类
      *
      * @return
@@ -144,58 +145,62 @@ public interface FactoryInters {
     Observable<HttpResult<List<BusinessScope>>> getAllCategory();
 
     /**
-     *
-     * @param code  加密后的优惠卷code
-     * @param page  分页
+     * @param code   加密后的优惠卷code
+     * @param page   分页
      * @param status 0-全部 1-未消费 2-已消费 3-已完成
      * @return
      */
     @FormUrlEncoded
     @POST("app/coupon/getCouponOrder")
-    Observable<HttpResult<List<CouponOrderList>>> getCouponOrder(@Field("code")String code, @Field("page")Integer page, @Field("status") Integer status);
+    Observable<HttpResult<List<CouponOrderList>>> getCouponOrder(@Field("code") String code, @Field("page") Integer page, @Field("status") Integer status);
 
     @FormUrlEncoded
     @POST("app/coupon/getCouponOrder")
-    Observable<HttpResult<CouponOrder>> getCouponOrder(@Field("code")String code);
+    Observable<HttpResult<CouponOrder>> getCouponOrder(@Field("code") String code);
 
     /**
-     *  商家积分管理列表[消费记录]
-      * @param page  分页
-     * @param json   	[1]--表示赠送会员积分 [2,3]--表示充值和兑换
+     * 商家积分管理列表[消费记录]
+     *
+     * @param page 分页
+     * @param json [1]--表示赠送会员积分 [2,3]--表示充值和兑换
      * @return
      */
     @FormUrlEncoded
     @POST("app/integral/getIntegralDetails")
-    Observable<HttpResult<ScoreListResult>> getScoreList(@Field("page")int page, @Field("type") String json);
+    Observable<HttpResult<ScoreListResult>> getScoreList(@Field("page") int page, @Field("type") String json);
 
     /**
      * 商家-充值时积分套餐
+     *
      * @return
      */
     @POST("app/Common/getMctIntegralPackage")
-    Observable<HttpResult<ScorePackage>> getMctIntegralPackage( );
+    Observable<HttpResult<ScorePackage>> getMctIntegralPackage();
 
     /**
      * 商家-微信/支付宝 支付接kou
-     * @param id   	 套餐ID (传ID 可以不传积分)
-     * @param integral  积分 (散积分 可以不传ID)
+     *
+     * @param id       套餐ID (传ID 可以不传积分)
+     * @param integral 积分 (散积分 可以不传ID)
      * @return
      */
     @FormUrlEncoded
     @POST("app/integral/rechargeIntegral")
-    Observable<HttpResult<RechageScoreOrder>> rechargeIntegral(@Field("id")Integer id, @Field("integral") Integer integral);
+    Observable<HttpResult<RechageScoreOrder>> rechargeIntegral(@Field("id") Integer id, @Field("integral") Integer integral);
 
     /**
-     *  赠送积分-检测用户是否存在
-      * @param phone  	电话号码
+     * 赠送积分-检测用户是否存在
+     *
+     * @param phone 电话号码
      * @return
      */
     @FormUrlEncoded
     @POST("app/integral/checkMember")
-    Observable<HttpResult<VerifyUser>>  checkMember(@Field("mobile") String phone);
+    Observable<HttpResult<VerifyUser>> checkMember(@Field("mobile") String phone);
 
     /**
      * 赠送积分- 创建用户验证短信
+     *
      * @param phone
      * @return
      */
@@ -205,19 +210,21 @@ public interface FactoryInters {
 
     /**
      * 商家-赠送积分
-//     * @param code          验证码        N
-//     * @param id            用户ID        N
-//     * @param integral   	 积分         Y
-//     * @param mobile        电话          N
-//     * @param name          名称          N
+     * //     * @param code          验证码        N
+     * //     * @param id            用户ID        N
+     * //     * @param integral   	 积分         Y
+     * //     * @param mobile        电话          N
+     * //     * @param name          名称          N
+     *
      * @return
      */
     @FormUrlEncoded
     @POST("app/integral/giveIntegral")
-    Observable<HttpResult> giveIntegral(@FieldMap ArrayMap<String,Object> map);
+    Observable<HttpResult> giveIntegral(@FieldMap ArrayMap<String, Object> map);
 
     /**
      * 编辑资料
+     *
      * @param map
      * @return
      */
@@ -231,16 +238,18 @@ public interface FactoryInters {
 
     /**
      * -提交 删除 优惠卷审核
+     *
      * @param path deleteCoupon/submitCoupon
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST("app/coupon/{path}")
-    Observable<HttpResult> submitCoupon(@Path("path")String path, @Field("id") String id);
+    Observable<HttpResult> submitCoupon(@Path("path") String path, @Field("id") String id);
 
     /**
      * 获取优惠券详情
+     *
      * @param id
      * @return
      */
@@ -250,6 +259,7 @@ public interface FactoryInters {
 
     /**
      * 核销优惠卷
+     *
      * @param code
      * @return
      */
@@ -259,6 +269,7 @@ public interface FactoryInters {
 
     /**
      * 优惠卷下架接口
+     *
      * @param id
      * @return
      */
@@ -268,15 +279,17 @@ public interface FactoryInters {
 
     /**
      * 优惠卷上架接口
+     *
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST("app/coupon/shelvesCoupon")
-    Observable<HttpResult> shelvesCoupon(@Field("id") String id, @Field("end_time")String end_time);
+    Observable<HttpResult> shelvesCoupon(@Field("id") String id, @Field("end_time") String end_time);
 
     /**
      * 上传首图
+     *
      * @param photo
      * @return
      */
@@ -286,6 +299,7 @@ public interface FactoryInters {
 
     /**
      * 上传详情图片
+     *
      * @param photo
      * @return
      */
@@ -295,6 +309,7 @@ public interface FactoryInters {
 
     /**
      * 商家获取会员管理列表
+     *
      * @return
      */
     @FormUrlEncoded
@@ -303,6 +318,7 @@ public interface FactoryInters {
 
     /**
      * 会员备注修改
+     *
      * @param member_id
      * @param remark
      * @return
@@ -313,6 +329,7 @@ public interface FactoryInters {
 
     /**
      * 获取会员消费记录[积分兑换记录]
+     *
      * @param curPageStart
      * @param id
      * @return
@@ -323,6 +340,7 @@ public interface FactoryInters {
 
     /**
      * 获取系统消息列表
+     *
      * @param curPageStart
      * @return
      */
@@ -332,6 +350,7 @@ public interface FactoryInters {
 
     /**
      * 获取消息详情 和 已浏览状态
+     *
      * @param id
      * @return
      */
@@ -339,8 +358,14 @@ public interface FactoryInters {
     @POST("app/common/viewMessage")
     Observable<HttpResult<MessageBean>> viewMessage(@Field("id") String id);
 
+
+    @FormUrlEncoded
+    @POST("app/common/hideMessage")
+    Observable<HttpResult<String>> hideMessage(@Field("id") String id);
+
     /**
      * 通过扫码来验证用户是否存在
+     *
      * @param mobile
      * @return
      */
@@ -350,12 +375,28 @@ public interface FactoryInters {
 
     /**
      * 删除详情图片
+     *
      * @param uri
      * @return
      */
     @FormUrlEncoded
     @POST("app/user/removeDetailsImgs")
     Observable<HttpResult> removeDetailsImgs(@Field("uri") String uri);
+
+    /**
+     * 获取优惠券评论列表
+     * @param page
+     * @param type
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/consumer/getMerchantComment")
+    Observable<HttpResult<CommentListBean>> getMerchantComment(@Field("page") int page, @Field("type") int type);
+
+
+    @FormUrlEncoded
+    @POST("app/coupon/saveReply")
+    Observable<HttpResult<String>> saveReply(@Field("id") int id, @Field("reply") String reply);
 
 
 

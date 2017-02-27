@@ -249,19 +249,13 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
                         break;
                     case 2://评论管理
-                        UIHelper.tip(getContext(), "开发中", new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismiss();
-                            }
-                        },null);
 
-//                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
-//                            @Override
-//                            public void renZhenged() {
-//                                GoToHelp.go(getActivity(), CommentActivity.class);
-//                            }
-//                        });
+                        renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {
+                            @Override
+                            public void renZhenged() {
+                                GoToHelp.go(getActivity(), CommentActivity.class);
+                            }
+                        });
                         break;
                     case 3://订单管理
                         renZhengHelp.VerifyRenZhengIng(authenticate_status, new RenZhengHelp.NoRenZhengIng() {

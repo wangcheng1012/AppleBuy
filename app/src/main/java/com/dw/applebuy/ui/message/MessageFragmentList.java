@@ -26,7 +26,11 @@ import com.dw.applebuy.util.SlidingButtonView;
 import com.rxmvp.api.HttpResultFunc;
 import com.rxmvp.basemvp.BaseView;
 import com.rxmvp.bean.HttpResult;
+import com.rxmvp.http.ServiceFactory;
+import com.rxmvp.subscribers.RxSubscriber;
+import com.rxmvp.transformer.DefaultTransformer;
 import com.wlj.base.decoration.DividerDecoration;
+import com.wlj.base.util.DpAndPx;
 import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.UIHelper;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -47,17 +51,17 @@ public class MessageFragmentList extends SWRVFragment {
     public static final String KEY_EXTRAS = "key_extras";
     public static boolean isForeground = false;
 
-    private MainActivity activity;
+//    private MainActivity activity;
     private LocalBroadcastManager mLocalBroadcastManager;
     private IntentFilter intentFilter;
     private MessageBroadcast messageBroadcast;
-    private List<MessageBean> mData;
+    private MessageListDelegate listDelegate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getActivity() instanceof UserActivity) {
-            activity = (MainActivity) getActivity();
+
         } else {
 
             mLocalBroadcastManager = LocalBroadcastManager.getInstance(getContext());
@@ -69,7 +73,7 @@ public class MessageFragmentList extends SWRVFragment {
 
     @Override
     protected void initView() {
-
+        listDelegate = new MessageListDelegate(this);
         setMyInterface(new SWRVInterface() {
             @Override
             public void onCreateViewExtract(RecyclerView recyclerview, SwipeRefreshLayout swipeRefreshLayout) {
@@ -102,7 +106,7 @@ public class MessageFragmentList extends SWRVFragment {
             @Override
             public void convert(ViewHolder viewHolder, MessageBean item, int position) {
 
-                silding(viewHolder, position);
+                listDelegate.silding(viewHolder, item);
 
                 View state = viewHolder.getView(R.id.message_state);
                 //
@@ -126,34 +130,9 @@ public class MessageFragmentList extends SWRVFragment {
             }
 
             @Override
-            public void onItemClick(final View view, RecyclerView.ViewHolder holder, int position, final MessageBean item) {
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position, MessageBean item) {
 
-                Subscriber<MessageBean> sub = new Subscriber<MessageBean>() {
-                    @Override
-                    public void onCompleted() {
-                        UIHelper.closeProgressbar();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        presenter.onErrorShow(e, "获取失败");
-                        UIHelper.closeProgressbar();
-                    }
-
-                    @Override
-                    public void onNext(MessageBean messageBean) {
-
-                        item.setIs_view(1);
-
-                        view.findViewById(R.id.message_state).setVisibility(View.GONE);
-
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("MessageBean", messageBean);
-                        GoToHelp.go(getActivity(), MessageDetailActivity.class, bundle);
-                    }
-                };
-                UIHelper.showProgressbar(getActivity(), null);
-                AppHttpMethods.getInstance().viewMessage(sub, item.getId());
+                listDelegate.itemClick(view, item);
             }
 
             @Override
@@ -165,14 +144,7 @@ public class MessageFragmentList extends SWRVFragment {
             public Observable<List<MessageBean>> call(FactoryInters apiService, final int curPageStart) {
 
                 Observable<List<MessageBean>> observable = apiService.getMessage(curPageStart)
-                        .map(new Func1<HttpResult<List<MessageBean>>, List<MessageBean>>() {
-                            @Override
-                            public List<MessageBean> call(HttpResult<List<MessageBean>> listHttpResult) {
-
-                                mData = listHttpResult.getData();
-                                return mData;
-                            }
-                        });
+                        .map(new HttpResultFunc<List<MessageBean>>());
                 return observable;
             }
 
@@ -182,64 +154,10 @@ public class MessageFragmentList extends SWRVFragment {
             }
 
         };
-    }
-
-    public SlidingButtonView mMenu;
-
-    private void silding(ViewHolder viewHolder, final int position) {
-
-        //layout_content
-        View layout_content = viewHolder.getView(R.id.layout_content);
-        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        layout_content.getLayoutParams().width = outMetrics.widthPixels;
-
-        //SlidingButtonView
-        SlidingButtonView slidingButtonView = viewHolder.getView(R.id.SlidingButtonView);
-        slidingButtonView.setSlidingButtonListener(new SlidingButtonView.IonSlidingButtonListener() {
-
-
-            @Override
-            public void onMenuIsOpen(View view) {
-                mMenu = (SlidingButtonView) view;
-            }
-
-            @Override
-            public void onDownOrMove(SlidingButtonView slidingButtonView) {
-                if (menuIsOpen()) {
-                    if (mMenu != slidingButtonView) {
-                        closeMenu();
-                    }
-                }
-            }
-
-        });
-
-        //del
-        final View tv_delete = viewHolder.getView(R.id.tv_delete);
-        tv_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                MessageBean remove = mData.remove(position);
-                getAdapter().notifyDataSetChanged();
-            }
-        });
-    }
-
-    public void closeMenu() {
-        mMenu.closeMenu();
-        mMenu = null;
 
     }
 
-    public Boolean menuIsOpen() {
-        if (mMenu != null) {
-            return true;
-        }
-        return false;
-    }
+    //--------broadcast
     @Override
     public void onResume() {
         super.onResume();

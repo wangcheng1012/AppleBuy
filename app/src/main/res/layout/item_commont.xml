@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/item_commont_head"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/buession_default_head" />
+
+    <RelativeLayout
+        android:id="@+id/item_commont_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_commont_head"
+        android:layout_alignTop="@+id/item_commont_head"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head" >
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/item_commont_name"
+            style="@style/textbase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="xxxx"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/item_commont_time"
+            style="@style/textbase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_commont_name"
+            android:text="xxxx"
+            android:textColor="@color/black3_999999" />
+
+        <RatingBar
+            android:id="@+id/item_commont_ratingBar2"
+            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:max="5"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/textbase"
+        android:id="@+id/item_commont_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_commont_top"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head"
+        android:text="xxxxxxxxxx" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_commont_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_commont_content"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head" />
+
+    <RelativeLayout
+        android:id="@+id/item_commont_quan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_commont_images"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head"
+        android:background="@color/white_F1F1F1"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/item_commont_image_quan"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/shape_oval" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_commont_image_quan"
+            android:layout_alignTop="@+id/item_commont_image_quan"
+            android:layout_toEndOf="@+id/item_commont_image_quan"
+            android:layout_toRightOf="@+id/item_commont_image_quan"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/item_commont_name_quan"
+                style="@style/textbase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="xxxx"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/item_commont_time_quan"
+                style="@style/textbase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_commont_name_quan"
+                android:text="xxxx"
+                android:textColor="@color/black3_999999" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_commont_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_commont_quan"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head"
+
+        android:paddingTop="10dp"
+        android:text="回复"
+        android:textColor="@color/black2_666666" />
+
+    <View
+        android:layout_marginTop="10dp"
+        android:id="@+id/item_commont_"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/item_commont_reply"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head"
+        android:background="@color/black4_cccccc" />
+
+    <TextView
+        android:id="@+id/item_commont_commontReply"
+        style="@style/textbase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_commont_"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/item_commont_head"
+        android:layout_toRightOf="@+id/item_commont_head"
+        android:textColor="@color/yellow_FF552E" />
+
+</RelativeLayout>

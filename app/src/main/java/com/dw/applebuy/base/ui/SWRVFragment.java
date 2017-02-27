@@ -29,8 +29,6 @@ public class SWRVFragment<T> extends BaseMvpFragment<SWRVContract.SWRVView,SWRVP
 
     private SWRVInterface myInterface;
 
-
-
     private UserVisibleHint mUserVisibleHint;
 //    public SWRVFragment() {
 //    }

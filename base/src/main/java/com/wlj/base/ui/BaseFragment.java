@@ -72,7 +72,9 @@ public abstract class BaseFragment extends Fragment {
             view.setMinimumWidth(((WindowManager) getActivity()
                     .getSystemService(Context.WINDOW_SERVICE))
                     .getDefaultDisplay().getWidth());
+
             initView();
+
         } else {
             Log.w("dd", "onCreateView 复用 " + getClass().getSimpleName() + +getId());
             ViewGroup viewParent = (ViewGroup) view.getParent();

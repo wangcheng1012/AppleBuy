@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.dw.applebuy.R;
@@ -27,10 +26,10 @@ import com.dw.applebuy.ui.home.shoppingmanage.p.TabLayoutPresenter;
 import com.dw.applebuy.ui.home.shoppingmanage.v.Contract;
 import com.dw.applebuy.ui.home.shoppingmanage.youhui.YouHuiManagerActivity;
 import com.dw.applebuy.ui.home.shoppingmanage.m.Coupon;
+import com.dw.applebuy.util.OtherTool;
 import com.rxmvp.basemvp.BaseMvpFragment;
 import com.rxmvp.bean.HttpResult;
 import com.wlj.base.decoration.DividerDecoration;
-import com.wlj.base.util.DpAndPx;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.Arrays;
@@ -116,21 +115,9 @@ public class TabLayoutFragment extends BaseMvpFragment<Contract.TabLayoutView, T
         return view;
     }
 
-    /**
-     * 分割线
-     *
-     * @param tablayout
-     */
-    private void splitLine(TabLayout tablayout) {
-        //分割线
-        LinearLayout child = (LinearLayout) tablayout.getChildAt(0);
-        child.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        child.setDividerDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
-        child.setDividerPadding(DpAndPx.dpToPx(getContext(), 15));
-    }
-
     private void initView() {
-        splitLine(tablayout);
+
+        OtherTool.splitLine(getContext(),tablayout);
         //Adapter
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override

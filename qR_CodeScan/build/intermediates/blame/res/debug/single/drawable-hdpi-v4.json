@@ -36,10 +36,6 @@
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-hdpi-v4/abc_scrubber_control_to_pressed_mtrl_005.png"
     },
     {
-        "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable-hdpi-v4/divider_white_f1f1f1_1.xml",
-        "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/exploded-aar/AppleBuy/base/unspecified/res/drawable-hdpi-v4/divider_white_f1f1f1_1.xml"
-    },
-    {
         "merged": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/build/intermediates/res/merged/debug/drawable-hdpi-v4/mm_title_back_pressed.9.png",
         "source": "/Users/wlj/Android/AndroidStudioProjects/AppleBuy/qR_CodeScan/src/main/res/drawable-hdpi/mm_title_back_pressed.9.png"
     },
