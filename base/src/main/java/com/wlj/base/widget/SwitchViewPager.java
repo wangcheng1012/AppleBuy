@@ -55,12 +55,9 @@ public class SwitchViewPager<T> implements OnPageChangeListener {
      * @param list 图片url的list
      */
     public SwitchViewPager(Context mContext, List<T> list) {
-
-
         this.mContext = mContext;
         this.list = list;
         this.mViewCount = ListUtils.getSize(list);
-
         scrollLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, DpAndPx.dpToPx(mContext, 200));
 //        scrollLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
@@ -219,12 +216,12 @@ public class SwitchViewPager<T> implements OnPageChangeListener {
 
 //                LoadImage loadImage = LoadImage.getinstall();
                 imageView1.setAdjustViewBounds(true);
-                imageView1.setScaleType(ScaleType.FIT_XY);
+                imageView1.setScaleType(ScaleType.CENTER_INSIDE);
                 imageView1.setTag(R.id.tag_first,item);
                 Glide.with(mContext).
                         load(getContentText(item))
-                        .placeholder(R.drawable.project_bg)
-                        .crossFade(1000)
+//                        .placeholder(R.drawable.project_bg)
+//                        .crossFade(1000)
                         .into(imageView1);
 
 //                loadImage.addTask(getContentText(item), imageView1);

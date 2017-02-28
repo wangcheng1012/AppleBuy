@@ -110,7 +110,6 @@ public class UpdateInfo extends Base {
 
 	@Override
 	public Base parse(JSONObject jsonObject) throws JSONException {
-		
 		return null;
 		}
 

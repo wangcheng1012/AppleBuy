@@ -24,6 +24,7 @@ import com.wlj.base.ui.BaseFragmentActivity;
 import com.wlj.base.util.AppConfig;
 import com.wlj.base.util.AppContext;
 import com.wlj.base.util.AppManager;
+import com.wlj.base.util.UIHelper;
 
 import java.util.Set;
 
@@ -58,7 +59,6 @@ public class MainActivity extends BaseFragmentActivity {
         initTabHost();
 
         InfoUtil.infoUpdate = true;
-
         initJpush();
     }
 
@@ -82,9 +82,9 @@ public class MainActivity extends BaseFragmentActivity {
                     case 6002:
                         logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
                         Log.e(TAG, logs);
-                        if (AppContext.getAppContext().isNetworkAvailable() ) {
+                        if (AppContext.getAppContext().isNetworkAvailable()) {
 
-                            Log.i(TAG, "6002  "+alias);
+                            Log.i(TAG, "6002  " + alias);
                         } else {
                             Log.i(TAG, "No network");
                         }
@@ -148,11 +148,21 @@ public class MainActivity extends BaseFragmentActivity {
         return view;
     }
 
+    long millis1 = 0;
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        AppManager.getAppManager().AppExit(getApplicationContext());
-        AppContext.getAppContext().loginOut();
+        long millis = System.currentTimeMillis();
+        if (millis - millis1 > 300) {
+            millis1 = millis;
+            UIHelper.toastMessage(this,"再按一次退出");
+        } else {
+
+//            super.onBackPressed();
+            AppManager.getAppManager().AppExit(getApplicationContext());
+            AppContext.getAppContext().loginOut();
+
+        }
     }
 
 }

@@ -213,7 +213,7 @@ public class Update  {
 	}
 
 	// 安装apk
-	protected void installApk(File file) {
+	public void installApk(File file) {
 		// System.out.println("开始安装");
 		Intent intent = new Intent();
 		// 执行动作

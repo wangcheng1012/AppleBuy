@@ -37,7 +37,7 @@ public abstract class ImagePagerAdapter<T> extends RecyclingPagerAdapter {
     public int getCount() {
         if(size == 0)return 1;//这里为了显示默认图片
         // Infinite loop
-        return isInfiniteLoop ? Integer.MAX_VALUE/2 : ListUtils.getSize(imageIdList);
+        return isInfiniteLoop ? Integer.MAX_VALUE : ListUtils.getSize(imageIdList);
 //        return  ListUtils.getSize(imageIdList);
     }
 

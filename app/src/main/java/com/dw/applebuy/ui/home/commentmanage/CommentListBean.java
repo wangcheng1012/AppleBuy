@@ -1,5 +1,8 @@
 package com.dw.applebuy.ui.home.commentmanage;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import cn.trinea.android.common.annotation.NotProguard;
@@ -210,12 +213,29 @@ public class CommentListBean {
     }
 
     @NotProguard
-    public static class ImagesBean {
+    public static class ImagesBean implements Parcelable{
 
         //big: "http://supplier.pingguo24.com/static/img/no_img.jpg", /*大图*/
         //min: "http://supplier.pingguo24.com/static/img/no_img.jpg" /*小图*/
         private String big;
         private String min;
+
+        protected ImagesBean(Parcel in) {
+            big = in.readString();
+            min = in.readString();
+        }
+
+        public static final Creator<ImagesBean> CREATOR = new Creator<ImagesBean>() {
+            @Override
+            public ImagesBean createFromParcel(Parcel in) {
+                return new ImagesBean(in);
+            }
+
+            @Override
+            public ImagesBean[] newArray(int size) {
+                return new ImagesBean[size];
+            }
+        };
 
         public String getBig() {
             return big;
@@ -231,6 +251,22 @@ public class CommentListBean {
 
         public void setMin(String min) {
             this.min = min;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(big);
+            dest.writeString(min);
+        }
+
+        @Override
+        public String toString() {
+            return getBig();
         }
     }
 

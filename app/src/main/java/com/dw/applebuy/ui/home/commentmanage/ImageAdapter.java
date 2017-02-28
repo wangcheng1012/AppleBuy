@@ -17,9 +17,7 @@ import com.dw.applebuy.R;
 
 import java.util.List;
 
-
 /**
- *
  * RecyclerView 嵌套显示不全
  */
 public class ImageAdapter extends BaseAdapter<ImageAdapter.MyViewHolder> {
@@ -32,12 +30,18 @@ public class ImageAdapter extends BaseAdapter<ImageAdapter.MyViewHolder> {
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
     }
 
+    public ImageAdapter(Context context, List<CommentListBean.ImagesBean> listDatas, OnViewClickListener onViewClickListener) {
+        super(context, listDatas, onViewClickListener);
+        dm = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_image, parent, false);
         //动态设置ImageView的宽高，根据自己每行item数量计算
         //dm.widthPixels-dip2px(20)即屏幕宽度-左右10dp+10dp=20dp再转换为px的宽度，最后/3得到每个item的宽高
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams((dm.widthPixels - dip2px(20+80)) / 3, (dm.widthPixels - dip2px(20+80)) / 3);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams((dm.widthPixels - dip2px(20 + 80)) / 3, (dm.widthPixels - dip2px(20 + 80)) / 3);
         view.setLayoutParams(lp);
         return new MyViewHolder(view);
     }

@@ -11,5 +11,4 @@ public class ApiException extends Exception {
         this.code = code;
         this.message = throwable.getMessage();
     }
-
 }

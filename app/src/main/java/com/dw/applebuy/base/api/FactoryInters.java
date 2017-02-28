@@ -6,6 +6,7 @@ import com.dw.applebuy.been.Info;
 import com.dw.applebuy.been.LoginBack;
 import com.dw.applebuy.been.RechageScoreOrder;
 import com.dw.applebuy.been.ScorePackage;
+import com.dw.applebuy.been.UpdateBean;
 import com.dw.applebuy.ui.home.commentmanage.CommentListBean;
 import com.dw.applebuy.ui.home.hexiao.m.CouponOrder;
 import com.dw.applebuy.ui.home.ordermanage.m.CouponOrderList;
@@ -393,11 +394,17 @@ public interface FactoryInters {
     @POST("app/consumer/getMerchantComment")
     Observable<HttpResult<CommentListBean>> getMerchantComment(@Field("page") int page, @Field("type") int type);
 
-
+    /**
+     * 回复评论
+     * @param id
+     * @param reply
+     * @return
+     */
     @FormUrlEncoded
     @POST("app/coupon/saveReply")
     Observable<HttpResult<String>> saveReply(@Field("id") int id, @Field("reply") String reply);
 
-
-
+    @FormUrlEncoded
+    @POST("app/common/automaticUpdate")
+    Observable<HttpResult<UpdateBean>> automaticUpdate(@Field("type") int type);
 }

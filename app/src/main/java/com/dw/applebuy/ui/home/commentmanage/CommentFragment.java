@@ -1,19 +1,12 @@
 package com.dw.applebuy.ui.home.commentmanage;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -24,17 +17,18 @@ import com.dw.applebuy.R;
 import com.dw.applebuy.base.api.FactoryInters;
 import com.dw.applebuy.base.ui.SWRVContract;
 import com.dw.applebuy.base.ui.SWRVFragment;
+import com.dw.applebuy.dialogfragment.CommentImage;
 import com.rxmvp.bean.HttpResult;
 import com.rxmvp.http.ServiceFactory;
 import com.rxmvp.subscribers.RxSubscriber;
 import com.rxmvp.transformer.DefaultTransformer;
 import com.wlj.base.decoration.DividerDecoration;
+import com.wlj.base.util.GoToHelp;
 import com.wlj.base.util.MathUtil;
 import com.wlj.base.util.SnackbarUtil;
-import com.wlj.base.util.UIHelper;
-import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -158,7 +152,6 @@ public class CommentFragment extends SWRVFragment {
         TextView commontReply = viewHolder.getView(R.id.item_commont_commontReply);
         commontReply.setText(item.getReply());
 
-
         Glide.with(this).load(item.getHead_portrait()).bitmapTransform(new CropCircleTransformation(getContext())).into(head);
         ratingBar2.setRating(MathUtil.parseFloat(item.getScore()));
         Glide.with(this).load(item.getIcon()).into(quan);
@@ -170,7 +163,6 @@ public class CommentFragment extends SWRVFragment {
             reply.setVisibility(View.VISIBLE);
             commontReply.setVisibility(View.GONE);
         }
-
         //回复 点击
         reply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +174,6 @@ public class CommentFragment extends SWRVFragment {
                     public void onClick(View v) {
 
                         replyCall(MathUtil.parseInteger(item.getId()), v.getTag() + "");
-
                     }
                 });
 
@@ -210,18 +201,31 @@ public class CommentFragment extends SWRVFragment {
                 });
     }
 
-    private void convert_images(RecyclerView recyclerView, List<CommentListBean.ImagesBean> imgs) {
+    /**
+     * 评论图片
+     * @param recyclerView
+     * @param imgs
+     */
+    private void convert_images(RecyclerView recyclerView, final List<CommentListBean.ImagesBean> imgs) {
         if (imgs == null) {
             return;
         }
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        ImageAdapter imageAdapter = new ImageAdapter(getContext(), imgs);
+        recyclerView.setAdapter( imageAdapter);
+        imageAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
 
-        recyclerView.setAdapter(new ImageAdapter(getContext(),imgs));
+                CommentImage commentImage = CommentImage.newInstance(imgs,position);
+                commentImage.show(getChildFragmentManager(),"pinglun");
 
+            }
+        });
+        //这样加要不得， 每刷新一次会add一次
 //        recyclerView.addItemDecoration(new DividerDecoration(getResources().getDrawable(R.drawable.divider_white_ffffff_10 ), DividerDecoration.HORIZONTAL_LIST));
 //        recyclerView.addItemDecoration(new DividerDecoration(getResources().getDrawable(R.drawable.divider_white_ffffff_10), DividerDecoration.VERTICAL_LIST));
     }
-
 
     public void onRefresh(int i) {
         type = i;

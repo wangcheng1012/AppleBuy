@@ -116,7 +116,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                 MainActivity activity = (MainActivity) getActivity();
                 activity.authenticate_status = authenticate_status;
 
-
                 switch (authenticate_status) {
                     case RenZhengHelp.renzheng_no:
                         homeLijirenzhengLayout.setVisibility(View.VISIBLE);
@@ -141,6 +140,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                         titleTitle.setText(info.getName());
 
                         adapter.setData(info.getImgs());
+                        viewPager.setCurrentItem(list.size() * 6);
                         viewPager.startAutoScroll();
                         break;
                     case RenZhengHelp.renzheng_fail:
