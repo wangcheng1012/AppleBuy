@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dw.applebuy.ui.home.renzheng.AnimationActivity">
+
+    <ImageView
+        android:id="@+id/animation_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_41_renzheng" />
+
+    <TextView
+        android:id="@+id/animation_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="╳"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="①  认证资料提交"
+        android:textColor="@color/yellow_FF552E"
+        android:visibility="invisible"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="②  等待审核"
+        android:visibility="invisible"
+        android:textColor="@color/yellow_FF552E"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/animation_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/animation_shopping"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/animation_x"
+        android:layout_toRightOf="@+id/animation_x"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/icon_64" />
+
+    <ImageView
+        android:id="@+id/animation_shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/animation_v"
+        android:layout_alignLeft="@+id/animation_button"
+        android:layout_alignStart="@+id/animation_button"
+        android:layout_marginBottom="26dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/icon_62" />
+
+
+    <ImageView
+        android:id="@+id/animation_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:visibility="invisible"
+        android:src="@drawable/icon_65" />
+
+    <Button
+        android:id="@+id/animation_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/shape_ovalbutton"
+        android:text="立即认证"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/animation_consume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/animation_v"
+        android:layout_marginBottom="12dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/icon_63" />
+
+
+</RelativeLayout>

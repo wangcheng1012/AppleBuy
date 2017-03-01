@@ -3,6 +3,7 @@ package com.dw.applebuy.util;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.dw.applebuy.ui.home.renzheng.AnimationActivity;
 import com.dw.applebuy.ui.home.renzheng.RenZhengActivity;
 import com.dw.applebuy.ui.songjifen.GiveSuccessActivity;
 import com.wlj.base.util.GoToHelp;
@@ -51,7 +52,7 @@ public class RenZhengHelp {
             noRenZhengIng.renZhenged();
         }else{
             //去认证
-            GoToHelp.go(activity, RenZhengActivity.class);
+            GoToHelp.go(activity, AnimationActivity.class);
         }
 
     }
