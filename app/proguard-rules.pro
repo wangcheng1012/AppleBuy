@@ -117,6 +117,7 @@ java.lang.Object readResolve();
 -dontwarn okhttp3.logging.**
 -keep class okhttp3.internal.**{*;}
 -dontwarn okio.**
+
 # Retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }

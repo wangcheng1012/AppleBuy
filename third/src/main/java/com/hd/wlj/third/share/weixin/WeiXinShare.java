@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.location.Geocoder;
 import android.widget.Toast;
 
 import com.hd.wlj.third.Constants;

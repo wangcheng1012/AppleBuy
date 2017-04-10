@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.Address;
 import com.baidu.location.BDLocation;
@@ -31,6 +32,12 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.dw.applebuy.R;
 import com.dw.applebuy.ui.Title1Fragment;
 import com.mylhyl.acp.Acp;
@@ -51,7 +58,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class MapActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface {
+public class MapActivity extends BaseFragmentActivity implements Title1Fragment.TitleInterface, OnGetGeoCoderResultListener {
 
     private BaiduMap mBaiduMap;
     private MapView mMapView;
@@ -64,6 +71,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
     private String address;
     private TextView addresstext;
     private LatLng center;
+//    private GeoCoder geoCoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,10 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
         mBaiduMap = mMapView.getMap();
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
+
+        //百度
+//        geoCoder = GeoCoder.newInstance();
+//        geoCoder.setOnGetGeoCodeResultListener(this);
 
         initLocation();
 
@@ -152,7 +164,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
 
             @Override
             public void onDenied(List<String> permissions) {
-                UIHelper.toastMessage(getApplicationContext(),permissions.toString()+"权限拒绝");
+                UIHelper.toastMessage(getApplicationContext(), permissions.toString() + "权限拒绝");
                 finish();
             }
         });
@@ -162,7 +174,8 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
     @Nullable
     private String loactiontoString(LatLng center) {
         this.center = center;
-
+//        geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(center));
+        //google
         Geocoder geocoder = new Geocoder(getApplicationContext());
         try {
 
@@ -171,14 +184,18 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 for (int i = 0; i < fromLocation.size(); i++) {
 
                     android.location.Address address = fromLocation.get(i);
-//                    StringBuilder sb = new StringBuilder();
-//                    for (int i1 = 0; i1 < address.getMaxAddressLineIndex(); i1++) {
-//                        sb.append(address.getAddressLine(i1));
-//                    }
-                    String s = address.getAddressLine(1) + address.getFeatureName();
-                    String s1 = address.getAdminArea() + address.getLocality() + address.getSubLocality() + address.getFeatureName();
-                    Logger.e(address.toString() + "\n " + s);
-                    return s1 ;
+                    StringBuilder sb = new StringBuilder();
+                    for (int i1 = 0; i1 < address.getMaxAddressLineIndex(); i1++) {
+                        sb.append(address.getAddressLine(i1));
+                    }
+                    String s1 = address.getAdminArea() + address.getLocality() + address.getSubLocality() + (address.getFeatureName() == null ? "" : address.getFeatureName());
+                    String s = sb.toString();
+                    if(StringUtils.isEmpty(s)){
+                        s = s1;
+                    }
+//                    String s = address.getAddressLine(1) + address.getFeatureName();
+//                    Logger.e(address.toString() + "\n " + s);
+                    return s;
                 }
             }
         } catch (IOException e) {
@@ -230,8 +247,8 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 }
                 Intent intent = getIntent();
                 intent.putExtra("address", address);
-                intent.putExtra("Latitude",center.latitude);
-                intent.putExtra("Longitude",center.longitude);
+                intent.putExtra("Latitude", center.latitude);
+                intent.putExtra("Longitude", center.longitude);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -252,7 +269,7 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-        option.setCoorType("gcj02");//可选，默认gcj02，设置返回的定位结果坐标系,bd09ll
+        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系,bd09ll
         int span = 0;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
@@ -267,25 +284,48 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
         mLocationClient.start();
     }
 
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(MapActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG).show();
+            return;
+        }
+        String address = result.getAddress();
+        Logger.e(address);
+    }
+
     public class MyLocationListener implements BDLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+            // map view 销毁后不在处理新接收的位置
+            if (location == null || mMapView == null) {
+                return;
+            }
             closeLocation();
             if (location.getLocType() == BDLocation.TypeGpsLocation ||           // GPS定位结果
                     location.getLocType() == BDLocation.TypeNetWorkLocation ||   // 网络定位结果
                     location.getLocType() == BDLocation.TypeOffLineLocation) {   // 离线定位结果
+
                 address = location.getAddrStr();
-                addresstext.setText(address);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        addresstext.setText(address);
+                    }
+                });
+
             } else {
                 address = "";
 //                addresstext.setText("定位中……");
                 return;
             }
-            // map view 销毁后不在处理新接收的位置
-            if (location == null || mMapView == null) {
-                return;
-            }
+
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                     // 此处设置开发者获取到的方向信息，顺时针0-360
@@ -300,9 +340,13 @@ public class MapActivity extends BaseFragmentActivity implements Title1Fragment.
                 MapStatus.Builder builder = new MapStatus.Builder();
                 builder.target(ll).zoom(18.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-
-
             }
+
+        }
+
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+
         }
 
     }
