@@ -33,11 +33,11 @@ public class AboutUsActivity extends AppCompatActivity implements Title1Fragment
         String aboutUs = intent.getStringExtra("AboutUs");
         aboutusContent.setText(Html.fromHtml(aboutUs));
 
-        aboutusPhone.setText(String.format(getString(R.string.about_phone),23423));
+        aboutusPhone.setText(String.format(getString(R.string.about_phone),23423+""));
 
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            aboutusVersion.setText(String.format(getString(R.string.about_version), packageInfo.versionCode));
+            aboutusVersion.setText(String.format(getString(R.string.about_version), packageInfo.versionCode+""));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

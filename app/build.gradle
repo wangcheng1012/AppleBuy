@@ -19,6 +19,10 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', "x86_64", "mips", "mips64"
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
+//        buildConfigField 'String', 'QQ_APP_ID', '"1105783358"'
+//        buildConfigField 'String', 'QQ_APP_KEY', '"QxZvdjNmh7Aix94F"'
+//        buildConfigField 'String', 'WX_APP_ID', '"wx0ac37342f65d43da"'
+//        buildConfigField 'String', 'WX_APP_Secret', '"1b0189a5b399961ed64971b28d9f1201"'
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
